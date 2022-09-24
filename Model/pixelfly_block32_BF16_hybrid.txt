@@ -1,0 +1,132 @@
+batch 1 ***********************
+best mapping:
+config [[4, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 27
+pcu_used 459
+pmu_used 621
+noc_load 1.2649110640673518
+multiple_pipeline_noc_load 0.2738612787525831
+noc_slowdown_final 1.2649110640673518
+ns_per_sample 153.51335461984806
+oi 288.5
+max_gflops 307200.0
+gflops 15395.351146175997
+
+
+total_permutations: 16384
+invalid_resources: 8
+valid: 16376
+
+
+
+batch 2 ***********************
+best mapping:
+config [[4, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 27
+pcu_used 459
+pmu_used 621
+noc_load 1.2649110640673518
+multiple_pipeline_noc_load 0.2738612787525831
+noc_slowdown_final 1.2649110640673518
+ns_per_sample 76.75667730992403
+oi 288.5
+max_gflops 307200.0
+gflops 30790.702292351994
+
+
+total_permutations: 16384
+invalid_resources: 8
+valid: 16376
+
+
+
+batch 4 ***********************
+best mapping:
+config [[4, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 27
+pcu_used 459
+pmu_used 621
+noc_load 1.2649110640673518
+multiple_pipeline_noc_load 0.2738612787525831
+noc_slowdown_final 1.2649110640673518
+ns_per_sample 38.378338654962015
+oi 288.5
+max_gflops 307200.0
+gflops 61581.40458470399
+
+
+total_permutations: 16384
+invalid_resources: 8
+valid: 16376
+
+
+
+batch 8 ***********************
+best mapping:
+config [[4, 1], [1, 2]]
+limiting_factor PMU saturates after replicate
+final_replicate 27
+pcu_used 486
+pmu_used 621
+noc_load 1.2493900951088486
+multiple_pipeline_noc_load 0.2705008904002297
+noc_slowdown_final 1.2493900951088486
+ns_per_sample 18.953710479873493
+oi 288.5
+max_gflops 307200.0
+gflops 124692.84061870795
+
+
+total_permutations: 65536
+invalid_resources: 16552
+valid: 48984
+
+
+
+batch 16 ***********************
+best mapping:
+config [[2, 2], [1, 1]]
+limiting_factor PCU saturates after replicate
+final_replicate 37
+pcu_used 629
+pmu_used 555
+noc_load 1.1195857368787
+multiple_pipeline_noc_load 0.35843021946010944
+noc_slowdown_final 1.1195857368787
+ns_per_sample 12.394116697986908
+oi 288.5
+max_gflops 307200.0
+gflops 190686.60216696764
+
+
+total_permutations: 147456
+invalid_resources: 61613
+valid: 85843
+
+
+
+batch 32 ***********************
+best mapping:
+config [[4, 3], [1, 1]]
+limiting_factor PCU saturates after replicate
+final_replicate 13
+pcu_used 637
+pmu_used 299
+noc_load 1.1785113019775793
+multiple_pipeline_noc_load 0.1416394309331329
+noc_slowdown_final 1.1785113019775793
+ns_per_sample 9.283042870961854
+oi 288.5
+max_gflops 307200.0
+gflops 254592.3823526541
+
+
+total_permutations: 589824
+invalid_resources: 400755
+valid: 189069
+
+
+

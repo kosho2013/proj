@@ -1,0 +1,132 @@
+batch 1 ***********************
+best mapping:
+config [[4, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 27
+pcu_used 459
+pmu_used 621
+noc_load 1.2649110640673518
+multiple_pipeline_noc_load 0.2738612787525831
+noc_slowdown_final 1.2649110640673518
+ns_per_sample 9.594584663740504
+oi 18.5
+max_gflops 37721.5
+gflops 15795.576912541057
+
+
+total_permutations: 16384
+invalid_resources: 8
+valid: 16376
+
+
+
+batch 2 ***********************
+best mapping:
+config [[4, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 27
+pcu_used 459
+pmu_used 621
+noc_load 1.2649110640673518
+multiple_pipeline_noc_load 0.2738612787525831
+noc_slowdown_final 1.2649110640673518
+ns_per_sample 4.797292331870252
+oi 18.5
+max_gflops 37721.5
+gflops 31591.153825082114
+
+
+total_permutations: 16384
+invalid_resources: 8
+valid: 16376
+
+
+
+batch 4 ***********************
+best mapping:
+config [[2, 1], [1, 1]]
+limiting_factor DRAM BW saturates
+final_replicate 42
+pcu_used 378
+pmu_used 630
+noc_load 1.0886621079036347
+multiple_pipeline_noc_load 0.44095855184409843
+noc_slowdown_final 1.0886621079036347
+ns_per_sample 4.01765571358509
+oi 18.5
+max_gflops 37721.5
+gflops 37721.50000000001
+
+
+total_permutations: 16384
+invalid_resources: 8
+valid: 16376
+
+
+
+batch 8 ***********************
+best mapping:
+config [[4, 2], [17, 2]]
+limiting_factor DRAM BW saturates
+final_replicate 9
+pcu_used 594
+pmu_used 351
+noc_load 1.398790104559564
+multiple_pipeline_noc_load 0.09759000729485333
+noc_slowdown_final 1.398790104559564
+ns_per_sample 4.01765571358509
+oi 18.5
+max_gflops 37721.5
+gflops 37721.50000000001
+
+
+total_permutations: 65536
+invalid_resources: 16552
+valid: 48984
+
+
+
+batch 16 ***********************
+best mapping:
+config [[4, 3], [6, 3]]
+limiting_factor DRAM BW saturates
+final_replicate 9
+pcu_used 594
+pmu_used 252
+noc_load 1.2033247873019255
+multiple_pipeline_noc_load 0.10314212462587935
+noc_slowdown_final 1.2033247873019255
+ns_per_sample 4.01765571358509
+oi 18.5
+max_gflops 37721.5
+gflops 37721.50000000001
+
+
+total_permutations: 147456
+invalid_resources: 61613
+valid: 85843
+
+
+
+batch 32 ***********************
+best mapping:
+config [[3, 2], [7, 6]]
+limiting_factor DRAM BW saturates
+final_replicate 9
+pcu_used 594
+pmu_used 225
+noc_load 1.0133420088311877
+multiple_pipeline_noc_load 0.10482848367219182
+noc_slowdown_final 1.0133420088311877
+ns_per_sample 4.01765571358509
+oi 18.5
+max_gflops 37721.5
+gflops 37721.50000000001
+
+
+total_permutations: 589824
+invalid_resources: 400755
+valid: 189069
+
+
+

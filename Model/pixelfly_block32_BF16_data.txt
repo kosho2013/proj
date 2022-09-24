@@ -1,0 +1,132 @@
+batch 1 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 58
+pcu_used 290
+pmu_used 638
+noc_load 1.0
+multiple_pipeline_noc_load 0.6346477588219923
+noc_slowdown_final 1
+ns_per_sample 225.98620689655175
+oi 288.5
+max_gflops 307200.0
+gflops 10458.124999999998
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 2 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 58
+pcu_used 290
+pmu_used 638
+noc_load 1.0
+multiple_pipeline_noc_load 0.6346477588219923
+noc_slowdown_final 1
+ns_per_sample 112.99310344827587
+oi 288.5
+max_gflops 307200.0
+gflops 20916.249999999996
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 4 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 58
+pcu_used 290
+pmu_used 638
+noc_load 1.0
+multiple_pipeline_noc_load 0.6346477588219923
+noc_slowdown_final 1
+ns_per_sample 56.49655172413794
+oi 288.5
+max_gflops 307200.0
+gflops 41832.49999999999
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 8 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 58
+pcu_used 290
+pmu_used 638
+noc_load 1.0
+multiple_pipeline_noc_load 0.6346477588219923
+noc_slowdown_final 1
+ns_per_sample 28.24827586206897
+oi 288.5
+max_gflops 307200.0
+gflops 83664.99999999999
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 16 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 58
+pcu_used 290
+pmu_used 638
+noc_load 1.0
+multiple_pipeline_noc_load 0.6346477588219923
+noc_slowdown_final 1
+ns_per_sample 21.186206896551724
+oi 288.5
+max_gflops 307200.0
+gflops 111553.33333333333
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 32 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 58
+pcu_used 290
+pmu_used 638
+noc_load 1.0
+multiple_pipeline_noc_load 0.6346477588219923
+noc_slowdown_final 1
+ns_per_sample 21.186206896551724
+oi 288.5
+max_gflops 307200.0
+gflops 111553.33333333333
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
