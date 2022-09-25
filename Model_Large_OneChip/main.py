@@ -241,7 +241,7 @@ def convert(tmp):
         value = 1
         nums = tmp.split('x')
         for i in nums:
-            value *= i
+            value *= int(i)
         return value
     else:
         return tmp
