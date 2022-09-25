@@ -237,7 +237,7 @@ def get_cycles(node_dict, total_layer):
         
         
 def convert(tmp):
-    if isinstance(tmp, 'str'):
+    if isinstance(tmp, str):
         value = 1
         nums = tmp.split('x')
         for i in nums:
