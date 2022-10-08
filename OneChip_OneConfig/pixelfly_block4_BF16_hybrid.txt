@@ -36,9 +36,9 @@ max_gflops 74423.5
 gflops 31164.246340959384
 
 
-total_permutations: 16384
-invalid_resources: 8
-valid: 16376
+total_permutations: 32768
+invalid_resources: 2312
+valid: 30456
 
 
 
@@ -58,9 +58,9 @@ max_gflops 74423.5
 gflops 62328.49268191877
 
 
-total_permutations: 16384
-invalid_resources: 8
-valid: 16376
+total_permutations: 65536
+invalid_resources: 19208
+valid: 46328
 
 
 
@@ -80,53 +80,53 @@ max_gflops 74423.5
 gflops 74423.50000000001
 
 
-total_permutations: 65536
-invalid_resources: 16552
-valid: 48984
+total_permutations: 262144
+invalid_resources: 188738
+valid: 73406
 
 
 
 batch 16 ***********************
 best mapping:
-config [[4, 3], [6, 3]]
+config [[5, 3], [5, 1]]
 limiting_factor DRAM BW saturates
 final_replicate 9
-pcu_used 594
-pmu_used 252
-noc_load 1.2033247873019255
-multiple_pipeline_noc_load 0.10314212462587935
-noc_slowdown_final 1.2033247873019255
+pcu_used 585
+pmu_used 279
+noc_load 1.2927862531355663
+multiple_pipeline_noc_load 0.10206207261596575
+noc_slowdown_final 1.2927862531355663
 ns_per_sample 4.01765571358509
 oi 36.5
 max_gflops 74423.5
 gflops 74423.50000000001
 
 
-total_permutations: 147456
-invalid_resources: 61613
-valid: 85843
+total_permutations: 786432
+invalid_resources: 696278
+valid: 90154
 
 
 
 batch 32 ***********************
 best mapping:
-config [[3, 2], [7, 6]]
+config [[4, 4], [4, 1]]
 limiting_factor DRAM BW saturates
 final_replicate 9
-pcu_used 594
-pmu_used 225
-noc_load 1.0133420088311877
-multiple_pipeline_noc_load 0.10482848367219182
-noc_slowdown_final 1.0133420088311877
+pcu_used 612
+pmu_used 234
+noc_load 1.237705495510552
+multiple_pipeline_noc_load 0.10314212462587935
+noc_slowdown_final 1.237705495510552
 ns_per_sample 4.01765571358509
 oi 36.5
 max_gflops 74423.5
 gflops 74423.50000000001
 
 
-total_permutations: 589824
-invalid_resources: 400755
-valid: 189069
+total_permutations: 3145728
+invalid_resources: 3024958
+valid: 120770
 
 
 

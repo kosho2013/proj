@@ -36,97 +36,97 @@ max_gflops 37721.5
 gflops 16586.267641995328
 
 
-total_permutations: 16384
-invalid_resources: 8
-valid: 16376
+total_permutations: 32768
+invalid_resources: 2312
+valid: 30456
 
 
 
 batch 4 ***********************
 best mapping:
-config [[64, 1], [64, 1]]
+config [[128, 1], [103, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
-pcu_used 320
-pmu_used 326
-noc_load 4.288547640737254
+pcu_used 615
+pmu_used 621
+noc_load 5.897390618681554
 multiple_pipeline_noc_load 0
-noc_slowdown_final 4.288547640737254
-ns_per_sample 6.861676225179606
+noc_slowdown_final 5.897390618681554
+ns_per_sample 5.897390618681554
 oi 18.5
 max_gflops 37721.5
-gflops 22086.731437992486
+gflops 25698.14512878267
 
 
-total_permutations: 16384
-invalid_resources: 8
-valid: 16376
+total_permutations: 65536
+invalid_resources: 19208
+valid: 46328
 
 
 
 batch 8 ***********************
 best mapping:
-config [[64, 2], [64, 2]]
+config [[128, 1], [114, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
-pcu_used 640
-pmu_used 326
-noc_load 3.5391919864828276
+pcu_used 626
+pmu_used 632
+noc_load 5.94897487528504
 multiple_pipeline_noc_load 0
-noc_slowdown_final 3.5391919864828276
-ns_per_sample 5.662707178372524
+noc_slowdown_final 5.94897487528504
+ns_per_sample 5.3540773877565355
 oi 18.5
 max_gflops 37721.5
-gflops 26763.17090504341
+gflops 28305.90389794558
 
 
-total_permutations: 65536
-invalid_resources: 16552
-valid: 48984
+total_permutations: 262144
+invalid_resources: 188738
+valid: 73406
 
 
 
 batch 16 ***********************
 best mapping:
-config [[64, 2], [64, 2]]
+config [[128, 1], [121, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
-pcu_used 640
-pmu_used 326
-noc_load 3.5391919864828276
+pcu_used 633
+pmu_used 639
+noc_load 5.981569643648473
 multiple_pipeline_noc_load 0
-noc_slowdown_final 3.5391919864828276
-ns_per_sample 5.662707178372524
+noc_slowdown_final 5.981569643648473
+ns_per_sample 5.084334197101201
 oi 18.5
 max_gflops 37721.5
-gflops 26763.17090504341
+gflops 29807.639333859355
 
 
-total_permutations: 147456
-invalid_resources: 61613
-valid: 85843
+total_permutations: 786432
+invalid_resources: 696278
+valid: 90154
 
 
 
 batch 32 ***********************
 best mapping:
-config [[64, 1], [64, 6]]
+config [[128, 1], [121, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
-pcu_used 640
-pmu_used 326
-noc_load 3.5070175138784383
+pcu_used 633
+pmu_used 639
+noc_load 5.981569643648473
 multiple_pipeline_noc_load 0
-noc_slowdown_final 3.5070175138784383
-ns_per_sample 5.611228022205501
+noc_slowdown_final 5.981569643648473
+ns_per_sample 5.084334197101201
 oi 18.5
 max_gflops 37721.5
-gflops 27008.704583071332
+gflops 29807.639333859355
 
 
-total_permutations: 589824
-invalid_resources: 400755
-valid: 189069
+total_permutations: 3145728
+invalid_resources: 3024958
+valid: 120770
 
 
 
