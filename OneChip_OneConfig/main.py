@@ -27,12 +27,14 @@ class tbuffer:
     
     def update_buffer_partitioning(self, partition, downstream_buffer_name):
         self.partition_dict[downstream_buffer_name] = partition
-        self.partition = 0
-        for k, v in self.partition_dict.items():
-            self.partition += v
+        self.partition = []
+        for _, v in self.partition_dict.items():
+            self.partition.append(v)
+            
         self.num = 0
-        for d in self.depth:
-            self.num += math.ceil(((d * self.tenor_size) / self.partition) / CAPACITY) * self.partition
+        for part in self.partition:
+            for d in self.depth:
+                self.num += math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
             
             
 class tcompute:
