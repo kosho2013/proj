@@ -112,16 +112,16 @@ batch 32 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 58
-pcu_used 290
-pmu_used 638
-noc_load 1.0
-multiple_pipeline_noc_load 0.6346477588219923
+final_replicate 49
+pcu_used 245
+pmu_used 637
+noc_load 0.9428090415820634
+multiple_pipeline_noc_load 0.5499719409228704
 noc_slowdown_final 1
-ns_per_sample 21.186206896551724
+ns_per_sample 25.077551020408162
 oi 288.5
 max_gflops 307200.0
-gflops 111553.33333333333
+gflops 94243.33333333334
 
 
 total_permutations: 1

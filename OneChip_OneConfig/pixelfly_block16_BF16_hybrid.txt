@@ -114,19 +114,19 @@ config [[2, 2], [1, 1]]
 limiting_factor PCU saturates after replicate
 final_replicate 37
 pcu_used 629
-pmu_used 555
-noc_load 1.1195857368787
-multiple_pipeline_noc_load 0.35843021946010944
-noc_slowdown_final 1.1195857368787
-ns_per_sample 4.64779376174509
+pmu_used 629
+noc_load 1.0861577059025558
+multiple_pipeline_noc_load 0.3477283892346706
+noc_slowdown_final 1.0861577059025558
+ns_per_sample 4.5090222601792584
 oi 144.5
 max_gflops 294635.5
-gflops 254689.44206240855
+gflops 262527.867838235
 
 
 total_permutations: 3145728
-invalid_resources: 3024958
-valid: 120770
+invalid_resources: 3025216
+valid: 120512
 
 
 

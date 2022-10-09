@@ -110,23 +110,23 @@ valid: 90154
 
 batch 32 ***********************
 best mapping:
-config [[4, 3], [1, 1]]
+config [[2, 2], [1, 1]]
 limiting_factor PCU saturates after replicate
-final_replicate 13
-pcu_used 637
-pmu_used 299
-noc_load 1.1785113019775793
-multiple_pipeline_noc_load 0.1416394309331329
-noc_slowdown_final 1.1785113019775793
-ns_per_sample 9.283042870961854
+final_replicate 37
+pcu_used 629
+pmu_used 629
+noc_load 1.0861577059025558
+multiple_pipeline_noc_load 0.3477283892346706
+noc_slowdown_final 1.0861577059025558
+ns_per_sample 9.018044520358517
 oi 288.5
 max_gflops 307200.0
-gflops 254592.3823526541
+gflops 262073.66737484705
 
 
 total_permutations: 3145728
-invalid_resources: 3024958
-valid: 120770
+invalid_resources: 3025216
+valid: 120512
 
 
 

@@ -114,10 +114,10 @@ config [[4, 4], [4, 1]]
 limiting_factor DRAM BW saturates
 final_replicate 9
 pcu_used 612
-pmu_used 234
-noc_load 1.237705495510552
-multiple_pipeline_noc_load 0.10314212462587935
-noc_slowdown_final 1.237705495510552
+pmu_used 252
+noc_load 1.2247448713915892
+multiple_pipeline_noc_load 0.10206207261596575
+noc_slowdown_final 1.2247448713915892
 ns_per_sample 4.01765571358509
 oi 72.5
 max_gflops 147827.5
@@ -125,8 +125,8 @@ gflops 147827.50000000003
 
 
 total_permutations: 3145728
-invalid_resources: 3024958
-valid: 120770
+invalid_resources: 3025216
+valid: 120512
 
 
 

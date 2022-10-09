@@ -114,19 +114,19 @@ config [[43, 3], [43, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 559
-pmu_used 221
-noc_load 2.721236521349845
+pmu_used 223
+noc_load 2.717754451438176
 multiple_pipeline_noc_load 0
-noc_slowdown_final 2.721236521349845
-ns_per_sample 6.530967651239628
+noc_slowdown_final 2.717754451438176
+ns_per_sample 6.522610683451623
 oi 72.5
 max_gflops 147827.5
-gflops 90939.0509517023
+gflops 91055.56483799069
 
 
 total_permutations: 3145728
-invalid_resources: 3024958
-valid: 120770
+invalid_resources: 3025216
+valid: 120512
 
 
 

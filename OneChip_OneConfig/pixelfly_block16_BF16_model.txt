@@ -125,8 +125,8 @@ gflops 145186.13262660694
 
 
 total_permutations: 3145728
-invalid_resources: 3024958
-valid: 120770
+invalid_resources: 3025216
+valid: 120512
 
 
 
