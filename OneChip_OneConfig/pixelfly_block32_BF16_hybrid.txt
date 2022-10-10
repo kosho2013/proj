@@ -1,1 +1,126 @@
 batch 1 ***********************
+best mapping:
+config [[16, 1], [1, 1]]
+limiting_factor PCU saturates after replicate
+final_replicate 9
+pcu_used 585
+pmu_used 639
+noc_load 0.7717436331412898
+noc_slowdown 1
+ns_per_sample 91.02222222222223
+oi 288.5
+max_gflops 307200.0
+gflops 25965.0
+
+
+total_permutations: 16384
+invalid_resources: 8
+valid: 16376
+
+
+
+batch 2 ***********************
+best mapping:
+config [[16, 1], [1, 1]]
+limiting_factor PCU saturates after replicate
+final_replicate 9
+pcu_used 585
+pmu_used 639
+noc_load 0.7717436331412898
+noc_slowdown 1
+ns_per_sample 45.51111111111111
+oi 288.5
+max_gflops 307200.0
+gflops 51930.0
+
+
+total_permutations: 32768
+invalid_resources: 2312
+valid: 30456
+
+
+
+batch 4 ***********************
+best mapping:
+config [[16, 1], [1, 1]]
+limiting_factor PCU saturates after replicate
+final_replicate 9
+pcu_used 585
+pmu_used 639
+noc_load 0.7717436331412898
+noc_slowdown 1
+ns_per_sample 22.755555555555556
+oi 288.5
+max_gflops 307200.0
+gflops 103860.0
+
+
+total_permutations: 65536
+invalid_resources: 19208
+valid: 46328
+
+
+
+batch 8 ***********************
+best mapping:
+config [[16, 1], [1, 1]]
+limiting_factor PCU saturates after replicate
+final_replicate 9
+pcu_used 585
+pmu_used 639
+noc_load 0.7717436331412898
+noc_slowdown 1
+ns_per_sample 11.377777777777778
+oi 288.5
+max_gflops 307200.0
+gflops 207720.0
+
+
+total_permutations: 262144
+invalid_resources: 188738
+valid: 73406
+
+
+
+batch 16 ***********************
+best mapping:
+config [[16, 1], [2, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 8
+pcu_used 528
+pmu_used 576
+noc_load 0.812604508328942
+noc_slowdown 1
+ns_per_sample 9.6
+oi 288.5
+max_gflops 307200.0
+gflops 246186.6666666667
+
+
+total_permutations: 786432
+invalid_resources: 696278
+valid: 90154
+
+
+
+batch 32 ***********************
+best mapping:
+config [[4, 3], [1, 1]]
+limiting_factor PCU saturates after replicate
+final_replicate 13
+pcu_used 637
+pmu_used 325
+noc_load 0.46212521415706537
+noc_slowdown 1
+ns_per_sample 7.876923076923077
+oi 288.5
+max_gflops 307200.0
+gflops 300040.0
+
+
+total_permutations: 3145728
+invalid_resources: 3025216
+valid: 120512
+
+
+

@@ -1,1 +1,126 @@
 batch 1 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 58
+pcu_used 290
+pmu_used 638
+noc_load 0.7659541916817149
+noc_slowdown 1
+ns_per_sample 14.124137931034484
+oi 18.5
+max_gflops 37721.5
+gflops 10729.999999999998
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 2 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 58
+pcu_used 290
+pmu_used 638
+noc_load 0.7659541916817149
+noc_slowdown 1
+ns_per_sample 7.062068965517242
+oi 18.5
+max_gflops 37721.5
+gflops 21459.999999999996
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 4 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor DRAM BW saturates
+final_replicate 58
+pcu_used 290
+pmu_used 638
+noc_load 0.7659541916817149
+noc_slowdown 1
+ns_per_sample 4.017655713585091
+oi 18.5
+max_gflops 37721.5
+gflops 37721.5
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 8 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor DRAM BW saturates
+final_replicate 58
+pcu_used 290
+pmu_used 638
+noc_load 0.7659541916817149
+noc_slowdown 1
+ns_per_sample 4.017655713585091
+oi 18.5
+max_gflops 37721.5
+gflops 37721.5
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 16 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor DRAM BW saturates
+final_replicate 58
+pcu_used 290
+pmu_used 638
+noc_load 0.7659541916817149
+noc_slowdown 1
+ns_per_sample 4.017655713585091
+oi 18.5
+max_gflops 37721.5
+gflops 37721.5
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 32 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor DRAM BW saturates
+final_replicate 49
+pcu_used 245
+pmu_used 637
+noc_load 0.6846589468631651
+noc_slowdown 1
+ns_per_sample 4.017655713585091
+oi 18.5
+max_gflops 37721.5
+gflops 37721.5
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
