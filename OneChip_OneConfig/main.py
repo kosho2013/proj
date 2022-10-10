@@ -667,20 +667,6 @@ if __name__ == '__main__':
                             
             
             
-            bisectional_bw = (pcu_used + pmu_used)**0.5 * LINKS
-            noc_load = noc_bw_used / bisectional_bw
-            
-            if noc_load <= 1:
-                noc_slowdown = 1
-            else:
-                noc_slowdown = noc_load
-            
-            
-            
-            
-            
-            
-            
             
             
             
@@ -689,29 +675,28 @@ if __name__ == '__main__':
                 pcu_used *= final_replicate    
                 pmu_used *= final_replicate
                 
-                multiple_pipeline_noc_bw_used = 0
                 for _, [node, _] in tmp_node_dict.items():
                     if isinstance(node, tcompute):
                         if node.name.startswith('weightUpdate'):
-                            multiple_pipeline_noc_bw_used += final_replicate
+                            noc_bw_used += final_replicate
                             node.cycles *= 2
                                
-                         
-                                
-                            
-                multiple_pipeline_bisectional_bw = (pcu_used + pmu_used)**0.5 * LINKS
-                multiple_pipeline_noc_load = multiple_pipeline_noc_bw_used / multiple_pipeline_bisectional_bw
-                
-                if multiple_pipeline_noc_load <= 1:
-                    noc_slowdown_2 = 1
-                else:
-                    noc_slowdown_2 = multiple_pipeline_noc_load
-            else:
-                multiple_pipeline_noc_load = 0
-                noc_slowdown_2 = 1
-                            
+                 
+
+
+
+                 
+            bisectional_bw = (pcu_used + pmu_used)**0.5 * LINKS
+            noc_load = noc_bw_used / bisectional_bw
             
-            noc_slowdown_final = noc_slowdown * noc_slowdown_2
+            if noc_load <= 1:
+                noc_slowdown = 1
+            else:
+                noc_slowdown = noc_load
+                
+                
+                
+
             
             ns = get_cycles(tmp_node_dict, total_layer) * noc_slowdown_final / FREQ
             # need to get all from_DRAM
@@ -736,8 +721,7 @@ if __name__ == '__main__':
                 tmp_pcu_used = pcu_used
                 tmp_pmu_used = pmu_used
                 tmp_noc_load = noc_load
-                tmp_multiple_pipeline_noc_load = multiple_pipeline_noc_load
-                tmp_noc_slowdown_final = noc_slowdown_final
+                tmp_noc_slowdown = noc_slowdown
                 tmp_ns_per_sample = ns_per_sample
                 tmp_oi = oi
                 tmp_gflops = gflops
@@ -759,8 +743,7 @@ if __name__ == '__main__':
         print('pcu_used', tmp_pcu_used)
         print('pmu_used', tmp_pmu_used)
         print('noc_load', tmp_noc_load)
-        print('multiple_pipeline_noc_load', tmp_multiple_pipeline_noc_load)
-        print('noc_slowdown_final', tmp_noc_slowdown_final)
+        print('noc_slowdown', tmp_noc_slowdown)
         print('ns_per_sample', tmp_ns_per_sample)
         print('oi', oi)
         print('max_gflops', max_gflops)

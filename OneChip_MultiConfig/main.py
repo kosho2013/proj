@@ -78,12 +78,6 @@ class tcompute:
                 self.cycles = math.ceil(self.m / self.lanes) * self.k * math.ceil(self.n / self.stages)
                 self.compute = 'Systolic'
 
-class dram:
-    def __init__(self, name):
-        self.name = name
-       
-        
-        
 
 
 
@@ -104,18 +98,12 @@ def add_node(node_dict, node):
         pydot_node = pydot.Node(node.name, style="filled", fillcolor="red", label=label)
         node_dict[node.name] = [node, pydot_node]
         
-    elif isinstance(node, dram):
-        label = 'name: '+str(node.name)+'\n'
-        
-        pydot_node = pydot.Node(node.name, style="filled", fillcolor="blue", label=label)
-        node_dict[node.name] = [node, pydot_node]
-        
     else:
         raise Exception('Wrong node type!')
 
 
 def add_edge(edge_dict, node1, node2, label):
-    if label == 'lanes' or label == 'stages' or label == ' ':
+    if label == 'lanes' or label == 'stages':
         if node1 in edge_dict.keys():
             edge_dict[node1].append([node2, label])
         else:
@@ -216,7 +204,7 @@ def plot(graph, name, node_dict, edge_dict):
         for node2, label in edge_dict[node1]:
             graph.add_edge(pydot.Edge(node_dict[node1][1], node_dict[node2][1], label=label))
                 
-    graph.write_png('./workload/'+name+'.png')          
+    graph.write_png('./workload/'+name+'.png')                
                 
                 
                 
@@ -359,12 +347,8 @@ if __name__ == '__main__':
                     add_node(node_dict, w_tbuffer)
                     
                     
-                    in_dram = dram('in'+str(layer_num)+'_dram')
                     in_tbuffer = tbuffer('in'+str(layer_num), input_size*word, 1, [0])
-                        
-                    add_node(node_dict, in_dram)
                     add_node(node_dict, in_tbuffer)
-                    add_edge(edge_dict, in_dram.name, in_tbuffer.name, ' ')
                     
                     
                     
@@ -520,7 +504,30 @@ if __name__ == '__main__':
             else:
                 raise Exception('Wrong layer_type!')
                 
-                
+       
+        
+        
+        for key in node_dict.keys():
+            node = node_dict[key][0]
+            if isinstance(node, tcompute):
+                if node.name in edge_dict.keys():
+                    print(len(edge_dict[node.name]))
+                else:
+                    print(0)
+        
+        print('*************************')
+        
+        for key in node_dict.keys():
+            node = node_dict[key][0]
+            if isinstance(node, tbuffer):
+                if node.name in edge_dict.keys():
+                    print(len(edge_dict[node.name]))
+                else:
+                    print(0)
+
+
+
+
                 
         name = workload+'_'+datatype+'_'+operation+'_batch'+str(ba)
         plot(graph, name, node_dict, edge_dict)
