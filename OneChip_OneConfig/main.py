@@ -38,17 +38,17 @@ class tbuffer:
             
             
 class tcompute:
-    def __init__(self, name, m, k, n, lanes_dim, stages_dim): 
+    def __init__(self, name, m, k, n, lanes_par, stages_par): 
         self.name = name
         self.m = m
         self.k = k
         self.n = n
         
-        self.lanes_dim = lanes_dim
-        self.stages_dim = stages_dim
-        self.lanes = LANES * self.lanes_dim
-        self.stages = STAGES * self.stages_dim
-        self.num = self.stages_dim * self.lanes_dim
+        self.lanes_par = lanes_par
+        self.stages_par = stages_par
+        self.lanes = LANES * self.lanes_par
+        self.stages = STAGES * self.stages_par
+        self.num = self.stages_par * self.lanes_par
         
         if self.k == -1:
             self.cycles = math.ceil(self.m / self.lanes) * self.n
@@ -62,12 +62,12 @@ class tcompute:
                 self.compute = 'Systolic'
                 
     
-    def update_compute_stitching(self, lanes_dim, stages_dim):
-        self.lanes_dim = lanes_dim
-        self.stages_dim = stages_dim
-        self.lanes = LANES * self.lanes_dim
-        self.stages = STAGES * self.stages_dim
-        self.num = self.stages_dim * self.lanes_dim
+    def update_compute_stitching(self, lanes_par, stages_par):
+        self.lanes_par = lanes_par
+        self.stages_par = stages_par
+        self.lanes = LANES * self.lanes_par
+        self.stages = STAGES * self.stages_par
+        self.num = self.stages_par * self.lanes_par
         
         if self.k == -1:
             self.cycles = math.ceil(self.m / self.lanes) * self.n
@@ -592,29 +592,29 @@ if __name__ == '__main__':
             tmp_node_dict = copy.deepcopy(node_dict)
             noc_bw_used = 0
             for j in range(0, total_layer):
-                lanes_dim = permutations[i][j][0]
-                stages_dim = permutations[i][j][1]
+                lanes_par = permutations[i][j][0]
+                stages_par = permutations[i][j][1]
                 
                 for _, [node, _] in tmp_node_dict.items():
                     if isinstance(node, tcompute):
                         if check_layer_num(node) == j+1:
-                            node.update_compute_stitching(lanes_dim, stages_dim)
+                            node.update_compute_stitching(lanes_par, stages_par)
                             add_node(tmp_node_dict, node)
                             
                             for upstream_buffer, label in reverse_edge_dict[node.name]:
                                 if label == 'lanes':
                                     incoming_buffer_node = tmp_node_dict[upstream_buffer][0]
-                                    par_factor = math.ceil(LANES * lanes_dim / LANES)
+                                    par_factor = math.ceil(LANES * lanes_par / LANES)
                                     incoming_buffer_node.update_buffer_partitioning(par_factor, node.name)
                                     add_node(tmp_node_dict, incoming_buffer_node)
-                                    noc_bw_used += lanes_dim
+                                    noc_bw_used += lanes_par
                                     
                                 elif label == 'stages':
                                     incoming_buffer_node = tmp_node_dict[upstream_buffer][0]
-                                    par_factor = math.ceil(STAGES * stages_dim / LANES)
+                                    par_factor = math.ceil(STAGES * stages_par / LANES)
                                     incoming_buffer_node.update_buffer_partitioning(par_factor, node.name)
                                     add_node(tmp_node_dict, incoming_buffer_node)
-                                    noc_bw_used += stages_dim
+                                    noc_bw_used += stages_par
                                     
                                 else:
                                     raise Exception('Wrong label type!')
@@ -698,7 +698,7 @@ if __name__ == '__main__':
                 
 
             
-            ns = get_cycles(tmp_node_dict, total_layer) * noc_slowdown_final / FREQ
+            ns = get_cycles(tmp_node_dict, total_layer) * noc_slowdown / FREQ
             # need to get all from_DRAM
             B_from_dram = tmp_node_dict['in1'][0].tenor_size * final_replicate
             dram_bw_usage = B_from_dram / ns
