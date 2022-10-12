@@ -1,3 +1,4 @@
+from gurobipy import *
 import yaml
 import pandas as pd
 import pydot
@@ -6,7 +7,7 @@ import copy
 import argparse
 import pprint
 import sys
-from gurobipy import *
+
 
 class tbuffer:
     def __init__(self, name, tenor_size, partition, depth):
