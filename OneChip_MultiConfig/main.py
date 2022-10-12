@@ -1,4 +1,4 @@
-from gurobipy import *
+from gurobip import *
 import yaml
 import pandas as pd
 import pydot
