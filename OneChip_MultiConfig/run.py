@@ -1,6 +1,6 @@
 import os
 import threading
-from gurobipy import *
+
 
 
 def run_one_config(workload, datatype, operation):
