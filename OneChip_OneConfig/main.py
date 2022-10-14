@@ -80,13 +80,6 @@ class tcompute:
                 self.cycles = math.ceil(self.m / self.lanes) * self.k * math.ceil(self.n / self.stages)
                 self.compute = 'Systolic'
 
-class dram:
-    def __init__(self, name):
-        self.name = name
-       
-        
-        
-
 
 
 
@@ -104,12 +97,6 @@ def add_node(node_dict, node):
         label = 'name: '+str(node.name)+'\n'+'m: '+str(node.m)+', k: '+str(node.k)+', n: '+str(node.n)+'\n'+'lanes: '+str(node.lanes)+'\n'+'stages: '+str(node.stages)+'\n'+'num: '+str(node.num)+'\n'+'cycles: '+str(node.cycles)+'\n'+str(node.compute)+'\n'
         
         pydot_node = pydot.Node(node.name, style="filled", fillcolor="red", label=label)
-        node_dict[node.name] = [node, pydot_node]
-        
-    elif isinstance(node, dram):
-        label = 'name: '+str(node.name)+'\n'
-        
-        pydot_node = pydot.Node(node.name, style="filled", fillcolor="blue", label=label)
         node_dict[node.name] = [node, pydot_node]
         
     else:
@@ -357,17 +344,14 @@ if __name__ == '__main__':
                     add_node(node_dict, w_tbuffer)
                     
                     
-                    in_dram = dram('in'+str(layer_num)+'_dram')
                     if sparsity == 'pixelfly':
                         in_tbuffer = tbuffer('in'+str(layer_num), m*n*word, 1, [0])
                     elif sparsity == 'dense':
                         in_tbuffer = tbuffer('in'+str(layer_num), k*n*word, 1, [0])
                     else:
                         raise Exception('Wrong sparsity!')
-                        
-                    add_node(node_dict, in_dram)
+                    
                     add_node(node_dict, in_tbuffer)
-                    add_edge(edge_dict, in_dram.name, in_tbuffer.name, ' ')
                     
                     
                     
@@ -758,8 +742,8 @@ if __name__ == '__main__':
         
         
         
-        # name = workload+'_'+datatype+'_'+operation+'_batch'+str(ba)
-        # plot(graph, name, tmp_tmp_node_dict, edge_dict)
+        name = workload+'_'+datatype+'_'+operation+'_batch'+str(ba)
+        plot(graph, name, tmp_tmp_node_dict, edge_dict)
                 
         
         
