@@ -4,13 +4,13 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 11
-noc_load 1.0
-noc_slowdown 1
-ns_per_sample 6553.6
+pmu_used 9
+noc_load 1.0690449676496976
+noc_slowdown 1.0690449676496976
+ns_per_sample 7006.093099989058
 oi 288.5
 max_gflops 307200.0
-gflops 360.625
+gflops 337.33379877633814
 
 
 total_permutations: 1
@@ -25,13 +25,13 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 11
-noc_load 1.0
-noc_slowdown 1
-ns_per_sample 3276.8
+pmu_used 9
+noc_load 1.0690449676496976
+noc_slowdown 1.0690449676496976
+ns_per_sample 3503.046549994529
 oi 288.5
 max_gflops 307200.0
-gflops 721.25
+gflops 674.6675975526763
 
 
 total_permutations: 1
@@ -46,13 +46,13 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 11
-noc_load 1.0
-noc_slowdown 1
-ns_per_sample 1638.4
+pmu_used 9
+noc_load 1.0690449676496976
+noc_slowdown 1.0690449676496976
+ns_per_sample 1751.5232749972645
 oi 288.5
 max_gflops 307200.0
-gflops 1442.5
+gflops 1349.3351951053526
 
 
 total_permutations: 1
@@ -67,13 +67,13 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 11
-noc_load 1.0
-noc_slowdown 1
-ns_per_sample 1638.4
+pmu_used 9
+noc_load 1.0690449676496976
+noc_slowdown 1.0690449676496976
+ns_per_sample 1751.5232749972645
 oi 288.5
 max_gflops 307200.0
-gflops 1442.5
+gflops 1349.3351951053526
 
 
 total_permutations: 1
@@ -88,13 +88,13 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 11
-noc_load 1.0
-noc_slowdown 1
-ns_per_sample 1228.8
+pmu_used 9
+noc_load 1.0690449676496976
+noc_slowdown 1.0690449676496976
+ns_per_sample 1313.6424562479483
 oi 288.5
 max_gflops 307200.0
-gflops 1923.3333333333335
+gflops 1799.1135934738036
 
 
 total_permutations: 1
@@ -109,13 +109,13 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 13
-noc_load 0.9428090415820634
-noc_slowdown 1
-ns_per_sample 1228.8
+pmu_used 9
+noc_load 1.0690449676496976
+noc_slowdown 1.0690449676496976
+ns_per_sample 1313.6424562479483
 oi 288.5
 max_gflops 307200.0
-gflops 1923.3333333333335
+gflops 1799.1135934738036
 
 
 total_permutations: 1

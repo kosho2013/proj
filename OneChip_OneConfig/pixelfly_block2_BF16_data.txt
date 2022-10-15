@@ -2,15 +2,15 @@ batch 1 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 58
-pcu_used 290
-pmu_used 638
-noc_load 0.7659541916817149
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
-ns_per_sample 14.124137931034484
+ns_per_sample 10.24
 oi 18.5
 max_gflops 37721.5
-gflops 10729.999999999998
+gflops 14800.0
 
 
 total_permutations: 1
@@ -23,15 +23,15 @@ batch 2 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 58
-pcu_used 290
-pmu_used 638
-noc_load 0.7659541916817149
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
-ns_per_sample 7.062068965517242
+ns_per_sample 5.12
 oi 18.5
 max_gflops 37721.5
-gflops 21459.999999999996
+gflops 29600.0
 
 
 total_permutations: 1
@@ -44,10 +44,10 @@ batch 4 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor DRAM BW saturates
-final_replicate 58
-pcu_used 290
-pmu_used 638
-noc_load 0.7659541916817149
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
 ns_per_sample 4.017655713585091
 oi 18.5
@@ -65,10 +65,10 @@ batch 8 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor DRAM BW saturates
-final_replicate 58
-pcu_used 290
-pmu_used 638
-noc_load 0.7659541916817149
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
 ns_per_sample 4.017655713585091
 oi 18.5
@@ -86,10 +86,10 @@ batch 16 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor DRAM BW saturates
-final_replicate 58
-pcu_used 290
-pmu_used 638
-noc_load 0.7659541916817149
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
 ns_per_sample 4.017655713585091
 oi 18.5
@@ -107,10 +107,10 @@ batch 32 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor DRAM BW saturates
-final_replicate 49
-pcu_used 245
-pmu_used 637
-noc_load 0.6846589468631651
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
 ns_per_sample 4.017655713585091
 oi 18.5

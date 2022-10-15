@@ -8,37 +8,27 @@ import pprint
 import sys
 
 class tbuffer:
-    def __init__(self, name, tenor_size, partition, depth):
+    def __init__(self, name, tenor_size):
         self.name = name
         self.tenor_size = tenor_size
-        
-        self.partition_dict = {}
-        self.partition = partition
-        self.depth = depth
+        self.downstream_dict = {}
         self.num = 0
-        for d in self.depth:
-            self.num += math.ceil(((d * self.tenor_size) / self.partition) / CAPACITY) * self.partition
         
-    def update_depth(self, depth):
-        self.depth = depth
-        self.num = 0
-        for d in self.depth:
-            self.num += math.ceil(((d * self.tenor_size) / self.partition) / CAPACITY) * self.partition
+    def update_depth(self, depth, downstream_buffer_name):
+        self.downstream_dict[downstream_buffer_name] = [depth, -1]
     
     def update_buffer_partitioning(self, partition, downstream_buffer_name):
-        self.partition_dict[downstream_buffer_name] = partition
-        self.partition = []
-        for _, v in self.partition_dict.items():
-            self.partition.append(v)
-            
+        self.downstream_dict[downstream_buffer_name][1] = partition
+        
         self.num = 0
-        for part in self.partition:
-            for d in self.depth:
-                self.num += math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+        for key in self.downstream_dict.keys():
+            d = self.downstream_dict[key][0]
+            part = self.downstream_dict[key][1]
+            self.num += math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
             
             
 class tcompute:
-    def __init__(self, name, m, k, n, lanes_par, stages_par): 
+    def __init__(self, name, m, k, n, lanes_par, stages_par, topo_num): 
         self.name = name
         self.m = m
         self.k = k
@@ -49,6 +39,8 @@ class tcompute:
         self.lanes = LANES * self.lanes_par
         self.stages = STAGES * self.stages_par
         self.num = self.stages_par * self.lanes_par
+        
+        self.topo_num = topo_num
         
         if self.k == -1:
             self.cycles = math.ceil(self.m / self.lanes) * self.n
@@ -81,20 +73,24 @@ class tcompute:
                 self.compute = 'Systolic'
 
 
-
+    def update_topo_num(self, topo_num):
+        self.topo_num = topo_num
 
 
 
 
 def add_node(node_dict, node):
     if isinstance(node, tbuffer):
-        label = 'name: '+str(node.name)+'\n'+'tenor_size: '+str(node.tenor_size)+'\n'+'partition: '+str(node.partition)+'\n'+'depth: '+str(node.depth)+'\n'+'num: '+str(node.num)+'\n'
-  
+        label = 'name: '+str(node.name)+'\n'+'tenor_size: '+str(node.tenor_size)+'\n'+'num: '+str(node.num)+'\n'
+        
+        for key, [d, part] in node.downstream_dict.items():            
+            label += key+', d: '+str(d)+', part'+str(part)+'\n'
+        
         pydot_node = pydot.Node(node.name, style="filled", fillcolor="green", label=label)
         node_dict[node.name] = [node, pydot_node]
         
     elif isinstance(node, tcompute):
-        label = 'name: '+str(node.name)+'\n'+'m: '+str(node.m)+', k: '+str(node.k)+', n: '+str(node.n)+'\n'+'lanes: '+str(node.lanes)+'\n'+'stages: '+str(node.stages)+'\n'+'num: '+str(node.num)+'\n'+'cycles: '+str(node.cycles)+'\n'+str(node.compute)+'\n'
+        label = 'name: '+str(node.name)+'\n'+'m: '+str(node.m)+', k: '+str(node.k)+', n: '+str(node.n)+'\n'+'lanes: '+str(node.lanes)+'\n'+'stages: '+str(node.stages)+'\n'+'num: '+str(node.num)+'\n'+'cycles: '+str(node.cycles)+'\n'+str(node.compute)+'\n'+'topo_num: '+str(node.topo_num)+'\n'
         
         pydot_node = pydot.Node(node.name, style="filled", fillcolor="red", label=label)
         node_dict[node.name] = [node, pydot_node]
@@ -112,69 +108,80 @@ def add_edge(edge_dict, node1, node2, label):
     else:
         raise Exception('Wrong label type!')
 
-       
-def bfs(node_dict, edge_dict, node, start, end):
-    queue = []
-    found_path = []
-    queue.append([start])
-    while len(queue) > 0:
-        path = queue.pop(0)
-        tmp_node = path[-1]
         
-        if tmp_node == end:
-            found_path = copy.deepcopy(path)
-            break
-            
-        if tmp_node in edge_dict.keys():
-            for child, label in edge_dict[tmp_node]:
-                tmp_path = copy.deepcopy(path)
-                tmp_path.append(child)
-                queue.append(tmp_path)
+        
+def bfs(node_dict, edge_dict, reverse_edge_dict):
+    indegree_map = {}
+    for _, [node, _] in node_dict.items():
+        indegree_map[node.name] = 0
     
-    if len(found_path) > 0:
-        cnt = 0
-        for tmp in found_path:
-            if isinstance(node_dict[tmp][0], tbuffer):
-                cnt += 1
-        return cnt+2
-    else:
-        return -1
-        
-        
-        
-        
-def bfs_depth(node_dict, edge_dict, node):
-    if node not in edge_dict:
-        depth = [1]
-        return depth
-        
-    elif len(edge_dict[node]) == 1:
-        depth = [2]
-        return depth
-        
-    elif len(edge_dict[node]) == 2:
-        
-        depth = [2]
-        node1, label = edge_dict[node][0]
-        node2, label = edge_dict[node][1]
-    
-        value1 = bfs(node_dict, edge_dict, node, node1, node2)
-        value2 = bfs(node_dict, edge_dict, node, node2, node1)
+    for _, [node, _] in node_dict.items():
+        start = node.name
+        if start in edge_dict.keys():
+            for end, _ in edge_dict[start]:
+                if end in indegree_map.keys():
+                    indegree_map[end] += 1
+                else:
+                    indegree_map[end] = 1
 
-        if value1 == -1 and value2 == -1:
-            return depth
-        elif value1 == -1 and value2 != -1:
-            depth.append(value2)
-            return depth
-        elif value1 != -1 and value2 == -1:
-            depth.append(value1)
-            return depth
-        else:
-            raise Exception('Both depth cannot be positive!')
+    cnt = 0
+    curr_tmp = set()
+    next_tmp = set()
+    
+    for node in indegree_map.keys():
+        if indegree_map[node] == 0:
+            curr_tmp.add(node)
             
-    else:
-        raise Exception('More than 2 output ports in buffer!')
+    while len(curr_tmp) > 0:
+        flag = False
         
+        for node in curr_tmp:
+            if indegree_map[node] == 0:
+                if node in edge_dict.keys():
+                    for end, _ in edge_dict[node]:
+                        next_tmp.add(end)
+                        indegree_map[end] -= 1
+            
+            if isinstance(node_dict[node][0], tcompute):
+                flag = True
+                node_dict[node][0].update_topo_num(cnt)
+                add_node(node_dict, node_dict[node][0])
+        
+        if flag:
+            cnt += 1
+        curr_tmp = copy.deepcopy(next_tmp)
+        next_tmp = set()
+        
+    
+
+    for _, [node, _] in node_dict.items():
+        if isinstance(node, tbuffer):
+            if node.name in edge_dict.keys():
+                if node.name in reverse_edge_dict:
+                    a = node_dict[reverse_edge_dict[node.name][0][0]][0].topo_num
+                    
+                    for end, _ in edge_dict[node.name]:
+                        b = node_dict[end][0].topo_num
+                        node.update_depth(b-a+1, end)
+                        add_node(node_dict, node)
+                else:
+                    for end, _ in edge_dict[node.name]:
+                        node.update_depth(1, end)
+                        add_node(node_dict, node)
+            else:
+                node.update_depth(1, ' ')
+                add_node(node_dict, node)
+                    
+            
+            
+        
+    
+
+
+
+
+
+
 
 def count(node_dict):
     pcu = 0
@@ -340,14 +347,14 @@ if __name__ == '__main__':
             
             if layer_type == 'gemm':
                 if from_dram == 'yes':
-                    w_tbuffer = tbuffer('w'+str(layer_num), m*k*word, 1, [0])  
+                    w_tbuffer = tbuffer('w'+str(layer_num), m*k*word)  
                     add_node(node_dict, w_tbuffer)
                     
                     
                     if sparsity == 'pixelfly':
-                        in_tbuffer = tbuffer('in'+str(layer_num), m*n*word, 1, [0])
+                        in_tbuffer = tbuffer('in'+str(layer_num), m*n*word)
                     elif sparsity == 'dense':
-                        in_tbuffer = tbuffer('in'+str(layer_num), k*n*word, 1, [0])
+                        in_tbuffer = tbuffer('in'+str(layer_num), k*n*word)
                     else:
                         raise Exception('Wrong sparsity!')
                     
@@ -355,31 +362,31 @@ if __name__ == '__main__':
                     
                     
                     
-                    f_compute = tcompute('forward'+str(layer_num), m, k, n, 1, 1)
+                    f_compute = tcompute('forward'+str(layer_num), m, k, n, 1, 1, -1)
                     add_node(node_dict, f_compute)
                     add_edge(edge_dict, w_tbuffer.name, f_compute.name, 'lanes')
                     add_edge(edge_dict, in_tbuffer.name, f_compute.name, 'stages')
                     
                     
-                    out_tbuffer = tbuffer('in'+str(layer_num+1), m*n*word, 1, [0])
+                    out_tbuffer = tbuffer('in'+str(layer_num+1), m*n*word)
                     add_node(node_dict, out_tbuffer)
                     add_edge(edge_dict, f_compute.name, out_tbuffer.name, 'lanes')
                 
                 elif from_dram == 'no':
-                    w_tbuffer = tbuffer('w'+str(layer_num), m*k*word, 1, [0])  
+                    w_tbuffer = tbuffer('w'+str(layer_num), m*k*word)  
                     add_node(node_dict, w_tbuffer)
                     
                     
                     
                     
-                    f_compute = tcompute('forward'+str(layer_num), m, k, n, 1, 1)
+                    f_compute = tcompute('forward'+str(layer_num), m, k, n, 1, 1, -1)
                     add_node(node_dict, f_compute)
                     add_edge(edge_dict, w_tbuffer.name, f_compute.name, 'lanes')
                     add_edge(edge_dict, 'in'+str(layer_num), f_compute.name, 'stages')
                     
                     
                     
-                    out_tbuffer = tbuffer('in'+str(layer_num+1), m*n*word, 1, [0])
+                    out_tbuffer = tbuffer('in'+str(layer_num+1), m*n*word)
                     add_node(node_dict, out_tbuffer)
                     add_edge(edge_dict, f_compute.name, out_tbuffer.name, 'lanes')
                     
@@ -387,11 +394,11 @@ if __name__ == '__main__':
                     raise Exception('Wrong from_dram!')
                 
             elif layer_type == 'loss':
-                f_compute = tcompute('loss'+str(layer_num), m, k, n, 1, 1) 
+                f_compute = tcompute('loss'+str(layer_num), m, k, n, 1, 1, -1) 
                 add_node(node_dict, f_compute)
                 add_edge(edge_dict, 'in'+str(layer_num), f_compute.name, 'lanes')
                 
-                dataGradient_tbuffer = tbuffer('dataGradient'+str(layer_num), node_dict['in'+str(layer_num)][0].tenor_size, 1, [0])
+                dataGradient_tbuffer = tbuffer('dataGradient'+str(layer_num), node_dict['in'+str(layer_num)][0].tenor_size)
                     
                 add_node(node_dict, dataGradient_tbuffer)
                 add_edge(edge_dict, f_compute.name, dataGradient_tbuffer.name, 'lanes')
@@ -423,9 +430,9 @@ if __name__ == '__main__':
             
             if layer_type == 'gemm':         
                 if sparsity == 'pixelfly':
-                    dg_compute = tcompute('backpropDataGradient'+str(layer_num), m, k, n, 1, 1) 
+                    dg_compute = tcompute('backpropDataGradient'+str(layer_num), m, k, n, 1, 1, -1) 
                 elif sparsity == 'dense':
-                    dg_compute = tcompute('backpropDataGradient'+str(layer_num), k, m, n, 1, 1) 
+                    dg_compute = tcompute('backpropDataGradient'+str(layer_num), k, m, n, 1, 1, -1) 
                 else:
                     raise Exception('Wrong sparsity!') 
                 add_node(node_dict, dg_compute)
@@ -434,27 +441,27 @@ if __name__ == '__main__':
                 
                 
                 if sparsity == 'pixelfly':
-                    dg_buffer = tbuffer('dataGradient'+str(layer_num), m*n*word, 1, [0])
+                    dg_buffer = tbuffer('dataGradient'+str(layer_num), m*n*word)
                 elif sparsity == 'dense':
-                    dg_buffer = tbuffer('dataGradient'+str(layer_num), k*n*word, 1, [0])
+                    dg_buffer = tbuffer('dataGradient'+str(layer_num), k*n*word)
                 else:
                     raise Exception('Wrong sparsity!') 
                 add_node(node_dict, dg_buffer)
                 add_edge(edge_dict, dg_compute.name, dg_buffer.name, 'lanes')
                 
                 
-                wg_compute = tcompute('backpropWeightGradient'+str(layer_num), m, n, k, 1, 1) 
+                wg_compute = tcompute('backpropWeightGradient'+str(layer_num), m, n, k, 1, 1, -1) 
                 add_node(node_dict, wg_compute)
                 add_edge(edge_dict, 'in'+str(layer_num), wg_compute.name, 'stages')
                 add_edge(edge_dict, 'dataGradient'+str(layer_num+1), wg_compute.name, 'lanes')
                 
                 
-                wg_tbuffer = tbuffer('weightGradient'+str(layer_num), m*k*word, 1, [0])
+                wg_tbuffer = tbuffer('weightGradient'+str(layer_num), m*k*word)
                 add_node(node_dict, wg_tbuffer)
                 add_edge(edge_dict, wg_compute.name, wg_tbuffer.name, 'lanes')
             
                     
-                wu_compute = tcompute('weightUpdate'+str(layer_num), m, -1, k, 1, 1)
+                wu_compute = tcompute('weightUpdate'+str(layer_num), m, -1, k, 1, 1, -1)
                 add_node(node_dict, wu_compute)
                 add_edge(edge_dict, 'weightGradient'+str(layer_num), wu_compute.name, 'lanes') 
             elif layer_type == 'loss':
@@ -463,29 +470,8 @@ if __name__ == '__main__':
                 raise Exception('Wrong layer_type!')
             
             
-            
-        # udpate depth using BFS
-        for _, [node, _] in node_dict.items():
-            if isinstance(node, tbuffer):
-                if node.name.startswith('w') or node.name.startswith('weightGradient'):
-                    depth = [1]
-                    node.update_depth(depth)
-                    add_node(node_dict, node)
-                    
-                elif node.name.startswith('in') or node.name.startswith('dataGradient'):
-                    depth = bfs_depth(node_dict, edge_dict, node.name)
-                    node.update_depth(depth)
-                    add_node(node_dict, node)
-                    
-                else:
-                    raise Exception('Wrong buffer type/name!')
-            
         
-        
-                
-                
-        
-        
+
         # create reverse edge_dict
         for node1 in edge_dict.keys():
             for node2, label in edge_dict[node1]:
@@ -493,6 +479,13 @@ if __name__ == '__main__':
                     reverse_edge_dict[node2].append([node1, label])
                 else:
                     reverse_edge_dict[node2] = [[node1, label]]
+
+  
+        bfs(node_dict, edge_dict, reverse_edge_dict)
+          
+        
+        
+        
                 
                 
                

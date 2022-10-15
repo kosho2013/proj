@@ -4,18 +4,18 @@ config [[128, 1], [2, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 514
-pmu_used 520
-noc_load 5.40077642450925
-noc_slowdown 5.40077642450925
-ns_per_sample 276.5197529348736
+pmu_used 517
+noc_load 5.4086282964883345
+noc_slowdown 5.4086282964883345
+ns_per_sample 276.92176878020274
 oi 288.5
 max_gflops 307200.0
-gflops 8546.919252298876
+gflops 8534.511426856667
 
 
 total_permutations: 16384
-invalid_resources: 8
-valid: 16376
+invalid_resources: 3
+valid: 16381
 
 
 
@@ -25,18 +25,18 @@ config [[128, 1], [4, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 516
-pmu_used 522
-noc_load 5.411052621545283
-noc_slowdown 5.411052621545283
-ns_per_sample 138.52294711155926
+pmu_used 519
+noc_load 5.418889052329823
+noc_slowdown 5.418889052329823
+ns_per_sample 138.72355973964346
 oi 288.5
 max_gflops 307200.0
-gflops 17061.375384228908
+gflops 17036.70237727187
 
 
 total_permutations: 32768
-invalid_resources: 2312
-valid: 30456
+invalid_resources: 2211
+valid: 30557
 
 
 
@@ -46,18 +46,18 @@ config [[128, 1], [8, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 520
-pmu_used 526
-noc_load 5.431546703872284
-noc_slowdown 5.431546703872284
-ns_per_sample 69.52379780956524
+pmu_used 523
+noc_load 5.439352523522121
+noc_slowdown 5.439352523522121
+ns_per_sample 69.62371230108315
 oi 288.5
 max_gflops 307200.0
-gflops 33994.0002482839
+gflops 33945.2166781867
 
 
 total_permutations: 65536
-invalid_resources: 19208
-valid: 46328
+invalid_resources: 18915
+valid: 46621
 
 
 
@@ -67,18 +67,18 @@ config [[64, 2], [8, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 520
-pmu_used 270
-noc_load 3.249494172472678
-noc_slowdown 3.249494172472678
-ns_per_sample 41.593525407650276
+pmu_used 267
+noc_load 3.2556817264844704
+noc_slowdown 3.2556817264844704
+ns_per_sample 41.672726099001224
 oi 288.5
 max_gflops 307200.0
-gflops 56821.15129306405
+gflops 56713.16041060831
 
 
 total_permutations: 262144
-invalid_resources: 188738
-valid: 73406
+invalid_resources: 188353
+valid: 73791
 
 
 
@@ -88,18 +88,18 @@ config [[43, 3], [11, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 527
-pmu_used 189
-noc_load 2.4416213029896574
-noc_slowdown 2.4416213029896574
-ns_per_sample 23.43956450870071
+pmu_used 186
+noc_load 2.4467525618255848
+noc_slowdown 2.4467525618255848
+ns_per_sample 23.488824593525614
 oi 288.5
 max_gflops 307200.0
-gflops 100829.17705756499
+gflops 100617.72101833644
 
 
 total_permutations: 786432
-invalid_resources: 696278
-valid: 90154
+invalid_resources: 695893
+valid: 90539
 
 
 
@@ -109,18 +109,18 @@ config [[26, 6], [13, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 637
-pmu_used 128
-noc_load 1.6751852020440672
-noc_slowdown 1.6751852020440672
-ns_per_sample 13.401481616352537
+pmu_used 123
+noc_load 1.6806866460881937
+noc_slowdown 1.6806866460881937
+ns_per_sample 13.44549316870555
 oi 288.5
 max_gflops 307200.0
-gflops 176353.03824288954
+gflops 175775.77633974826
 
 
 total_permutations: 3145728
-invalid_resources: 3025216
-valid: 120512
+invalid_resources: 3024573
+valid: 121155
 
 
 

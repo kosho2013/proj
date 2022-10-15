@@ -2,15 +2,15 @@ batch 1 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 58
-pcu_used 290
-pmu_used 638
-noc_load 0.7659541916817149
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
-ns_per_sample 56.49655172413794
+ns_per_sample 40.96
 oi 72.5
 max_gflops 147827.5
-gflops 10512.499999999998
+gflops 14500.0
 
 
 total_permutations: 1
@@ -23,15 +23,15 @@ batch 2 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 58
-pcu_used 290
-pmu_used 638
-noc_load 0.7659541916817149
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
-ns_per_sample 28.24827586206897
+ns_per_sample 20.48
 oi 72.5
 max_gflops 147827.5
-gflops 21024.999999999996
+gflops 29000.0
 
 
 total_permutations: 1
@@ -44,15 +44,15 @@ batch 4 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 58
-pcu_used 290
-pmu_used 638
-noc_load 0.7659541916817149
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
-ns_per_sample 14.124137931034484
+ns_per_sample 10.24
 oi 72.5
 max_gflops 147827.5
-gflops 42049.99999999999
+gflops 58000.0
 
 
 total_permutations: 1
@@ -65,15 +65,15 @@ batch 8 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 58
-pcu_used 290
-pmu_used 638
-noc_load 0.7659541916817149
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
-ns_per_sample 7.062068965517242
+ns_per_sample 5.12
 oi 72.5
 max_gflops 147827.5
-gflops 84099.99999999999
+gflops 116000.0
 
 
 total_permutations: 1
@@ -85,16 +85,16 @@ valid: 1
 batch 16 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
-limiting_factor PMU saturates after replicate
-final_replicate 58
-pcu_used 290
-pmu_used 638
-noc_load 0.7659541916817149
+limiting_factor DRAM BW saturates
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
-ns_per_sample 5.296551724137931
+ns_per_sample 4.017655713585091
 oi 72.5
 max_gflops 147827.5
-gflops 112133.33333333333
+gflops 147827.5
 
 
 total_permutations: 1
@@ -106,16 +106,16 @@ valid: 1
 batch 32 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
-limiting_factor PMU saturates after replicate
-final_replicate 49
-pcu_used 245
-pmu_used 637
-noc_load 0.6846589468631651
+limiting_factor DRAM BW saturates
+final_replicate 80
+pcu_used 400
+pmu_used 640
+noc_load 0.9509329651839316
 noc_slowdown 1
-ns_per_sample 6.2693877551020405
+ns_per_sample 4.017655713585091
 oi 72.5
 max_gflops 147827.5
-gflops 94733.33333333334
+gflops 147827.5
 
 
 total_permutations: 1
