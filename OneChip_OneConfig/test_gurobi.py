@@ -8,7 +8,6 @@ import argparse
 import pprint
 import sys
 
-
 class tbuffer:
     def __init__(self, name, tenor_size):
         self.name = name
@@ -248,30 +247,12 @@ def convert(tmp, ba):
         return tmp
         
     
-    
-    
-    
-
-
-
-        
-        
-                
-    
 if __name__ == '__main__':
 
 
     
-    parser = argparse.ArgumentParser(description='Optional app description')
-    parser.add_argument('--workload', type=str)
-    parser.add_argument('--datatype', type=str)
-    parser.add_argument('--operation', type=str)
-    args = parser.parse_args()
-    
-    
-    workload = args.workload
-    datatype = args.datatype
-    operation = args.operation
+    workload = 'pixelfly_block16'
+    datatype = 'bf16'
     
     
     
@@ -318,7 +299,7 @@ if __name__ == '__main__':
 
 
 
-    batch = [32]
+    batch = [2]
     
     for ba in batch:
         print('batch', ba, '***********************')
@@ -327,10 +308,10 @@ if __name__ == '__main__':
         reverse_edge_dict = {}
         node_dict = {}
         layer_dict = {}
-        
-        
-        
         total_layer = 0
+        
+        
+        
         for layer in content_workload.iterrows():
             total_layer += 1
             layer_dict[total_layer] = layer
@@ -341,42 +322,46 @@ if __name__ == '__main__':
         # forward loop
         for i in range(1, total_layer+1):
             layer = layer_dict[i]
-  
+            
             layer_num = int(layer[1]['layer_num'])
             layer_type = str(layer[1]['layer_type'])
-            sparsity = str(layer[1]['sparsity'])            
+            sparsity = str(layer[1]['sparsity'])
             m = layer[1]['m']
             k = layer[1]['k']
             n = layer[1]['n']
-            input_size = layer[1]['input_size']
-            output_size = layer[1]['output_size']
-            from_dram = str(layer[1]['from_dram']) 
+            from_dram = str(layer[1]['from_dram'])
+            
             
             m = convert(m, ba)
             k = convert(k, ba)
             n = convert(n, ba)
-            input_size = convert(input_size, ba)
-            output_size = convert(output_size, ba)
             
             
-            if layer_type == 'gemm' or layer_type == 'conv':
+            
+            if layer_type == 'gemm':
                 if from_dram == 'yes':
                     w_tbuffer = tbuffer('w'+str(layer_num), m*k*word)  
                     add_node(node_dict, w_tbuffer)
                     
                     
-                    in_tbuffer = tbuffer('in'+str(layer_num), input_size*word)
+                    if sparsity == 'pixelfly':
+                        in_tbuffer = tbuffer('in'+str(layer_num), m*n*word)
+                    elif sparsity == 'dense':
+                        in_tbuffer = tbuffer('in'+str(layer_num), k*n*word)
+                    else:
+                        raise Exception('Wrong sparsity!')
+                    
                     add_node(node_dict, in_tbuffer)
                     
                     
                     
-                    f_compute = tcompute('forward'+str(layer_num)+'_'+layer_type, m, k, n, 1, 1, -1)
+                    f_compute = tcompute('forward'+str(layer_num), m, k, n, 1, 1, -1)
                     add_node(node_dict, f_compute)
                     add_edge(edge_dict, w_tbuffer.name, f_compute.name, 'lanes')
                     add_edge(edge_dict, in_tbuffer.name, f_compute.name, 'stages')
                     
                     
-                    out_tbuffer = tbuffer('in'+str(layer_num+1), output_size*word)
+                    out_tbuffer = tbuffer('in'+str(layer_num+1), m*n*word)
                     add_node(node_dict, out_tbuffer)
                     add_edge(edge_dict, f_compute.name, out_tbuffer.name, 'lanes')
                 
@@ -387,40 +372,26 @@ if __name__ == '__main__':
                     
                     
                     
-                    f_compute = tcompute('forward'+str(layer_num)+'_'+layer_type, m, k, n, 1, 1, -1)
+                    f_compute = tcompute('forward'+str(layer_num), m, k, n, 1, 1, -1)
                     add_node(node_dict, f_compute)
                     add_edge(edge_dict, w_tbuffer.name, f_compute.name, 'lanes')
                     add_edge(edge_dict, 'in'+str(layer_num), f_compute.name, 'stages')
                     
                     
                     
-                    out_tbuffer = tbuffer('in'+str(layer_num+1), output_size*word)
+                    out_tbuffer = tbuffer('in'+str(layer_num+1), m*n*word)
                     add_node(node_dict, out_tbuffer)
                     add_edge(edge_dict, f_compute.name, out_tbuffer.name, 'lanes')
                     
                 else:
                     raise Exception('Wrong from_dram!')
-            elif layer_type == 'pooling' or layer_type == 'batchnorm' or layer_type == 'add' or layer_type == 'softmax':
-                f_compute = tcompute('forward'+str(layer_num)+'_'+layer_type, m, k, n, 1, 1, -1)
-                add_node(node_dict, f_compute)
-                add_edge(edge_dict, 'in'+str(layer_num), f_compute.name, 'lanes')
                 
-                if layer_type == 'add':
-                    add_edge(edge_dict, 'in'+str(layer_num-4), f_compute.name, 'lanes')
-                
-                
-                
-                out_tbuffer = tbuffer('in'+str(layer_num+1), output_size*word)
-                add_node(node_dict, out_tbuffer)
-                add_edge(edge_dict, f_compute.name, out_tbuffer.name, 'lanes')
-                
-            
             elif layer_type == 'loss':
-                f_compute = tcompute('forward'+str(layer_num)+'_'+layer_type, m, k, n, 1, 1, -1) 
+                f_compute = tcompute('loss'+str(layer_num), m, k, n, 1, 1, -1) 
                 add_node(node_dict, f_compute)
                 add_edge(edge_dict, 'in'+str(layer_num), f_compute.name, 'lanes')
                 
-                dataGradient_tbuffer = tbuffer('dataGradient'+str(layer_num), output_size*word)
+                dataGradient_tbuffer = tbuffer('dataGradient'+str(layer_num), node_dict['in'+str(layer_num)][0].tenor_size)
                     
                 add_node(node_dict, dataGradient_tbuffer)
                 add_edge(edge_dict, f_compute.name, dataGradient_tbuffer.name, 'lanes')
@@ -432,54 +403,47 @@ if __name__ == '__main__':
                 
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         # backward loop
         for i in range(total_layer, 0, -1):
             layer = layer_dict[i]
             
             layer_num = int(layer[1]['layer_num'])
             layer_type = str(layer[1]['layer_type'])
-            sparsity = str(layer[1]['sparsity'])            
+            sparsity = str(layer[1]['sparsity'])
             m = layer[1]['m']
             k = layer[1]['k']
             n = layer[1]['n']
-            input_size = layer[1]['input_size']
-            output_size = layer[1]['output_size']
-            from_dram = str(layer[1]['from_dram']) 
+            from_dram = str(layer[1]['from_dram'])
             
             m = convert(m, ba)
             k = convert(k, ba)
             n = convert(n, ba)
-            input_size = convert(input_size, ba)
-            output_size = convert(output_size, ba)
             
             
-            if layer_type == 'gemm' or layer_type == 'conv':
-                dg_compute = tcompute('backpropDataGradient'+str(layer_num)+'_'+layer_type, k, m, n, 1, 1, -1) 
-                    
+            
+            if layer_type == 'gemm':         
+                if sparsity == 'pixelfly':
+                    dg_compute = tcompute('backpropDataGradient'+str(layer_num), m, k, n, 1, 1, -1) 
+                elif sparsity == 'dense':
+                    dg_compute = tcompute('backpropDataGradient'+str(layer_num), k, m, n, 1, 1, -1) 
+                else:
+                    raise Exception('Wrong sparsity!') 
                 add_node(node_dict, dg_compute)
                 add_edge(edge_dict, 'w'+str(layer_num), dg_compute.name, 'lanes')
                 add_edge(edge_dict, 'dataGradient'+str(layer_num+1), dg_compute.name, 'stages')
                 
-                if layer_num in [4, 9, 14, 19, 24, 29, 34, 39]:
-                    dg_buffer = tbuffer('dataGradient'+str(layer_num)+'_tmp', input_size*word)
+                
+                if sparsity == 'pixelfly':
+                    dg_buffer = tbuffer('dataGradient'+str(layer_num), m*n*word)
+                elif sparsity == 'dense':
+                    dg_buffer = tbuffer('dataGradient'+str(layer_num), k*n*word)
                 else:
-                    dg_buffer = tbuffer('dataGradient'+str(layer_num), input_size*word)
+                    raise Exception('Wrong sparsity!') 
                 add_node(node_dict, dg_buffer)
                 add_edge(edge_dict, dg_compute.name, dg_buffer.name, 'lanes')
                 
                 
-                wg_compute = tcompute('backpropWeightGradient'+str(layer_num)+'_'+layer_type, m, n, k, 1, 1, -1) 
+                wg_compute = tcompute('backpropWeightGradient'+str(layer_num), m, n, k, 1, 1, -1) 
                 add_node(node_dict, wg_compute)
                 add_edge(edge_dict, 'in'+str(layer_num), wg_compute.name, 'stages')
                 add_edge(edge_dict, 'dataGradient'+str(layer_num+1), wg_compute.name, 'lanes')
@@ -490,41 +454,17 @@ if __name__ == '__main__':
                 add_edge(edge_dict, wg_compute.name, wg_tbuffer.name, 'lanes')
             
                     
-                wu_compute = tcompute('weightUpdate'+str(layer_num)+'_'+layer_type, m, -1, k, 1, 1, -1)
+                wu_compute = tcompute('weightUpdate'+str(layer_num), m, -1, k, 1, 1, -1)
                 add_node(node_dict, wu_compute)
-                add_edge(edge_dict, 'weightGradient'+str(layer_num), wu_compute.name, 'lanes')
-                
-                if layer_num in [4, 9, 14, 19, 24, 29, 34, 39]:
-                    tmp_compute = tcompute('backpropDataGradient'+str(layer_num)+'_add', input_size, k, n, 1, 1, -1)
-                    add_node(node_dict, tmp_compute)
-                    add_edge(edge_dict, dg_buffer.name, tmp_compute.name, 'lanes')
-                    add_edge(edge_dict, 'dataGradient'+str(layer_num+5), tmp_compute.name, 'lanes')
-                    
-                    dg_buffer_final = tbuffer('dataGradient'+str(layer_num), input_size*word)
-                    add_node(node_dict, dg_buffer_final)
-                    add_edge(edge_dict, tmp_compute.name, dg_buffer_final.name, 'lanes')
-                
-            elif layer_type == 'pooling' or layer_type == 'batchnorm' or layer_type == 'softmax':
-                dg_compute = tcompute('backpropDataGradient'+str(layer_num)+'_'+layer_type, m, k, n, 1, 1, -1) 
-                add_node(node_dict, dg_compute)
-                if layer_num in [7, 12, 17, 22, 27, 32, 37, 42]:
-                    add_edge(edge_dict, 'dataGradient'+str(layer_num+2), dg_compute.name, 'lanes')
-                else:
-                    add_edge(edge_dict, 'dataGradient'+str(layer_num+1), dg_compute.name, 'lanes')
-                
-
-                dg_buffer = tbuffer('dataGradient'+str(layer_num), input_size*word)
-                add_node(node_dict, dg_buffer)
-                add_edge(edge_dict, dg_compute.name, dg_buffer.name, 'lanes')
-            
-            elif layer_type == 'loss' or layer_type == 'add':
+                add_edge(edge_dict, 'weightGradient'+str(layer_num), wu_compute.name, 'lanes') 
+            elif layer_type == 'loss':
                 continue
             else:
                 raise Exception('Wrong layer_type!')
-                
-       
+            
+            
         
-        
+
         # create reverse edge_dict
         for node1 in edge_dict.keys():
             for node2, label in edge_dict[node1]:
@@ -533,13 +473,69 @@ if __name__ == '__main__':
                 else:
                     reverse_edge_dict[node2] = [[node1, label]]
 
-
-
+  
         bfs(node_dict, edge_dict, reverse_edge_dict)
         
         
-                
-        name = workload+'_'+datatype+'_'+operation+'_batch'+str(ba)
-        plot(graph, name, node_dict, edge_dict)
+
+        opt_mod = Model(name='linear program')
+        x = opt_mod.addVar(name='x', vtype=GRB.INTEGER, lb=0)
+        y = opt_mod.addVar(name='y', vtype=GRB.INTEGER, lb=0)
+
+
+        obj_fn = 5*x + 4*y
+        opt_mod.setObjective(obj_fn, GRB.MINIMIZE)
+
+        c1 = opt_mod.addConstr(x + y >= 8.8, name='c1')
+        c1 = opt_mod.addConstr(2*x + y >= 10.22, name='c2')
+        c1 = opt_mod.addConstr(x + 4*y >= 11.998, name='c3')
+
+
+        opt_mod.optimize()
+        opt_mod.write('linear_model.lp')
+
+
+        print('objective value:', opt_mod.objVal)
+        for v in opt_mod.getVars():
+            print(v.varName, v.x)
+            
+            
+            
+            
+        w = [4,2,5,4,5,1,3,5]
+        v = [10,5,18,12,15,1,2,8]
+        N = len(w)
+        C = 15
+
+        model = Model('knapsack')
+
+        x = model.addVars(N, vtype=GRB.BINARY, name='x')
+        model.addConstr(sum(w[i]*x[i] for i in range(N)) <= C)
+        obj = sum(v[i]*x[i] for i in range(N))
+        model.setObjective(obj, GRB.MAXIMIZE)
+
+        model.optimize()
+
+        print('objective value:', model.objVal)
+        for v in model.getVars():
+            print(v.varName, v.x)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
