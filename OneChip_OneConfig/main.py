@@ -282,7 +282,6 @@ if __name__ == '__main__':
     STAGES = 6 # number of data
     FREQ = 1.25 # GHz
     DRAM_BW = 2039 # GB/s
-    LINKS = 3
     
     
     
@@ -522,7 +521,7 @@ if __name__ == '__main__':
                     
                     
             if layer_type == 'gemm':
-                flop += m * k * n * 9
+                flop += m * k * n * 7
             elif layer_type == 'loss':
                 flop += m * n
             else:
@@ -567,7 +566,6 @@ if __name__ == '__main__':
         for i in range(total_permutations):
         
             tmp_node_dict = copy.deepcopy(node_dict)
-            noc_bw_used = 0
             for j in range(0, total_layer):
                 lanes_par = permutations[i][j][0]
                 stages_par = permutations[i][j][1]
@@ -584,25 +582,18 @@ if __name__ == '__main__':
                                     par_factor = math.ceil(LANES * lanes_par / LANES)
                                     incoming_buffer_node.update_buffer_partitioning(par_factor, node.name)
                                     add_node(tmp_node_dict, incoming_buffer_node)
-                                    noc_bw_used += lanes_par
                                     
                                 elif label == 'stages':
                                     incoming_buffer_node = tmp_node_dict[upstream_buffer][0]
                                     par_factor = math.ceil(STAGES * stages_par / LANES)
                                     incoming_buffer_node.update_buffer_partitioning(par_factor, node.name)
                                     add_node(tmp_node_dict, incoming_buffer_node)
-                                    noc_bw_used += stages_par
                                     
                                 else:
                                     raise Exception('Wrong label type!')
                                     
                             
                             
-                                
-                                
-                            if node.name in edge_dict.keys():
-                                for downstream_buffer, label in edge_dict[node.name]:
-                                    noc_bw_used += 1
                                         
                             
             
@@ -655,27 +646,16 @@ if __name__ == '__main__':
                 for _, [node, _] in tmp_node_dict.items():
                     if isinstance(node, tcompute):
                         if node.name.startswith('weightUpdate'):
-                            noc_bw_used += final_replicate
                             node.cycles *= 2
                                
                  
 
 
 
-                 
-            bisectional_bw = (pcu_used + pmu_used)**0.5 * LINKS
-            noc_load = noc_bw_used / bisectional_bw
-            
-            if noc_load <= 1:
-                noc_slowdown = 1
-            else:
-                noc_slowdown = noc_load
-                
-                
                 
 
             
-            ns = get_cycles(tmp_node_dict, total_layer) * noc_slowdown / FREQ
+            ns = get_cycles(tmp_node_dict, total_layer) / FREQ
             # need to get all from_DRAM
             B_from_dram = tmp_node_dict['in1'][0].tenor_size * final_replicate
             dram_bw_usage = B_from_dram / ns
@@ -697,8 +677,6 @@ if __name__ == '__main__':
                 tmp_final_replicate = final_replicate
                 tmp_pcu_used = pcu_used
                 tmp_pmu_used = pmu_used
-                tmp_noc_load = noc_load
-                tmp_noc_slowdown = noc_slowdown
                 tmp_ns_per_sample = ns_per_sample
                 tmp_oi = oi
                 tmp_gflops = gflops
@@ -719,8 +697,6 @@ if __name__ == '__main__':
         print('final_replicate', tmp_final_replicate)
         print('pcu_used', tmp_pcu_used)
         print('pmu_used', tmp_pmu_used)
-        print('noc_load', tmp_noc_load)
-        print('noc_slowdown', tmp_noc_slowdown)
         print('ns_per_sample', tmp_ns_per_sample)
         print('oi', oi)
         print('max_gflops', max_gflops)
