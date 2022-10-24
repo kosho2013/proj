@@ -252,7 +252,7 @@ if __name__ == '__main__':
 
     
     workload = 'pixelfly_block16'
-    datatype = 'bf16'
+    datatype = 'BF16'
     
     
     
@@ -477,55 +477,37 @@ if __name__ == '__main__':
         bfs(node_dict, edge_dict, reverse_edge_dict)
         
         
+        
+        plot(graph, 'aaa', node_dict, edge_dict)
+        
+        
+        
+        
+        
+        
+        
 
-        opt_mod = Model(name='linear program')
-        x = opt_mod.addVar(name='x', vtype=GRB.INTEGER, lb=0)
-        y = opt_mod.addVar(name='y', vtype=GRB.INTEGER, lb=0)
+        model = Model(name='OneChip_MultiConfig')
+        x = model.addVar(name='x', vtype=GRB.INTEGER, lb=0)
+        y = model.addVar(name='y', vtype=GRB.INTEGER, lb=0)
 
 
         obj_fn = 5*x + 4*y
-        opt_mod.setObjective(obj_fn, GRB.MINIMIZE)
+        model.setObjective(obj_fn, GRB.MINIMIZE)
 
-        c1 = opt_mod.addConstr(x + y >= 8.8, name='c1')
-        c1 = opt_mod.addConstr(2*x + y >= 10.22, name='c2')
-        c1 = opt_mod.addConstr(x + 4*y >= 11.998, name='c3')
+        c1 = model.addConstr(x + y >= 8.8, name='c1')
+        c1 = model.addConstr(2*x + y >= 10.22, name='c2')
+        c1 = model.addConstr(x + 4*y >= 11.998, name='c3')
 
-
-        opt_mod.optimize()
-        opt_mod.write('linear_model.lp')
-
-
-        print('objective value:', opt_mod.objVal)
-        for v in opt_mod.getVars():
-            print(v.varName, v.x)
-            
-            
-            
-            
-        w = [4,2,5,4,5,1,3,5]
-        v = [10,5,18,12,15,1,2,8]
-        N = len(w)
-        C = 15
-
-        model = Model('knapsack')
-
-        x = model.addVars(N, vtype=GRB.BINARY, name='x')
-        model.addConstr(sum(w[i]*x[i] for i in range(N)) <= C)
-        obj = sum(v[i]*x[i] for i in range(N))
-        model.setObjective(obj, GRB.MAXIMIZE)
 
         model.optimize()
+
 
         print('objective value:', model.objVal)
         for v in model.getVars():
             print(v.varName, v.x)
-
-
-
-
-
-
-
+            
+            
 
 
 
