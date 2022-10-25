@@ -183,17 +183,6 @@ def bfs(node_dict, edge_dict, reverse_edge_dict):
 
 
 
-
-def count(node_dict):
-    pcu = 0
-    pmu = 0
-    for key in node_dict.keys():
-        if isinstance(node_dict[key][0], tcompute):
-            pcu += node_dict[key][0].num
-        elif isinstance(node_dict[key][0], tbuffer):
-            pmu += node_dict[key][0].num
-    return pcu, pmu
-    
     
 def check_layer_num(node):
     for i in range(len(node.name)):
@@ -274,8 +263,7 @@ if __name__ == '__main__':
     LANES = int(LANES / word) # number of data
     STAGES = 6 # number of data
     FREQ = 1.25 # GHz
-    DRAM_BW = 2039 # GB/s
-    LINKS = 3
+    DRAM_BW = 2039.0 # GB/s
     
     
     
@@ -318,7 +306,7 @@ if __name__ == '__main__':
             
         
 
-        
+        flop = 0
         # forward loop
         for i in range(1, total_layer+1):
             layer = layer_dict[i]
@@ -386,6 +374,8 @@ if __name__ == '__main__':
                 else:
                     raise Exception('Wrong from_dram!')
                 
+                flop += m * k * n * 9
+                
             elif layer_type == 'loss':
                 f_compute = tcompute('loss'+str(layer_num), m, k, n, 1, 1, -1) 
                 add_node(node_dict, f_compute)
@@ -396,11 +386,13 @@ if __name__ == '__main__':
                 add_node(node_dict, dataGradient_tbuffer)
                 add_edge(edge_dict, f_compute.name, dataGradient_tbuffer.name, 'lanes')
                     
+                flop += m * n
                 
             else:
                 raise Exception('Wrong layer_type!')
                 
                 
+        
         
         
         # backward loop
@@ -479,6 +471,51 @@ if __name__ == '__main__':
         
         
         plot(graph, 'aaa', node_dict, edge_dict)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        Nb = 0
+        Nc = 0
+        Nd = 0
+        for key in node_dict.keys():
+            node = node_dict[key][0]
+            if isinstance(node, tcompute):
+                Nc += 1
+            elif isinstance(node, tbuffer):
+                if node.name in reverse_edge_dict.keys():
+                    Nb += 1
+                else:
+                    Nd += 1
+    
+    
+        
+    
+        
+        
+        PCU_lim = PCU
+        PMU_lim = PMU
+        Cap = CAPACITY
+        VecWidth = LANES
+        StageWidth = STAGES
+        DRAM_BW = DRAM_BW
+        Freq = FREQ
+        FLOP = flop
+        Input = node_dict['in1'][0].tenor_size
+        
+        print(Nb, Nc, Nd, FLOP, Input, "xxxxxxxxxxxxxxxxxxxxxx")
+        
+        
+        
+        
+        
+        
+        
         
         
         
