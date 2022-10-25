@@ -521,7 +521,7 @@ if __name__ == '__main__':
                     
                     
             if layer_type == 'gemm':
-                flop += m * k * n * 7
+                flop += m * k * n * 9
             elif layer_type == 'loss':
                 flop += m * n
             else:
