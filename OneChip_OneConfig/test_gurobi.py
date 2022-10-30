@@ -1,4 +1,3 @@
-from gurobipy import *
 import yaml
 import pandas as pd
 import pydot
@@ -7,6 +6,7 @@ import copy
 import argparse
 import pprint
 import sys
+
 
 class tbuffer:
     def __init__(self, name, tenor_size):
@@ -85,7 +85,7 @@ def add_node(node_dict, node):
         label = 'name: '+str(node.name)+'\n'+'tenor_size: '+str(node.tenor_size)+'\n'+'num: '+str(node.num)+'\n'
         
         for key, [d, part] in node.downstream_dict.items():            
-            label += key+', d: '+str(d)+', part'+str(part)+'\n'
+            label += key+', d: '+str(d)+', part: '+str(part)+'\n'
         
         pydot_node = pydot.Node(node.name, style="filled", fillcolor="green", label=label)
         node_dict[node.name] = [node, pydot_node]
@@ -183,6 +183,17 @@ def bfs(node_dict, edge_dict, reverse_edge_dict):
 
 
 
+
+def count(node_dict):
+    pcu = 0
+    pmu = 0
+    for key in node_dict.keys():
+        if isinstance(node_dict[key][0], tcompute):
+            pcu += node_dict[key][0].num
+        elif isinstance(node_dict[key][0], tbuffer):
+            pmu += node_dict[key][0].num
+    return pcu, pmu
+    
     
 def check_layer_num(node):
     for i in range(len(node.name)):
@@ -234,6 +245,8 @@ def convert(tmp, ba):
         return value
     else:
         return tmp
+        
+        
         
     
 if __name__ == '__main__':
@@ -479,23 +492,68 @@ if __name__ == '__main__':
         
         
         
-        
+                
         Nb = 0
+        Nb_cin = []
+        Nb_cout = []
+        Nb_dim = []
+        TSb = []
+        
         Nc = 0
+        mkn = {}
+        Nc_name = []
+        M = []
+        K = []
+        N = []
+        
         Nd = 0
+        Nd_cout = []
+        TSd = []
+        
         for key in node_dict.keys():
             node = node_dict[key][0]
             if isinstance(node, tcompute):
+                if node.topo_num in mkn.keys():
+                    mkn[node.topo_num].append((node.name, node.m, node.k, node.n))
+                else:
+                    mkn[node.topo_num] = [(node.name, node.m, node.k, node.n)]
                 Nc += 1
+                
             elif isinstance(node, tbuffer):
                 if node.name in reverse_edge_dict.keys():
-                    Nb += 1
+                    for key, _ in node.downstream_dict.items():
+                        if key != ' ':
+                            Nb += 1
+                            Nb_cin.append(reverse_edge_dict[node.name][0][0])
+                            Nb_cout.append(key)
+                            
+                            for next_node, dim in edge_dict[node.name]:
+                                if next_node == key:
+                                    Nb_dim.append(dim)
+                            
+                            TSb.append(node.tenor_size)
+                        
                 else:
-                    Nd += 1
-    
+                    for key, _ in node.downstream_dict.items():
+                        Nd += 1
+                        Nd_cout.append(key)
+                        TSd.append(node.tenor_size)
     
         
-    
+        for i in range(Nc):
+            if i in mkn.keys():
+                for value in mkn[i]:
+                    Nc_name.append(value[0])
+                    M.append(value[1])
+                    K.append(value[2])
+                    N.append(value[3])
+        
+        
+
+
+
+        
+        
         
         
         PCU_lim = PCU
@@ -507,8 +565,35 @@ if __name__ == '__main__':
         Freq = FREQ
         FLOP = flop
         Input = node_dict['in1'][0].tenor_size
+        C = 5
         
-        print(Nb, Nc, Nd, FLOP, Input, "xxxxxxxxxxxxxxxxxxxxxx")
+        
+        print('PCU_lim', PCU_lim)
+        print('PMU_lim', PMU_lim)
+        print('Cap', Cap)
+        print('VecWidth', VecWidth)
+        print('StageWidth', StageWidth)
+        print('Freq', Freq)
+        print('FLOP', FLOP)
+        print('Input', Input)
+        print('C', C)
+        
+        print('Nb', Nb)
+        print('Nb_cin', Nb_cin)
+        print('Nb_cout', Nb_cout)
+        print('Nb_dim', Nb_dim)
+        print('TSb', TSb)
+        print('Nc', Nc)
+        print('Nc_name', Nc_name)
+        print('M', M)
+        print('K', K)
+        print('N', N)
+        print('Nd', Nd)
+        print('Nd_cout', Nd_cout)
+        print('TSd', TSd)
+        
+        
+        
         
         
         
@@ -524,25 +609,25 @@ if __name__ == '__main__':
         
         
 
-        model = Model(name='OneChip_MultiConfig')
-        x = model.addVar(name='x', vtype=GRB.INTEGER, lb=0)
-        y = model.addVar(name='y', vtype=GRB.INTEGER, lb=0)
+        # model = Model(name='OneChip_MultiConfig')
+        # x = model.addVar(name='x', vtype=GRB.INTEGER, lb=0)
+        # y = model.addVar(name='y', vtype=GRB.INTEGER, lb=0)
 
 
-        obj_fn = 5*x + 4*y
-        model.setObjective(obj_fn, GRB.MINIMIZE)
+        # obj_fn = 5*x + 4*y
+        # model.setObjective(obj_fn, GRB.MINIMIZE)
 
-        c1 = model.addConstr(x + y >= 8.8, name='c1')
-        c1 = model.addConstr(2*x + y >= 10.22, name='c2')
-        c1 = model.addConstr(x + 4*y >= 11.998, name='c3')
-
-
-        model.optimize()
+        # c1 = model.addConstr(x + y >= 8.8, name='c1')
+        # c1 = model.addConstr(2*x + y >= 10.22, name='c2')
+        # c1 = model.addConstr(x + 4*y >= 11.998, name='c3')
 
 
-        print('objective value:', model.objVal)
-        for v in model.getVars():
-            print(v.varName, v.x)
+        # model.optimize()
+
+
+        # print('objective value:', model.objVal)
+        # for v in model.getVars():
+            # print(v.varName, v.x)
             
             
 

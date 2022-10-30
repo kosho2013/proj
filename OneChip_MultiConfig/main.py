@@ -86,7 +86,7 @@ def add_node(node_dict, node):
         label = 'name: '+str(node.name)+'\n'+'tenor_size: '+str(node.tenor_size)+'\n'+'num: '+str(node.num)+'\n'
         
         for key, [d, part] in node.downstream_dict.items():            
-            label += key+', d: '+str(d)+', part'+str(part)+'\n'
+            label += key+', d: '+str(d)+', part: '+str(part)+'\n'
         
         pydot_node = pydot.Node(node.name, style="filled", fillcolor="green", label=label)
         node_dict[node.name] = [node, pydot_node]
@@ -248,9 +248,6 @@ def convert(tmp, ba):
         return tmp
         
     
-    
-    
-    
 
 
 
@@ -261,7 +258,6 @@ def convert(tmp, ba):
 if __name__ == '__main__':
 
 
-    
     parser = argparse.ArgumentParser(description='Optional app description')
     parser.add_argument('--workload', type=str)
     parser.add_argument('--datatype', type=str)
@@ -293,8 +289,7 @@ if __name__ == '__main__':
     LANES = int(LANES / word) # number of data
     STAGES = 6 # number of data
     FREQ = 1.25 # GHz
-    DRAM_BW = 2039 # GB/s
-    LINKS = 3
+    DRAM_BW = 2039.0 # GB/s
     
     
     
