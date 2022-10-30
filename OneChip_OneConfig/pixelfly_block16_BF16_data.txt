@@ -2,13 +2,13 @@ batch 1 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 81.92
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 92.30422535211268
 oi 144.5
 max_gflops 294635.5
-gflops 14450.0
+gflops 12824.375
 
 
 total_permutations: 1
@@ -21,13 +21,13 @@ batch 2 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 40.96
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 46.15211267605634
 oi 144.5
 max_gflops 294635.5
-gflops 28900.0
+gflops 25648.75
 
 
 total_permutations: 1
@@ -40,13 +40,13 @@ batch 4 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 20.48
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 23.07605633802817
 oi 144.5
 max_gflops 294635.5
-gflops 57800.0
+gflops 51297.5
 
 
 total_permutations: 1
@@ -59,13 +59,13 @@ batch 8 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 10.24
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 11.538028169014085
 oi 144.5
 max_gflops 294635.5
-gflops 115600.0
+gflops 102595.0
 
 
 total_permutations: 1
@@ -78,13 +78,13 @@ batch 16 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 7.68
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 8.653521126760563
 oi 144.5
 max_gflops 294635.5
-gflops 154133.33333333334
+gflops 136793.33333333334
 
 
 total_permutations: 1
@@ -97,13 +97,13 @@ batch 32 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 7.68
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 8.653521126760563
 oi 144.5
 max_gflops 294635.5
-gflops 154133.33333333334
+gflops 136793.33333333334
 
 
 total_permutations: 1

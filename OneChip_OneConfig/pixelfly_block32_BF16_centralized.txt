@@ -4,7 +4,7 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 9
+pmu_used 10
 ns_per_sample 6553.6
 oi 288.5
 max_gflops 307200.0
@@ -23,7 +23,7 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 9
+pmu_used 10
 ns_per_sample 3276.8
 oi 288.5
 max_gflops 307200.0
@@ -42,7 +42,7 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 9
+pmu_used 10
 ns_per_sample 1638.4
 oi 288.5
 max_gflops 307200.0
@@ -61,7 +61,7 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 9
+pmu_used 10
 ns_per_sample 1638.4
 oi 288.5
 max_gflops 307200.0
@@ -80,7 +80,7 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 9
+pmu_used 10
 ns_per_sample 1228.8
 oi 288.5
 max_gflops 307200.0
@@ -99,7 +99,7 @@ config [[1, 1], [1, 1]]
 limiting_factor PCU/PMU on-chip without replicate
 final_replicate 1
 pcu_used 5
-pmu_used 9
+pmu_used 10
 ns_per_sample 1228.8
 oi 288.5
 max_gflops 307200.0

@@ -16,7 +16,13 @@ class tbuffer:
         self.num = 0
         
     def update_depth(self, depth, downstream_buffer_name):
-        self.downstream_dict[downstream_buffer_name] = [depth, -1]
+        self.downstream_dict[downstream_buffer_name] = [depth, 1]
+        
+        self.num = 0
+        for key in self.downstream_dict.keys():
+            d = self.downstream_dict[key][0]
+            part = self.downstream_dict[key][1]
+            self.num += math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
     
     def update_buffer_partitioning(self, partition, downstream_buffer_name):
         self.downstream_dict[downstream_buffer_name][1] = partition

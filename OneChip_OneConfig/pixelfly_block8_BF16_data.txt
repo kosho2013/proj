@@ -2,13 +2,13 @@ batch 1 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 40.96
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 46.15211267605634
 oi 72.5
 max_gflops 147827.5
-gflops 14500.0
+gflops 12868.75
 
 
 total_permutations: 1
@@ -21,13 +21,13 @@ batch 2 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 20.48
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 23.07605633802817
 oi 72.5
 max_gflops 147827.5
-gflops 29000.0
+gflops 25737.5
 
 
 total_permutations: 1
@@ -40,13 +40,13 @@ batch 4 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 10.24
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 11.538028169014085
 oi 72.5
 max_gflops 147827.5
-gflops 58000.0
+gflops 51475.0
 
 
 total_permutations: 1
@@ -59,13 +59,13 @@ batch 8 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 5.12
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 5.769014084507043
 oi 72.5
 max_gflops 147827.5
-gflops 116000.0
+gflops 102950.0
 
 
 total_permutations: 1
@@ -77,14 +77,14 @@ valid: 1
 batch 16 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
-limiting_factor DRAM BW saturates
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 4.017655713585091
+limiting_factor PMU saturates after replicate
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 4.326760563380281
 oi 72.5
 max_gflops 147827.5
-gflops 147827.5
+gflops 137266.6666666667
 
 
 total_permutations: 1
@@ -96,14 +96,14 @@ valid: 1
 batch 32 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
-limiting_factor DRAM BW saturates
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 4.017655713585091
+limiting_factor PMU saturates after replicate
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 4.326760563380281
 oi 72.5
 max_gflops 147827.5
-gflops 147827.5
+gflops 137266.6666666667
 
 
 total_permutations: 1

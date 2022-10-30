@@ -2,13 +2,13 @@ batch 1 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 10.24
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 11.538028169014085
 oi 18.5
 max_gflops 37721.5
-gflops 14800.0
+gflops 13135.0
 
 
 total_permutations: 1
@@ -21,13 +21,13 @@ batch 2 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor PMU saturates after replicate
-final_replicate 80
-pcu_used 400
-pmu_used 640
-ns_per_sample 5.12
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 5.769014084507043
 oi 18.5
 max_gflops 37721.5
-gflops 29600.0
+gflops 26270.0
 
 
 total_permutations: 1
@@ -40,9 +40,9 @@ batch 4 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor DRAM BW saturates
-final_replicate 80
-pcu_used 400
-pmu_used 640
+final_replicate 71
+pcu_used 355
+pmu_used 639
 ns_per_sample 4.017655713585091
 oi 18.5
 max_gflops 37721.5
@@ -59,9 +59,9 @@ batch 8 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor DRAM BW saturates
-final_replicate 80
-pcu_used 400
-pmu_used 640
+final_replicate 71
+pcu_used 355
+pmu_used 639
 ns_per_sample 4.017655713585091
 oi 18.5
 max_gflops 37721.5
@@ -78,9 +78,9 @@ batch 16 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor DRAM BW saturates
-final_replicate 80
-pcu_used 400
-pmu_used 640
+final_replicate 71
+pcu_used 355
+pmu_used 639
 ns_per_sample 4.017655713585091
 oi 18.5
 max_gflops 37721.5
@@ -97,9 +97,9 @@ batch 32 ***********************
 best mapping:
 config [[1, 1], [1, 1]]
 limiting_factor DRAM BW saturates
-final_replicate 80
-pcu_used 400
-pmu_used 640
+final_replicate 71
+pcu_used 355
+pmu_used 639
 ns_per_sample 4.017655713585091
 oi 18.5
 max_gflops 37721.5
