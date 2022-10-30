@@ -508,6 +508,7 @@ if __name__ == '__main__':
         
         Nd = 0
         Nd_cout = []
+        Nd_dim = []
         TSd = []
         
         for key in node_dict.keys():
@@ -537,6 +538,11 @@ if __name__ == '__main__':
                     for key, _ in node.downstream_dict.items():
                         Nd += 1
                         Nd_cout.append(key)
+                        
+                        for next_node, dim in edge_dict[node.name]:
+                            if next_node == key:
+                                Nd_dim.append(dim)
+                        
                         TSd.append(node.tenor_size)
     
         
@@ -590,6 +596,7 @@ if __name__ == '__main__':
         print('N', N)
         print('Nd', Nd)
         print('Nd_cout', Nd_cout)
+        print('Nd_dim', Nd_dim)
         print('TSd', TSd)
         
         
