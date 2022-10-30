@@ -1,0 +1,114 @@
+batch 1 ***********************
+best mapping:
+config [[128, 1], [16, 1]]
+limiting_factor PCU/PMU on-chip without replicate
+final_replicate 1
+pcu_used 528
+pmu_used 532
+ns_per_sample 6.4
+oi 36.5
+max_gflops 74423.5
+gflops 46720.0
+
+
+total_permutations: 16384
+invalid_resources: 4
+valid: 16380
+
+
+
+batch 2 ***********************
+best mapping:
+config [[128, 1], [26, 1]]
+limiting_factor DRAM BW saturates
+final_replicate 1
+pcu_used 538
+pmu_used 542
+ns_per_sample 4.017655713585091
+oi 36.5
+max_gflops 74423.5
+gflops 74423.5
+
+
+total_permutations: 32768
+invalid_resources: 2244
+valid: 30524
+
+
+
+batch 4 ***********************
+best mapping:
+config [[64, 1], [26, 1]]
+limiting_factor DRAM BW saturates
+final_replicate 1
+pcu_used 282
+pmu_used 286
+ns_per_sample 4.017655713585091
+oi 36.5
+max_gflops 74423.5
+gflops 74423.5
+
+
+total_permutations: 65536
+invalid_resources: 19012
+valid: 46524
+
+
+
+batch 8 ***********************
+best mapping:
+config [[26, 2], [26, 1]]
+limiting_factor DRAM BW saturates
+final_replicate 1
+pcu_used 234
+pmu_used 134
+ns_per_sample 4.017655713585091
+oi 36.5
+max_gflops 74423.5
+gflops 74423.5
+
+
+total_permutations: 262144
+invalid_resources: 188480
+valid: 73664
+
+
+
+batch 16 ***********************
+best mapping:
+config [[26, 2], [26, 1]]
+limiting_factor DRAM BW saturates
+final_replicate 1
+pcu_used 234
+pmu_used 134
+ns_per_sample 4.017655713585091
+oi 36.5
+max_gflops 74423.5
+gflops 74423.5
+
+
+total_permutations: 786432
+invalid_resources: 696020
+valid: 90412
+
+
+
+batch 32 ***********************
+best mapping:
+config [[26, 2], [26, 1]]
+limiting_factor DRAM BW saturates
+final_replicate 1
+pcu_used 234
+pmu_used 134
+ns_per_sample 4.017655713585091
+oi 36.5
+max_gflops 74423.5
+gflops 74423.5
+
+
+total_permutations: 3145728
+invalid_resources: 3024700
+valid: 121028
+
+
+
