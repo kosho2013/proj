@@ -1,4 +1,4 @@
-from gurobipy import *
+import gurobipy as gp
 import yaml
 import pandas as pd
 import pydot
@@ -7,6 +7,7 @@ import copy
 import argparse
 import pprint
 import sys
+import numpy as np
 
 
 class tbuffer:
@@ -32,7 +33,8 @@ class tbuffer:
         for key in self.downstream_dict.keys():
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
-            self.num += math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part            
+            self.num += math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            
             
 class tcompute:
     def __init__(self, name, m, k, n, lanes_par, stages_par, topo_num): 
@@ -252,37 +254,16 @@ def convert(tmp, ba):
     else:
         return tmp
         
-    
-
-
-
         
         
-                
     
 if __name__ == '__main__':
 
 
-    parser = argparse.ArgumentParser(description='Optional app description')
-    parser.add_argument('--workload', type=str)
-    parser.add_argument('--datatype', type=str)
-    parser.add_argument('--operation', type=str)
-    args = parser.parse_args()
     
-    
-    workload = args.workload
-    datatype = args.datatype
-    operation = args.operation
-    
-    
-    
-    if datatype == 'BF16' or datatype == 'FP16':
-        word = 2 # B
-    elif datatype == 'FP32':
-        word = 4 # B
-    else:
-        raise Exception('Wrong datatype type!')
-    
+    workload = 'resnet18'
+    datatype = 'BF16'
+    word = 2
     
         
         
@@ -312,13 +293,11 @@ if __name__ == '__main__':
     
     
     
-    
 
 
 
 
-
-    batch = [32]
+    batch = [2]
     
     for ba in batch:
         print('batch', ba, '***********************')
@@ -539,7 +518,6 @@ if __name__ == '__main__':
         
         
                 
-        name = workload+'_'+datatype+'_'+operation+'_batch'+str(ba)
-        plot(graph, name, node_dict, edge_dict)
+        plot(graph, 'aaa', node_dict, edge_dict)
 
 

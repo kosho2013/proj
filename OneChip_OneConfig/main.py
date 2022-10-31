@@ -1,3 +1,4 @@
+import gurobipy as gp
 import yaml
 import pandas as pd
 import pydot
@@ -6,6 +7,8 @@ import copy
 import argparse
 import pprint
 import sys
+import numpy as np
+
 
 class tbuffer:
     def __init__(self, name, tenor_size):
@@ -31,6 +34,7 @@ class tbuffer:
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
             self.num += math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            
             
 class tcompute:
     def __init__(self, name, m, k, n, lanes_par, stages_par, topo_num): 
@@ -250,6 +254,7 @@ def convert(tmp, ba):
     else:
         return tmp
         
+        
     
 if __name__ == '__main__':
 
@@ -310,7 +315,7 @@ if __name__ == '__main__':
 
 
 
-    batch = [1, 2, 4, 8, 16, 32]
+    batch = [32]
     
     for ba in batch:
         print('batch', ba, '***********************')
