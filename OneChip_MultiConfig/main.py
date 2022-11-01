@@ -316,7 +316,7 @@ if __name__ == '__main__':
             
         
 
-        
+        flop = 0
         # forward loop
         for i in range(1, total_layer+1):
             layer = layer_dict[i]
@@ -379,6 +379,9 @@ if __name__ == '__main__':
                     
                 else:
                     raise Exception('Wrong from_dram!')
+                    
+                flop += 9 * m * k * n
+                
             elif layer_type == 'pooling' or layer_type == 'batchnorm' or layer_type == 'add' or layer_type == 'softmax':
                 f_compute = tcompute('forward'+str(layer_num)+'_'+layer_type, m, k, n, 1, 1, -1)
                 add_node(node_dict, f_compute)
@@ -393,6 +396,7 @@ if __name__ == '__main__':
                 add_node(node_dict, out_tbuffer)
                 add_edge(edge_dict, f_compute.name, out_tbuffer.name, 'lanes')
                 
+                flop += m * n
             
             elif layer_type == 'loss':
                 f_compute = tcompute('forward'+str(layer_num)+'_'+layer_type, m, k, n, 1, 1, -1) 
@@ -404,6 +408,7 @@ if __name__ == '__main__':
                 add_node(node_dict, dataGradient_tbuffer)
                 add_edge(edge_dict, f_compute.name, dataGradient_tbuffer.name, 'lanes')
                     
+                flop += m * n
                 
             else:
                 raise Exception('Wrong layer_type!')

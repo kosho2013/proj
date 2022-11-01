@@ -18,12 +18,14 @@ class tbuffer:
         self.num = 0
         
     def update_depth(self, depth, downstream_buffer_name):
-        self.downstream_dict[downstream_buffer_name] = [depth, 1]
+        self.downstream_dict[downstream_buffer_name] = [depth, 1, 0] # d, part, num 
         
         self.num = 0
         for key in self.downstream_dict.keys():
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
+            self.downstream_dict[key][2] = math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            
             self.num += math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
     
     def update_buffer_partitioning(self, partition, downstream_buffer_name):
@@ -33,6 +35,8 @@ class tbuffer:
         for key in self.downstream_dict.keys():
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
+            self.downstream_dict[downstream_buffer_name][2] = math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            
             self.num += math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
             
             
@@ -92,8 +96,8 @@ def add_node(node_dict, node):
     if isinstance(node, tbuffer):
         label = 'name: '+str(node.name)+'\n'+'tenor_size: '+str(node.tenor_size)+'\n'+'num: '+str(node.num)+'\n'
         
-        for key, [d, part] in node.downstream_dict.items():            
-            label += key+', d: '+str(d)+', part: '+str(part)+'\n'
+        for key, [d, part, num] in node.downstream_dict.items():            
+            label += key+', d: '+str(d)+', part: '+str(part)+', num: '+str(num)+'\n'
         
         pydot_node = pydot.Node(node.name, style="filled", fillcolor="green", label=label)
         node_dict[node.name] = [node, pydot_node]
@@ -239,6 +243,7 @@ def get_cycles(node_dict, total_layer):
         
         
         
+        
 def convert(tmp, ba):
     if isinstance(tmp, str):
         value = 1
@@ -259,7 +264,7 @@ if __name__ == '__main__':
 
 
     
-    workload = 'pixelfly_block16'
+    workload = 'pixelfly_block32'
     datatype = 'BF16'
     word = 2
     
@@ -298,7 +303,7 @@ if __name__ == '__main__':
 
 
 
-    batch = [2]
+    batch = [32]
     
     for ba in batch:
         print('batch', ba, '***********************')
@@ -485,11 +490,6 @@ if __name__ == '__main__':
         
         
         
-        
-        
-        
-        
-        
                 
         Nb = 0
         Nb_cin = []
@@ -627,7 +627,7 @@ if __name__ == '__main__':
         Par_lane = model.addMVar(Nc, name='Par_lane', vtype=gp.GRB.INTEGER, lb=1)
         Par_stage = model.addMVar(Nc, name='Par_stage', vtype=gp.GRB.INTEGER, lb=1)
         Par_total = model.addMVar(Nc, name='Par_total', vtype=gp.GRB.INTEGER, lb=1)
-        Ab1 = model.addVars(Nb, C, name='Ab1', vtype=gp.GRB.BINARY)
+        # Ab1 = model.addVars(Nb, C, name='Ab1', vtype=gp.GRB.BINARY)
         # Ab2 = model.addMVar((Nb, C), name='Ab2', vtype=gp.GRB.BINARY)
         # Ab3 = model.addMVar((Nb, C), name='Ab3', vtype=gp.GRB.BINARY)
 
@@ -662,19 +662,19 @@ if __name__ == '__main__':
         
         
         
-        for i in range(Nb):
-            cin_idx = Nc_dict[Nb_cin[i]]
-            cout_idx = Nc_dict[Nb_cout[i]]
+        # for i in range(Nb):
+            # cin_idx = Nc_dict[Nb_cin[i]]
+            # cout_idx = Nc_dict[Nb_cout[i]]
             
-            for j in range(C):
-                model.addConstr((Par_lane[i].tolist()[0] > 3) >> (Par_stage[i].tolist()[0] == 3))
+            # for j in range(C):
+                # model.addConstr((Par_lane[i].tolist()[0] > 3) >> (Par_stage[i].tolist()[0] == 3))
                 
         
         
         
         
         
-        model.setObjective(0, gp.GRB.MINIMIZE)
+        model.setObjective(Config[-1], gp.GRB.MAXIMIZE)
         
         model.optimize()
 
@@ -682,9 +682,6 @@ if __name__ == '__main__':
         print('Obj:', model.objVal)
         for v in model.getVars():
             print(v.varName, v.x)
-        
-        print(Nc_name)
-            
             
 
 
