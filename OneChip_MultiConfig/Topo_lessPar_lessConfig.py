@@ -1,4 +1,3 @@
-import gurobipy as gp
 import yaml
 import pandas as pd
 import pydot
