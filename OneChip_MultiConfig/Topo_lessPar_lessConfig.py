@@ -18,12 +18,14 @@ class tbuffer:
         self.num = 0
         
     def update_depth(self, depth, downstream_buffer_name):
-        self.downstream_dict[downstream_buffer_name] = [depth, 1]
+        self.downstream_dict[downstream_buffer_name] = [depth, 1, 0] # d, part, num 
         
         self.num = 0
         for key in self.downstream_dict.keys():
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
+            self.downstream_dict[key][2] = math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            
             self.num += math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
     
     def update_buffer_partitioning(self, partition, downstream_buffer_name):
@@ -33,6 +35,8 @@ class tbuffer:
         for key in self.downstream_dict.keys():
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
+            self.downstream_dict[downstream_buffer_name][2] = math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            
             self.num += math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
             
             
@@ -92,8 +96,8 @@ def add_node(node_dict, node):
     if isinstance(node, tbuffer):
         label = 'name: '+str(node.name)+'\n'+'tenor_size: '+str(node.tenor_size)+'\n'+'num: '+str(node.num)+'\n'
         
-        for key, [d, part] in node.downstream_dict.items():            
-            label += key+', d: '+str(d)+', part: '+str(part)+'\n'
+        for key, [d, part, num] in node.downstream_dict.items():            
+            label += key+', d: '+str(d)+', part: '+str(part)+', num: '+str(num)+'\n'
         
         pydot_node = pydot.Node(node.name, style="filled", fillcolor="green", label=label)
         node_dict[node.name] = [node, pydot_node]
@@ -232,12 +236,11 @@ def plot(graph, name, node_dict, edge_dict):
                 
 def get_cycles(node_dict, total_layer):   
     cycles = -1
-    for i in range(1, total_layer+1):
-        for _, [node, _] in node_dict.items():
-                if isinstance(node, tcompute):
-                    if check_layer_num(node) == i:
-                        cycles = max(cycles, node.cycles)
+    for _, [node, _] in node_dict.items():
+        if isinstance(node, tcompute):
+            cycles = max(cycles, node.cycles)
     return cycles
+        
         
         
         
@@ -261,7 +264,7 @@ if __name__ == '__main__':
 
 
     
-    workload = 'pixelfly_block16'
+    workload = 'pixelfly_block32'
     datatype = 'BF16'
     word = 2
     
@@ -300,7 +303,7 @@ if __name__ == '__main__':
 
 
 
-    batch = [2]
+    batch = [32]
     
     for ba in batch:
         print('batch', ba, '***********************')
@@ -575,128 +578,152 @@ if __name__ == '__main__':
         Freq = FREQ
         Input = node_dict['in1'][0].tenor_size
         C = 5
+        Flop = flop
         
         
-        print('PCU_lim', PCU_lim)
-        print('PMU_lim', PMU_lim)
-        print('Cap', Cap)
-        print('VecWidth', VecWidth)
-        print('StageWidth', StageWidth)
-        print('Freq', Freq)
-        print('DRAM_BW', DRAM_BW)
-        print('Input', Input)
-        print('C', C)
-        print('Nb', Nb)
-        print('Nb_cin', Nb_cin)
-        print('Nb_cout', Nb_cout)
-        print('Nb_dim', Nb_dim)
-        print('TSb', TSb)
-        print('Nc', Nc)
-        print('Nc_name', Nc_name)
-        print('M', M)
-        print('K', K)
-        print('N', N)
-        print('Nd', Nd)
-        print('Nd_cout', Nd_cout)
-        print('Nd_dim', Nd_dim)
-        print('TSd', TSd)
-        
-        
-        
-        FLOP = flop
+        # print('PCU_lim', PCU_lim)
+        # print('PMU_lim', PMU_lim)
+        # print('Cap', Cap)
+        # print('VecWidth', VecWidth)
+        # print('StageWidth', StageWidth)
+        # print('Freq', Freq)
+        # print('DRAM_BW', DRAM_BW)
+        # print('Input', Input)
+        # print('C', C)
+        # print('Nb', Nb)
+        # print('Nb_cin', Nb_cin)
+        # print('Nb_cout', Nb_cout)
+        # print('Nb_dim', Nb_dim)
+        # print('TSb', TSb)
+        # print('Nc', Nc)
+        # print('Nc_name', Nc_name)
+        # print('M', M)
+        # print('K', K)
+        # print('N', N)
+        # print('Nd', Nd)
+        # print('Nd_cout', Nd_cout)
+        # print('Nd_dim', Nd_dim)
+        # print('TSd', TSd)
         
         
         
         
         
         
-
-
-
+        configs = []
         
         
         
         
-
-        model = gp.Model()
-        model.params.NonConvex = 2
+        curr_config = []
+        PCU_used = 0
+        PMU_used = 0
         
         
         
         
-        Config = model.addMVar(Nc, name='Config', vtype=gp.GRB.INTEGER, lb=0)
-        Ac = model.addMVar((Nc, C), name='Ac', vtype=gp.GRB.BINARY)
-        Par_lane = model.addMVar(Nc, name='Par_lane', vtype=gp.GRB.INTEGER, lb=1)
-        Par_stage = model.addMVar(Nc, name='Par_stage', vtype=gp.GRB.INTEGER, lb=1)
-        Par_total = model.addMVar(Nc, name='Par_total', vtype=gp.GRB.INTEGER, lb=1)
-        Ab1 = model.addVars(Nb, C, name='Ab1', vtype=gp.GRB.BINARY)
-        # Ab2 = model.addMVar((Nb, C), name='Ab2', vtype=gp.GRB.BINARY)
-        # Ab3 = model.addMVar((Nb, C), name='Ab3', vtype=gp.GRB.BINARY)
-
-
         
-        t1 = np.ones((C))
-        for i in range(Nc):
-            model.addConstr(Ac[i, :] @ t1 == 1)
+        for i in range(0, len(Nc_name)):
+            additional_PCU = 0
+            additional_PMU = 0
             
-        
-        t2 = np.zeros((C))
-        for i in range(C):
-            t2[i] = i
-        for i in range(Nc):
-            model.addConstr(Ac[i, :] @ t2 == Config[i])
-
-    
-        
-        for i in range(Nb):
-            cin_idx = Nc_dict[Nb_cin[i]]
-            cout_idx = Nc_dict[Nb_cout[i]]
-        
-            model.addConstr(Config[cin_idx] <= Config[cout_idx])
-        
-        
-        
-        for i in range(Nc):
-            model.addConstr(Par_lane[i] @ Par_stage[i] == Par_total[i])
-        for i in range(C):
-            model.addConstr(Par_total @ Ac[:, i] <= PCU_lim)
-        
-        
-        
-        
-        for i in range(Nb):
-            cin_idx = Nc_dict[Nb_cin[i]]
-            cout_idx = Nc_dict[Nb_cout[i]]
             
-            for j in range(C):
-                model.addConstr((Config[cin_idx].tolist()[0] == j) >> (Ab1[i, j] == 1))
+            node = Nc_name[i]
+            lanes_par = 1
+            stages_par = 1
+            node_dict[node][0].update_compute_stitching(lanes_par, stages_par)
+            add_node(node_dict, node_dict[node][0])
+            additional_PCU = node_dict[node][0].num
+            
+            for upstream_buffer, label in reverse_edge_dict[node]:
+                if label == 'lanes':
+                    incoming_buffer_node = node_dict[upstream_buffer][0]
+                    par_factor = math.ceil(LANES * lanes_par / LANES)
+                    incoming_buffer_node.update_buffer_partitioning(par_factor, node)
+                    add_node(node_dict, incoming_buffer_node)
+                    additional_PMU += incoming_buffer_node.downstream_dict[node][2]
+                    
+                elif label == 'stages':
+                    incoming_buffer_node = node_dict[upstream_buffer][0]
+                    par_factor = math.ceil(STAGES * stages_par / LANES)
+                    incoming_buffer_node.update_buffer_partitioning(par_factor, node)
+                    add_node(node_dict, incoming_buffer_node)
+                    additional_PMU += incoming_buffer_node.downstream_dict[node][2]
+            
+            
+            print(node, additional_PCU, additional_PMU)
+            
+            if PCU_used + additional_PCU <= PCU_lim and PMU_used + additional_PMU <= PMU_lim:
+                curr_config.append(node)
+                PCU_used += additional_PCU
+                PMU_used += additional_PMU
+            else:
+                configs.append(curr_config)
+                curr_config = [node]
+                PCU_used = additional_PCU
+                PMU_used = additional_PMU
+                    
+                    
+        configs.append(curr_config)
+        curr_config = []
+        
+        
+        config_dict = {}
+        for i in range(len(configs)):
+            for node in configs[i]:
+                config_dict[node] = i
+        
+        
+        cycles = []
+        for config in configs:
+            cycle = -1
+            for node in config:
+                cycle = max(cycle, node_dict[node][0].cycles)
+            
+            cycles.append(cycle)
+        
+        
+        from_DRAM = [0 for i in range(len(configs))]
+        to_DRAM = [0 for i in range(len(configs))]
+        
+        for i in range(len(Nb_cin)):
+            if config_dict[Nb_cin[i]] != config_dict[Nb_cout[i]]:
+                from_DRAM[config_dict[Nb_cout[i]]] += TSb[i]
+                to_DRAM[config_dict[Nb_cin[i]]] += TSb[i]
+                
                 
         
+        from_DRAM[0] += Input
         
         
+        for i in range(len(from_DRAM)):
+            cycles[i] = max(cycles[i] / Freq, (from_DRAM[i] + to_DRAM[i]) / DRAM_BW)
         
+        latency = sum(cycles)
+        throughput = Flop / latency
         
-        model.setObjective(0, gp.GRB.MINIMIZE)
+        OI = Flop / (sum(from_DRAM + to_DRAM))
+        max_gflops = min(DRAM_BW * OI, 2 * PCU_lim * LANES * STAGES * Freq)
         
-        model.optimize()
-
-
-        print('Obj:', model.objVal)
-        for v in model.getVars():
-            print(v.varName, v.x)
+        print('configs', configs)
+        print('config_dict', config_dict)
+        print('from_DRAM', from_DRAM)
+        print('to_DRAM', to_DRAM)
+        print('cycles', cycles)
+        print('OI', OI)
+        print('latency', latency)
+        print('max_gflops', max_gflops)
+        print('throughput', throughput)
         
-        print(Nc_name)
-            
-            
-
-
-
-
-
-
-
-
-
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        
+         
+       
 
 
 

@@ -253,30 +253,15 @@ def convert(tmp, ba):
         return tmp
         
         
+        
     
 if __name__ == '__main__':
 
 
     
-    parser = argparse.ArgumentParser(description='Optional app description')
-    parser.add_argument('--workload', type=str)
-    parser.add_argument('--datatype', type=str)
-    parser.add_argument('--operation', type=str)
-    args = parser.parse_args()
-    
-    
-    workload = args.workload
-    datatype = args.datatype
-    operation = args.operation
-    
-    
-    
-    if datatype == 'BF16' or datatype == 'FP16':
-        word = 2 # B
-    elif datatype == 'FP32':
-        word = 4 # B
-    else:
-        raise Exception('Wrong datatype type!')
+    workload = 'pixelfly_block16'
+    datatype = 'BF16'
+    word = 2
     
     
         
@@ -313,7 +298,7 @@ if __name__ == '__main__':
 
 
 
-    batch = [32]
+    batch = [2]
     
     for ba in batch:
         print('batch', ba, '***********************')
@@ -332,7 +317,7 @@ if __name__ == '__main__':
             
         
 
-        
+        flop = 0
         # forward loop
         for i in range(1, total_layer+1):
             layer = layer_dict[i]
@@ -400,6 +385,8 @@ if __name__ == '__main__':
                 else:
                     raise Exception('Wrong from_dram!')
                 
+                flop += m * k * n * 9
+                
             elif layer_type == 'loss':
                 f_compute = tcompute('loss'+str(layer_num), m, k, n, 1, 1, -1) 
                 add_node(node_dict, f_compute)
@@ -410,11 +397,13 @@ if __name__ == '__main__':
                 add_node(node_dict, dataGradient_tbuffer)
                 add_edge(edge_dict, f_compute.name, dataGradient_tbuffer.name, 'lanes')
                     
+                flop += m * n
                 
             else:
                 raise Exception('Wrong layer_type!')
                 
                 
+        
         
         
         # backward loop
@@ -489,252 +478,133 @@ if __name__ == '__main__':
 
   
         bfs(node_dict, edge_dict, reverse_edge_dict)
-          
+        
+        
+        
+        plot(graph, 'aaa', node_dict, edge_dict)
+        
+        
+        
+        
+        
         
         
         
                 
-                
-               
-                
-                
+        Nb = 0
+        Nb_cin = []
+        Nb_cout = []
+        Nb_dim = []
+        TSb = []
         
-        # update compute stitching and buffer partitioning
-        dse = {}
-        flop = 0
-        for i in range(1, total_layer+1):
-            layer = layer_dict[i]
-            
-            layer_num = int(layer[1]['layer_num'])
-            layer_type = str(layer[1]['layer_type'])
-            sparsity = str(layer[1]['sparsity'])
-            m = layer[1]['m']
-            k = layer[1]['k']
-            n = layer[1]['n']
-            from_dram = str(layer[1]['from_dram']) 
-            
-            m = convert(m, ba)
-            k = convert(k, ba)
-            n = convert(n, ba)
-            
-            
-
-            for i in range(1, math.ceil(m / LANES)+1):
-                for j in range(1, math.ceil(n / STAGES)+1):
-                    if layer_num in dse.keys():
-                        dse[layer_num].append([i, j])
-                    else:
-                        dse[layer_num] = [[i, j]]
-                    
-                    
-                    
-            if layer_type == 'gemm':
-                flop += m * k * n * 9
-            elif layer_type == 'loss':
-                flop += m * n
-            else:
-                raise Exception('Wrong layer type!')
+        Nc = 0
+        mkn = {}
+        Nc_name = []
+        M = []
+        K = []
+        N = []
         
+        Nd = 0
+        Nd_cout = []
+        Nd_dim = []
+        TSd = []
         
-        
-        
-        
-        
-        
-        
-        
-        
-        # total permutations
-        total_permutations = 1
-        for i in range(1, total_layer+1):  
-            total_permutations *= len(dse[i])
-            
-                
-        permutations = []       
-        for i in range(total_permutations):
-            tmp = []
-            for j in range(total_layer, 0, -1):
-                tmp.append(dse[j][int(i % len(dse[j]))])
-                i /= len(dse[j])
-            tmp.reverse()
-            permutations.append(tmp)
-                
-                
-                
-        
-
-        if operation == 'centralized' or operation == 'data':
-            total_permutations = 1
-                   
-        valid = 0
-        invalid_resources = 0
-        tmp_resources_used = PCU + PMU + 1
-        tmp_gflops = -1
-        
-        for i in range(total_permutations):
-        
-            tmp_node_dict = copy.deepcopy(node_dict)
-            for j in range(0, total_layer):
-                lanes_par = permutations[i][j][0]
-                stages_par = permutations[i][j][1]
-                
-                for _, [node, _] in tmp_node_dict.items():
-                    if isinstance(node, tcompute):
-                        if check_layer_num(node) == j+1:
-                            node.update_compute_stitching(lanes_par, stages_par)
-                            add_node(tmp_node_dict, node)
-                            
-                            for upstream_buffer, label in reverse_edge_dict[node.name]:
-                                if label == 'lanes':
-                                    incoming_buffer_node = tmp_node_dict[upstream_buffer][0]
-                                    par_factor = math.ceil(LANES * lanes_par / LANES)
-                                    incoming_buffer_node.update_buffer_partitioning(par_factor, node.name)
-                                    add_node(tmp_node_dict, incoming_buffer_node)
-                                    
-                                elif label == 'stages':
-                                    incoming_buffer_node = tmp_node_dict[upstream_buffer][0]
-                                    par_factor = math.ceil(STAGES * stages_par / LANES)
-                                    incoming_buffer_node.update_buffer_partitioning(par_factor, node.name)
-                                    add_node(tmp_node_dict, incoming_buffer_node)
-                                    
-                                else:
-                                    raise Exception('Wrong label type!')
-                                    
-                            
-                            
-                                        
-                            
-            
-            
-            
-            
-            
-            pcu_used, pmu_used = count(tmp_node_dict)
-            pcu_replicate = math.floor(PCU / pcu_used)
-            pmu_replicate = math.floor(PMU / pmu_used)
-            
-            
-            
-            if pcu_replicate == 0:
-                invalid_resources += 1
-                continue
-            if pmu_replicate == 0:
-                invalid_resources += 1
-                continue
-            
-
-            
-            valid += 1
-                
-            if operation == 'data' or operation == 'hybrid':
-                final_replicate = min(pcu_replicate, pmu_replicate)
-                if final_replicate == pcu_replicate:
-                    limiting_factor = 'PCU saturates after replicate'
+        for key in node_dict.keys():
+            node = node_dict[key][0]
+            if isinstance(node, tcompute):
+                if node.topo_num in mkn.keys():
+                    mkn[node.topo_num].append((node.name, node.m, node.k, node.n))
                 else:
-                    limiting_factor = 'PMU saturates after replicate'
+                    mkn[node.topo_num] = [(node.name, node.m, node.k, node.n)]
+                Nc += 1
                 
-            elif operation == 'centralized' or operation == 'model':
-                final_replicate = 1
-                limiting_factor = 'PCU/PMU on-chip without replicate'
-                
-            else:
-                raise Exception('Wrong operation type!')   
-            
+            elif isinstance(node, tbuffer):
+                if node.name in reverse_edge_dict.keys():
+                    for key, _ in node.downstream_dict.items():
+                        if key != ' ':
+                            Nb += 1
+                            Nb_cin.append(reverse_edge_dict[node.name][0][0])
+                            Nb_cout.append(key)
                             
-            
-            
-            
-            
-            
-            
-            if final_replicate > 1:
-                pcu_used *= final_replicate    
-                pmu_used *= final_replicate
-                
-                for _, [node, _] in tmp_node_dict.items():
-                    if isinstance(node, tcompute):
-                        if node.name.startswith('weightUpdate'):
-                            node.cycles *= 2
-                               
-                 
-
-
-
-                
-
-            
-            ns = get_cycles(tmp_node_dict, total_layer) / FREQ
-            # need to get all from_DRAM
-            B_from_dram = tmp_node_dict['in1'][0].tenor_size * final_replicate
-            dram_bw_usage = B_from_dram / ns
-            if dram_bw_usage > DRAM_BW:
-                limiting_factor = 'DRAM BW saturates'
-                ns = B_from_dram / DRAM_BW
-
-            ns_per_batch = ns / final_replicate
-            ns_per_sample = ns_per_batch / ba
-            oi = flop / (B_from_dram / final_replicate)
-            gflops = flop / ns_per_batch      
-            max_gflops = min(DRAM_BW * oi, 2 * PCU * LANES * STAGES * FREQ)
-            
-                    
-            if (tmp_gflops == gflops and tmp_resources_used > pcu_used + pmu_used) or tmp_gflops < gflops:
-                tmp_resources_used = pcu_used + pmu_used
-                tmp_config = permutations[i]
-                tmp_limiting_factor = limiting_factor
-                tmp_final_replicate = final_replicate
-                tmp_pcu_used = pcu_used
-                tmp_pmu_used = pmu_used
-                tmp_ns_per_sample = ns_per_sample
-                tmp_oi = oi
-                tmp_gflops = gflops
-                tmp_tmp_node_dict = tmp_node_dict
-                
-                
-                
-                
-                 
-                
-                    
-                    
-        
-        
-        print('best mapping:')
-        print('config', tmp_config)
-        print('limiting_factor', tmp_limiting_factor)
-        print('final_replicate', tmp_final_replicate)
-        print('pcu_used', tmp_pcu_used)
-        print('pmu_used', tmp_pmu_used)
-        print('ns_per_sample', tmp_ns_per_sample)
-        print('oi', oi)
-        print('max_gflops', max_gflops)
-        print('gflops', tmp_gflops)
-        
-        
-        print('\n')
-        print('total_permutations:', total_permutations)
-        print('invalid_resources:', invalid_resources)
-        print('valid:', valid)
-        
-        
-        
-        
-        name = workload+'_'+datatype+'_'+operation+'_batch'+str(ba)
-        plot(graph, name, tmp_tmp_node_dict, edge_dict)
-                
-        
-        
-        print()
-        print()
-        print()
-
-    
-    
+                            for next_node, dim in edge_dict[node.name]:
+                                if next_node == key:
+                                    Nb_dim.append(dim)
+                            
+                            TSb.append(node.tenor_size)
+                        
+                else:
+                    for key, _ in node.downstream_dict.items():
+                        Nd += 1
+                        Nd_cout.append(key)
+                        
+                        for next_node, dim in edge_dict[node.name]:
+                            if next_node == key:
+                                Nd_dim.append(dim)
+                        
+                        TSd.append(node.tenor_size)
     
         
-                
-            
-            
-            
-                
+        for i in range(Nc):
+            if i in mkn.keys():
+                for value in mkn[i]:
+                    Nc_name.append(value[0])
+                    M.append(value[1])
+                    K.append(value[2])
+                    N.append(value[3])
+        
+        
 
+
+
+        
+        
+        Nc_dict = {}
+        for i in range(len(Nc_name)):
+            Nc_dict[Nc_name[i]] = i
+        
+        
+        
+        PCU_lim = PCU
+        PMU_lim = PMU
+        Cap = CAPACITY
+        VecWidth = LANES
+        StageWidth = STAGES
+        DRAM_BW = DRAM_BW
+        Freq = FREQ
+        Input = node_dict['in1'][0].tenor_size
+        C = 5
+        
+        
+        print('PCU_lim', PCU_lim)
+        print('PMU_lim', PMU_lim)
+        print('Cap', Cap)
+        print('VecWidth', VecWidth)
+        print('StageWidth', StageWidth)
+        print('Freq', Freq)
+        print('DRAM_BW', DRAM_BW)
+        print('Input', Input)
+        print('C', C)
+        print('Nb', Nb)
+        print('Nb_cin', Nb_cin)
+        print('Nb_cout', Nb_cout)
+        print('Nb_dim', Nb_dim)
+        print('TSb', TSb)
+        print('Nc', Nc)
+        print('Nc_name', Nc_name)
+        print('M', M)
+        print('K', K)
+        print('N', N)
+        print('Nd', Nd)
+        print('Nd_cout', Nd_cout)
+        print('Nd_dim', Nd_dim)
+        print('TSd', TSd)
+        
+        
+        
+        FLOP = flop
+        
+        
+        
+        
+        
+        
