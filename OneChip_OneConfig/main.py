@@ -718,8 +718,8 @@ if __name__ == '__main__':
         
         
         
-        name = workload+'_'+datatype+'_'+operation+'_batch'+str(ba)
-        plot(graph, name, tmp_tmp_node_dict, edge_dict)
+        # name = workload+'_'+datatype+'_'+operation+'_batch'+str(ba)
+        # plot(graph, name, tmp_tmp_node_dict, edge_dict)
                 
         
         
