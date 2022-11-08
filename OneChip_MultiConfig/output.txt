@@ -1,0 +1,342 @@
+pixelfly_block32
+batch 64
+par 1
+OI 193.0
+# of config 1
+throughput 1403.6363636363635
+
+
+
+pixelfly_block32
+batch 32
+par 2
+OI 193.5
+# of config 1
+throughput 5160.0
+
+
+
+pixelfly_block32
+batch 64
+par 4
+OI 193.0
+# of config 1
+throughput 20586.666666666668
+
+
+
+pixelfly_block32
+batch 32
+par 8
+OI 193.5
+# of config 1
+throughput 61920.0
+
+
+
+pixelfly_block32
+batch 32
+par 16
+OI 193.5
+# of config 1
+throughput 123840.0
+
+
+
+pixelfly_block32
+batch 64
+par 17
+OI 64.33333333333333
+# of config 2
+throughput 109526.97542944118
+
+
+
+pixelfly_block32
+batch 64
+par 18
+OI 64.33333333333333
+# of config 2
+throughput 109526.97542944118
+
+
+
+pixelfly_block32
+batch 64
+par 19
+OI 64.33333333333333
+# of config 2
+throughput 115953.05383707881
+
+
+
+pixelfly_block32
+batch 64
+par 20
+OI 64.33333333333333
+# of config 2
+throughput 115953.05383707881
+
+
+
+pixelfly_block32
+batch 64
+par 21
+OI 64.33333333333333
+# of config 2
+throughput 115953.05383707881
+
+
+
+pixelfly_block32
+batch 64
+par 22
+OI 64.33333333333333
+# of config 2
+throughput 123180.18218499723
+
+
+
+pixelfly_block32
+batch 64
+par 23
+OI 64.33333333333333
+# of config 2
+throughput 123180.18218499723
+
+
+
+pixelfly_block32
+batch 64
+par 24
+OI 64.33333333333333
+# of config 2
+throughput 123180.18218499723
+
+
+
+pixelfly_block32
+batch 32
+par 25
+OI 64.5
+# of config 2
+throughput 82560.0
+
+
+
+pixelfly_block32
+batch 32
+par 26
+OI 64.5
+# of config 2
+throughput 98853.83312943479
+
+
+
+pixelfly_block32
+batch 32
+par 27
+OI 27.642857142857142
+# of config 3
+throughput 56363.78571428571
+
+
+
+pixelfly_block32
+batch 32
+par 28
+OI 27.642857142857142
+# of config 3
+throughput 56363.78571428571
+
+
+
+pixelfly_block32
+batch 32
+par 29
+OI 27.642857142857142
+# of config 3
+throughput 56363.78571428571
+
+
+
+pixelfly_block32
+batch 32
+par 30
+OI 27.642857142857142
+# of config 3
+throughput 56363.78571428571
+
+
+
+resnet18
+batch 1
+par 1
+OI 1295.4765941956603
+# of config 3
+throughput 6926.0041049056545
+
+
+
+resnet18
+batch 1
+par 2
+OI 1181.5885419586791
+# of config 3
+throughput 25027.89029418423
+
+
+
+resnet18
+batch 1
+par 4
+OI 1156.1780356799977
+# of config 4
+throughput 45683.06910438308
+
+
+
+resnet18
+batch 1
+par 8
+OI 833.5237001413938
+# of config 8
+throughput 63291.88511820409
+
+
+
+resnet18
+batch 1
+par 16
+OI 257.52083726325935
+# of config 24
+throughput 73152.62213906064
+
+
+
+resnet18
+batch 2
+par 17
+OI 280.0865454377728
+# of config 28
+throughput 62725.09233797235
+
+
+
+resnet18
+batch 2
+par 18
+OI 203.01104621849498
+# of config 33
+throughput 62096.5195481189
+
+
+
+resnet18
+batch 1
+par 19
+OI 148.99777418241607
+# of config 31
+throughput 61702.96582883324
+
+
+
+resnet18
+batch 1
+par 20
+OI 152.15194561738048
+# of config 31
+throughput 65692.28274488119
+
+
+
+resnet18
+batch 2
+par 21
+OI 199.05134538841673
+# of config 42
+throughput 64207.144018288185
+
+
+
+resnet18
+batch 2
+par 22
+OI 225.8881520343976
+# of config 43
+throughput 66261.70725681323
+
+
+
+resnet18
+batch 2
+par 23
+OI 231.93731870069433
+# of config 45
+throughput 65797.58535210705
+
+
+
+resnet18
+batch 2
+par 24
+OI 223.39659271313565
+# of config 46
+throughput 72755.65292221223
+
+
+
+resnet18
+batch 2
+par 25
+OI 223.0559330508985
+# of config 47
+throughput 78147.70959778756
+
+
+
+resnet18
+batch -1
+par 26
+OI -1
+# of config -1
+throughput -1
+
+
+
+resnet18
+batch -1
+par 27
+OI -1
+# of config -1
+throughput -1
+
+
+
+resnet18
+batch -1
+par 28
+OI -1
+# of config -1
+throughput -1
+
+
+
+resnet18
+batch -1
+par 29
+OI -1
+# of config -1
+throughput -1
+
+
+
+resnet18
+batch -1
+par 30
+OI -1
+# of config -1
+throughput -1
+
+
+

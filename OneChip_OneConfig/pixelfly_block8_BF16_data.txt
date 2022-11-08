@@ -1,0 +1,114 @@
+batch 1 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 46.15211267605634
+oi 56.5
+max_gflops 115203.5
+gflops 10028.75
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 2 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 23.07605633802817
+oi 52.5
+max_gflops 107047.5
+gflops 18637.5
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 4 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 11.538028169014085
+oi 50.5
+max_gflops 102969.5
+gflops 35855.0
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 8 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 5.769014084507043
+oi 49.5
+max_gflops 100930.5
+gflops 70290.0
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 16 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 4.326760563380281
+oi 49.0
+max_gflops 99911.0
+gflops 92773.33333333334
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 32 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PMU saturates after replicate
+final_replicate 71
+pcu_used 355
+pmu_used 639
+ns_per_sample 4.326760563380281
+oi 48.75
+max_gflops 99401.25
+gflops 92300.00000000001
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+

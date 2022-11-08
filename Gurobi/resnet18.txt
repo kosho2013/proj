@@ -1,0 +1,490 @@
+batch 32 ***********************
+PCU_lim 640
+PMU_lim 640
+Cap 524288
+VecWidth 32
+StageWidth 6
+Freq 1.25
+DRAM_BW 2039.0
+Input 9633792
+C 30
+Nb 161
+Nb_cin ['forward1_conv', 'forward2_batchnorm', 'forward3_pooling', 'forward3_pooling', 'forward3_pooling', 'forward4_conv', 'forward5_batchnorm', 'forward5_batchnorm', 'forward6_conv', 'forward7_batchnorm', 'forward8_add', 'forward8_add', 'forward8_add', 'forward9_conv', 'forward10_batchnorm', 'forward10_batchnorm', 'forward11_conv', 'forward12_batchnorm', 'forward13_add', 'forward13_add', 'forward13_add', 'forward14_conv', 'forward15_batchnorm', 'forward15_batchnorm', 'forward16_conv', 'forward17_batchnorm', 'forward18_add', 'forward18_add', 'forward18_add', 'forward19_conv', 'forward20_batchnorm', 'forward20_batchnorm', 'forward21_conv', 'forward22_batchnorm', 'forward23_add', 'forward23_add', 'forward23_add', 'forward24_conv', 'forward25_batchnorm', 'forward25_batchnorm', 'forward26_conv', 'forward27_batchnorm', 'forward28_add', 'forward28_add', 'forward28_add', 'forward29_conv', 'forward30_batchnorm', 'forward30_batchnorm', 'forward31_conv', 'forward32_batchnorm', 'forward33_add', 'forward33_add', 'forward33_add', 'forward34_conv', 'forward35_batchnorm', 'forward35_batchnorm', 'forward36_conv', 'forward37_batchnorm', 'forward38_add', 'forward38_add', 'forward38_add', 'forward39_conv', 'forward40_batchnorm', 'forward40_batchnorm', 'forward41_conv', 'forward42_batchnorm', 'forward43_add', 'forward44_pooling', 'forward44_pooling', 'forward45_gemm', 'forward46_softmax', 'forward47_loss', 'backpropDataGradient46_softmax', 'backpropDataGradient46_softmax', 'backpropDataGradient45_gemm', 'backpropWeightGradient45_gemm', 'backpropDataGradient44_pooling', 'backpropDataGradient44_pooling', 'backpropDataGradient42_batchnorm', 'backpropDataGradient42_batchnorm', 'backpropDataGradient41_conv', 'backpropWeightGradient41_conv', 'backpropDataGradient40_batchnorm', 'backpropDataGradient40_batchnorm', 'backpropDataGradient39_conv', 'backpropWeightGradient39_conv', 'backpropDataGradient39_add', 'backpropDataGradient39_add', 'backpropDataGradient37_batchnorm', 'backpropDataGradient37_batchnorm', 'backpropDataGradient36_conv', 'backpropWeightGradient36_conv', 'backpropDataGradient35_batchnorm', 'backpropDataGradient35_batchnorm', 'backpropDataGradient34_conv', 'backpropWeightGradient34_conv', 'backpropDataGradient34_add', 'backpropDataGradient34_add', 'backpropDataGradient32_batchnorm', 'backpropDataGradient32_batchnorm', 'backpropDataGradient31_conv', 'backpropWeightGradient31_conv', 'backpropDataGradient30_batchnorm', 'backpropDataGradient30_batchnorm', 'backpropDataGradient29_conv', 'backpropWeightGradient29_conv', 'backpropDataGradient29_add', 'backpropDataGradient29_add', 'backpropDataGradient27_batchnorm', 'backpropDataGradient27_batchnorm', 'backpropDataGradient26_conv', 'backpropWeightGradient26_conv', 'backpropDataGradient25_batchnorm', 'backpropDataGradient25_batchnorm', 'backpropDataGradient24_conv', 'backpropWeightGradient24_conv', 'backpropDataGradient24_add', 'backpropDataGradient24_add', 'backpropDataGradient22_batchnorm', 'backpropDataGradient22_batchnorm', 'backpropDataGradient21_conv', 'backpropWeightGradient21_conv', 'backpropDataGradient20_batchnorm', 'backpropDataGradient20_batchnorm', 'backpropDataGradient19_conv', 'backpropWeightGradient19_conv', 'backpropDataGradient19_add', 'backpropDataGradient19_add', 'backpropDataGradient17_batchnorm', 'backpropDataGradient17_batchnorm', 'backpropDataGradient16_conv', 'backpropWeightGradient16_conv', 'backpropDataGradient15_batchnorm', 'backpropDataGradient15_batchnorm', 'backpropDataGradient14_conv', 'backpropWeightGradient14_conv', 'backpropDataGradient14_add', 'backpropDataGradient14_add', 'backpropDataGradient12_batchnorm', 'backpropDataGradient12_batchnorm', 'backpropDataGradient11_conv', 'backpropWeightGradient11_conv', 'backpropDataGradient10_batchnorm', 'backpropDataGradient10_batchnorm', 'backpropDataGradient9_conv', 'backpropWeightGradient9_conv', 'backpropDataGradient9_add', 'backpropDataGradient9_add', 'backpropDataGradient7_batchnorm', 'backpropDataGradient7_batchnorm', 'backpropDataGradient6_conv', 'backpropWeightGradient6_conv', 'backpropDataGradient5_batchnorm', 'backpropDataGradient5_batchnorm', 'backpropDataGradient4_conv', 'backpropWeightGradient4_conv', 'backpropDataGradient4_add', 'backpropDataGradient3_pooling', 'backpropDataGradient2_batchnorm', 'backpropDataGradient2_batchnorm', 'backpropWeightGradient1_conv']
+Nb_cout ['forward2_batchnorm', 'forward3_pooling', 'forward4_conv', 'forward8_add', 'backpropWeightGradient4_conv', 'forward5_batchnorm', 'forward6_conv', 'backpropWeightGradient6_conv', 'forward7_batchnorm', 'forward8_add', 'forward9_conv', 'forward13_add', 'backpropWeightGradient9_conv', 'forward10_batchnorm', 'forward11_conv', 'backpropWeightGradient11_conv', 'forward12_batchnorm', 'forward13_add', 'forward14_conv', 'forward18_add', 'backpropWeightGradient14_conv', 'forward15_batchnorm', 'forward16_conv', 'backpropWeightGradient16_conv', 'forward17_batchnorm', 'forward18_add', 'forward19_conv', 'forward23_add', 'backpropWeightGradient19_conv', 'forward20_batchnorm', 'forward21_conv', 'backpropWeightGradient21_conv', 'forward22_batchnorm', 'forward23_add', 'forward24_conv', 'forward28_add', 'backpropWeightGradient24_conv', 'forward25_batchnorm', 'forward26_conv', 'backpropWeightGradient26_conv', 'forward27_batchnorm', 'forward28_add', 'forward29_conv', 'forward33_add', 'backpropWeightGradient29_conv', 'forward30_batchnorm', 'forward31_conv', 'backpropWeightGradient31_conv', 'forward32_batchnorm', 'forward33_add', 'forward34_conv', 'forward38_add', 'backpropWeightGradient34_conv', 'forward35_batchnorm', 'forward36_conv', 'backpropWeightGradient36_conv', 'forward37_batchnorm', 'forward38_add', 'forward39_conv', 'forward43_add', 'backpropWeightGradient39_conv', 'forward40_batchnorm', 'forward41_conv', 'backpropWeightGradient41_conv', 'forward42_batchnorm', 'forward43_add', 'forward44_pooling', 'forward45_gemm', 'backpropWeightGradient45_gemm', 'forward46_softmax', 'forward47_loss', 'backpropDataGradient46_softmax', 'backpropDataGradient45_gemm', 'backpropWeightGradient45_gemm', 'backpropDataGradient44_pooling', 'weightUpdate45_gemm', 'backpropDataGradient42_batchnorm', 'backpropDataGradient39_add', 'backpropDataGradient41_conv', 'backpropWeightGradient41_conv', 'backpropDataGradient40_batchnorm', 'weightUpdate41_conv', 'backpropDataGradient39_conv', 'backpropWeightGradient39_conv', 'backpropDataGradient39_add', 'weightUpdate39_conv', 'backpropDataGradient37_batchnorm', 'backpropDataGradient34_add', 'backpropDataGradient36_conv', 'backpropWeightGradient36_conv', 'backpropDataGradient35_batchnorm', 'weightUpdate36_conv', 'backpropDataGradient34_conv', 'backpropWeightGradient34_conv', 'backpropDataGradient34_add', 'weightUpdate34_conv', 'backpropDataGradient32_batchnorm', 'backpropDataGradient29_add', 'backpropDataGradient31_conv', 'backpropWeightGradient31_conv', 'backpropDataGradient30_batchnorm', 'weightUpdate31_conv', 'backpropDataGradient29_conv', 'backpropWeightGradient29_conv', 'backpropDataGradient29_add', 'weightUpdate29_conv', 'backpropDataGradient27_batchnorm', 'backpropDataGradient24_add', 'backpropDataGradient26_conv', 'backpropWeightGradient26_conv', 'backpropDataGradient25_batchnorm', 'weightUpdate26_conv', 'backpropDataGradient24_conv', 'backpropWeightGradient24_conv', 'backpropDataGradient24_add', 'weightUpdate24_conv', 'backpropDataGradient22_batchnorm', 'backpropDataGradient19_add', 'backpropDataGradient21_conv', 'backpropWeightGradient21_conv', 'backpropDataGradient20_batchnorm', 'weightUpdate21_conv', 'backpropDataGradient19_conv', 'backpropWeightGradient19_conv', 'backpropDataGradient19_add', 'weightUpdate19_conv', 'backpropDataGradient17_batchnorm', 'backpropDataGradient14_add', 'backpropDataGradient16_conv', 'backpropWeightGradient16_conv', 'backpropDataGradient15_batchnorm', 'weightUpdate16_conv', 'backpropDataGradient14_conv', 'backpropWeightGradient14_conv', 'backpropDataGradient14_add', 'weightUpdate14_conv', 'backpropDataGradient12_batchnorm', 'backpropDataGradient9_add', 'backpropDataGradient11_conv', 'backpropWeightGradient11_conv', 'backpropDataGradient10_batchnorm', 'weightUpdate11_conv', 'backpropDataGradient9_conv', 'backpropWeightGradient9_conv', 'backpropDataGradient9_add', 'weightUpdate9_conv', 'backpropDataGradient7_batchnorm', 'backpropDataGradient4_add', 'backpropDataGradient6_conv', 'backpropWeightGradient6_conv', 'backpropDataGradient5_batchnorm', 'weightUpdate6_conv', 'backpropDataGradient4_conv', 'backpropWeightGradient4_conv', 'backpropDataGradient4_add', 'weightUpdate4_conv', 'backpropDataGradient3_pooling', 'backpropDataGradient2_batchnorm', 'backpropDataGradient1_conv', 'backpropWeightGradient1_conv', 'weightUpdate1_conv']
+Nb_dim ['lanes', 'lanes', 'stages', 'lanes', 'stages', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'stages', 'lanes', 'stages', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'stages', 'lanes', 'stages', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'stages', 'lanes', 'stages', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'stages', 'lanes', 'stages', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'stages', 'lanes', 'stages', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'stages', 'lanes', 'stages', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'stages', 'lanes', 'stages', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'stages', 'lanes', 'lanes']
+TSb [51380224, 51380224, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 12845056, 6422528, 6422528, 6422528, 6422528, 6422528, 6422528, 6422528, 6422528, 6422528, 6422528, 6422528, 6422528, 6422528, 6422528, 6422528, 6422528, 3211264, 3211264, 3211264, 3211264, 3211264, 3211264, 3211264, 3211264, 3211264, 3211264, 3211264, 3211264, 3211264, 3211264, 3211264, 3211264, 1605632, 1605632, 1605632, 1605632, 1605632, 1605632, 1605632, 1605632, 1605632, 1605632, 1605632, 1605632, 1605632, 1605632, 32768, 32768, 64000, 64000, 64000, 64000, 64000, 32768, 1024000, 1605632, 1605632, 1605632, 1605632, 1605632, 4718592, 1605632, 1605632, 1605632, 4718592, 1605632, 1605632, 1605632, 1605632, 1605632, 4718592, 1605632, 1605632, 3211264, 2359296, 3211264, 3211264, 3211264, 3211264, 3211264, 1179648, 3211264, 3211264, 3211264, 1179648, 3211264, 3211264, 3211264, 3211264, 3211264, 1179648, 3211264, 3211264, 6422528, 589824, 6422528, 6422528, 6422528, 6422528, 6422528, 294912, 6422528, 6422528, 6422528, 294912, 6422528, 6422528, 6422528, 6422528, 6422528, 294912, 6422528, 6422528, 12845056, 147456, 12845056, 12845056, 12845056, 12845056, 12845056, 73728, 12845056, 12845056, 12845056, 73728, 12845056, 12845056, 12845056, 12845056, 12845056, 73728, 12845056, 12845056, 12845056, 73728, 12845056, 51380224, 51380224, 51380224, 18816]
+D [2, 2, 2, 6, 87, 2, 2, 83, 2, 2, 2, 6, 77, 2, 2, 73, 2, 2, 2, 6, 67, 2, 2, 63, 2, 2, 2, 6, 57, 2, 2, 53, 2, 2, 2, 6, 47, 2, 2, 43, 2, 2, 2, 6, 37, 2, 2, 33, 2, 2, 2, 6, 27, 2, 2, 23, 2, 2, 2, 6, 17, 2, 2, 13, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+Nc 129
+Nc_name ['forward1_conv', 'forward2_batchnorm', 'forward3_pooling', 'forward4_conv', 'forward5_batchnorm', 'forward6_conv', 'forward7_batchnorm', 'forward8_add', 'forward9_conv', 'forward10_batchnorm', 'forward11_conv', 'forward12_batchnorm', 'forward13_add', 'forward14_conv', 'forward15_batchnorm', 'forward16_conv', 'forward17_batchnorm', 'forward18_add', 'forward19_conv', 'forward20_batchnorm', 'forward21_conv', 'forward22_batchnorm', 'forward23_add', 'forward24_conv', 'forward25_batchnorm', 'forward26_conv', 'forward27_batchnorm', 'forward28_add', 'forward29_conv', 'forward30_batchnorm', 'forward31_conv', 'forward32_batchnorm', 'forward33_add', 'forward34_conv', 'forward35_batchnorm', 'forward36_conv', 'forward37_batchnorm', 'forward38_add', 'forward39_conv', 'forward40_batchnorm', 'forward41_conv', 'forward42_batchnorm', 'forward43_add', 'forward44_pooling', 'forward45_gemm', 'forward46_softmax', 'forward47_loss', 'backpropDataGradient46_softmax', 'backpropDataGradient45_gemm', 'backpropWeightGradient45_gemm', 'weightUpdate45_gemm', 'backpropDataGradient44_pooling', 'backpropDataGradient42_batchnorm', 'backpropDataGradient41_conv', 'backpropWeightGradient41_conv', 'weightUpdate41_conv', 'backpropDataGradient40_batchnorm', 'backpropDataGradient39_conv', 'backpropWeightGradient39_conv', 'weightUpdate39_conv', 'backpropDataGradient39_add', 'backpropDataGradient37_batchnorm', 'backpropDataGradient36_conv', 'backpropWeightGradient36_conv', 'weightUpdate36_conv', 'backpropDataGradient35_batchnorm', 'backpropDataGradient34_conv', 'backpropWeightGradient34_conv', 'weightUpdate34_conv', 'backpropDataGradient34_add', 'backpropDataGradient32_batchnorm', 'backpropDataGradient31_conv', 'backpropWeightGradient31_conv', 'weightUpdate31_conv', 'backpropDataGradient30_batchnorm', 'backpropDataGradient29_conv', 'backpropWeightGradient29_conv', 'weightUpdate29_conv', 'backpropDataGradient29_add', 'backpropDataGradient27_batchnorm', 'backpropDataGradient26_conv', 'backpropWeightGradient26_conv', 'weightUpdate26_conv', 'backpropDataGradient25_batchnorm', 'backpropDataGradient24_conv', 'backpropWeightGradient24_conv', 'weightUpdate24_conv', 'backpropDataGradient24_add', 'backpropDataGradient22_batchnorm', 'backpropDataGradient21_conv', 'backpropWeightGradient21_conv', 'weightUpdate21_conv', 'backpropDataGradient20_batchnorm', 'backpropDataGradient19_conv', 'backpropWeightGradient19_conv', 'weightUpdate19_conv', 'backpropDataGradient19_add', 'backpropDataGradient17_batchnorm', 'backpropDataGradient16_conv', 'backpropWeightGradient16_conv', 'weightUpdate16_conv', 'backpropDataGradient15_batchnorm', 'backpropDataGradient14_conv', 'backpropWeightGradient14_conv', 'weightUpdate14_conv', 'backpropDataGradient14_add', 'backpropDataGradient12_batchnorm', 'backpropDataGradient11_conv', 'backpropWeightGradient11_conv', 'weightUpdate11_conv', 'backpropDataGradient10_batchnorm', 'backpropDataGradient9_conv', 'backpropWeightGradient9_conv', 'weightUpdate9_conv', 'backpropDataGradient9_add', 'backpropDataGradient7_batchnorm', 'backpropDataGradient6_conv', 'backpropWeightGradient6_conv', 'weightUpdate6_conv', 'backpropDataGradient5_batchnorm', 'backpropDataGradient4_conv', 'backpropWeightGradient4_conv', 'weightUpdate4_conv', 'backpropDataGradient4_add', 'backpropDataGradient3_pooling', 'backpropDataGradient2_batchnorm', 'backpropDataGradient1_conv', 'backpropWeightGradient1_conv', 'weightUpdate1_conv']
+M [64, 25690112, 6422528, 64, 6422528, 64, 6422528, 6422528, 64, 6422528, 64, 6422528, 6422528, 128, 3211264, 128, 3211264, 3211264, 128, 3211264, 128, 3211264, 3211264, 256, 1605632, 256, 1605632, 1605632, 256, 1605632, 256, 1605632, 1605632, 512, 802816, 512, 802816, 802816, 512, 802816, 512, 802816, 802816, 16384, 1000, 32000, 32000, 32000, 512, 1000, 1000, 16384, 802816, 4608, 512, 512, 802816, 4608, 512, 512, 802816, 802816, 4608, 512, 512, 802816, 2304, 512, 512, 1605632, 1605632, 2304, 256, 256, 1605632, 2304, 256, 256, 1605632, 1605632, 2304, 256, 256, 1605632, 1152, 256, 256, 3211264, 3211264, 1152, 128, 128, 3211264, 1152, 128, 128, 3211264, 3211264, 1152, 128, 128, 3211264, 576, 128, 128, 6422528, 6422528, 576, 64, 64, 6422528, 576, 64, 64, 6422528, 6422528, 576, 64, 64, 6422528, 576, 64, 64, 6422528, 6422528, 25690112, 147, 64, 64]
+K [147, -1, -1, 576, -1, 576, -1, -1, 576, -1, 576, -1, -1, 576, -1, 1152, -1, -1, 1152, -1, 1152, -1, -1, 1152, -1, 2304, -1, -1, 2304, -1, 2304, -1, -1, 2304, -1, 4608, -1, -1, 4608, -1, 4608, -1, -1, -1, 512, -1, -1, -1, 1000, 32, -1, -1, -1, 512, 1568, -1, -1, 512, 1568, -1, -1, -1, 512, 1568, -1, -1, 512, 1568, -1, -1, -1, 256, 6272, -1, -1, 256, 6272, -1, -1, -1, 256, 6272, -1, -1, 256, 6272, -1, -1, -1, 128, 25088, -1, -1, 128, 25088, -1, -1, -1, 128, 25088, -1, -1, 128, 25088, -1, -1, -1, 64, 100352, -1, -1, 64, 100352, -1, -1, -1, 64, 100352, -1, -1, 64, 100352, -1, -1, -1, -1, 64, 401408, -1]
+N [401408, 1, 9, 100352, 1, 100352, 1, 1, 100352, 1, 100352, 1, 1, 25088, 1, 25088, 1, 1, 25088, 1, 25088, 1, 1, 6272, 1, 6272, 1, 1, 6272, 1, 6272, 1, 1, 1568, 1, 1568, 1, 1, 1568, 1, 1568, 1, 1, 49, 32, 1, 1, 1, 32, 512, 512, 49, 1, 1568, 4608, 4608, 1, 1568, 4608, 4608, 1, 1, 1568, 4608, 4608, 1, 1568, 2304, 2304, 1, 1, 6272, 2304, 2304, 1, 6272, 2304, 2304, 1, 1, 6272, 2304, 2304, 1, 6272, 1152, 1152, 1, 1, 25088, 1152, 1152, 1, 25088, 1152, 1152, 1, 1, 25088, 1152, 1152, 1, 25088, 576, 576, 1, 1, 100352, 576, 576, 1, 100352, 576, 576, 1, 1, 100352, 576, 576, 1, 100352, 576, 576, 1, 9, 1, 401408, 147, 147]
+Nd 38
+Nd_cout ['forward1_conv', 'backpropDataGradient1_conv', 'forward1_conv', 'backpropWeightGradient1_conv', 'forward4_conv', 'backpropDataGradient4_conv', 'forward6_conv', 'backpropDataGradient6_conv', 'forward9_conv', 'backpropDataGradient9_conv', 'forward11_conv', 'backpropDataGradient11_conv', 'forward14_conv', 'backpropDataGradient14_conv', 'forward16_conv', 'backpropDataGradient16_conv', 'forward19_conv', 'backpropDataGradient19_conv', 'forward21_conv', 'backpropDataGradient21_conv', 'forward24_conv', 'backpropDataGradient24_conv', 'forward26_conv', 'backpropDataGradient26_conv', 'forward29_conv', 'backpropDataGradient29_conv', 'forward31_conv', 'backpropDataGradient31_conv', 'forward34_conv', 'backpropDataGradient34_conv', 'forward36_conv', 'backpropDataGradient36_conv', 'forward39_conv', 'backpropDataGradient39_conv', 'forward41_conv', 'backpropDataGradient41_conv', 'forward45_gemm', 'backpropDataGradient45_gemm']
+Nd_dim ['lanes', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes']
+TSd [18816, 18816, 9633792, 9633792, 73728, 73728, 73728, 73728, 73728, 73728, 73728, 73728, 147456, 147456, 294912, 294912, 294912, 294912, 294912, 294912, 589824, 589824, 1179648, 1179648, 1179648, 1179648, 1179648, 1179648, 2359296, 2359296, 4718592, 4718592, 4718592, 4718592, 4718592, 4718592, 1024000, 1024000]
+
+
+
+
+
+FLOP 344933026752
+Academic license - for non-commercial use only - expires 2023-10-07
+Using license file /home/kosho/gurobi.lic
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter Threads to 120
+   Prev: 0  Min: 0  Max: 1024  Default: 0
+Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+Thread count: 1 physical cores, 144 logical processors, using up to 120 threads
+Optimize a model with 20148 rows, 63877 columns and 57075 nonzeros
+Model fingerprint: 0x0c3374b3
+Model has 5016 quadratic constraints
+Model has 79620 general constraints
+Variable types: 90 continuous, 63787 integer (58140 binary)
+Coefficient statistics:
+  Matrix range     [8e-01, 3e+04]
+  QMatrix range    [1e+00, 5e+05]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 5e+03]
+  QRHS range       [3e+01, 1e+09]
+Warning: Model contains large rhs on quadratic constraints
+         Consider reformulating model or setting NumericFocus parameter
+         to avoid numerical issues.
+Presolve removed 35325 rows and 82355 columns (presolve time = 16s) ...
+Presolve removed 84651 rows and 82621 columns (presolve time = 24s) ...
+Presolve removed 86000 rows and 82640 columns (presolve time = 25s) ...
+Presolve removed 86699 rows and 82736 columns (presolve time = 75s) ...
+Presolve added 96916 rows and 0 columns
+Presolve removed 0 rows and 13616 columns
+Presolve time: 75.16s
+Presolved: 168640 rows, 120165 columns, 687233 nonzeros
+Presolved model has 50472 SOS constraint(s)
+Presolved model has 494 quadratic constraint(s)
+Presolved model has 468 bilinear constraint(s)
+Variable types: 31 continuous, 120134 integer (64330 binary)
+
+Deterministic concurrent LP optimizer: primal and dual simplex (primal and dual model)
+Showing first log only...
+
+Presolve removed 84165 rows and 97191 columns
+Presolved: 84475 rows, 22974 columns, 391067 nonzeros
+
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    3.5902512e+05   2.675000e+01   1.211889e+09     77s
+Concurrent spin time: 0.78s
+
+Solved with dual simplex (primal model)
+
+Root relaxation: objective 4.724763e+03, 5699 iterations, 2.61 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 4724.76312    0 11888          - 4724.76312      -     -  728s
+     0     0 55122.2452    0 30549          - 55122.2452      -     - 2268s
+     0     0 67721.6050    0 28529          - 67721.6050      -     - 3100s
+     0     0 67721.6050    0 34537          - 67721.6050      -     - 3347s
+     0     0 67721.6101    0 19345          - 67721.6101      -     - 4179s
+     0     0 67721.6402    0 24084          - 67721.6402      -     - 4415s
+     0     0 67721.6402    0 24414          - 67721.6402      -     - 4450s
+     0     0 67722.8100    0 18162          - 67722.8100      -     - 4842s
+     0     0 67726.4259    0 15791          - 67726.4259      -     - 4866s
+     0     0 67731.9358    0 15949          - 67731.9358      -     - 4912s
+     0     0 67731.9358    0 17626          - 67731.9358      -     - 4921s
+     0     0 67793.9225    0 13600          - 67793.9225      -     - 4942s
+     0     0 67793.9225    0 13457          - 67793.9225      -     - 4944s
+     0     0 67860.9941    0 18488          - 67860.9941      -     - 5205s
+     0     0 67862.7583    0 19110          - 67862.7583      -     - 5226s
+     0     0 68040.7975    0 19959          - 68040.7975      -     - 5398s
+     0     0 68061.2702    0 21147          - 68061.2702      -     - 5534s
+     0     0 68077.0368    0 17535          - 68077.0368      -     - 5580s
+     0     0 68077.0368    0 17438          - 68077.0368      -     - 5586s
+     0     0 68156.0299    0 19109          - 68156.0299      -     - 5635s
+     0     0 68210.0801    0 21456          - 68210.0801      -     - 5646s
+     0     0 68243.2027    0 21200          - 68243.2027      -     - 5671s
+     0     0 68268.5844    0 22938          - 68268.5844      -     - 5676s
+     0     0 68364.9831    0 21970          - 68364.9831      -     - 5711s
+     0     0 68392.7479    0 25810          - 68392.7479      -     - 5757s
+     0     0 68440.2192    0 23709          - 68440.2192      -     - 5780s
+     0     0 68463.7201    0 23834          - 68463.7201      -     - 5851s
+     0     0 68553.8843    0 23315          - 68553.8843      -     - 5887s
+     0     0 68604.8465    0 23695          - 68604.8465      -     - 5893s
+     0     0 68742.9502    0 22331          - 68742.9502      -     - 5929s
+     0     0 68746.3819    0 23586          - 68746.3819      -     - 5940s
+     0     0 68771.1109    0 23430          - 68771.1109      -     - 5966s
+     0     0 68782.0509    0 25123          - 68782.0509      -     - 5974s
+     0     0 68806.1700    0 25489          - 68806.1700      -     - 6007s
+     0     0 68806.1700    0 25367          - 68806.1700      -     - 6011s
+     0     0 69032.8224    0 28626          - 69032.8224      -     - 6068s
+     0     0 69203.3544    0 23934          - 69203.3544      -     - 6083s
+     0     0 69307.0004    0 22308          - 69307.0004      -     - 6181s
+     0     0 69322.6878    0 25661          - 69322.6878      -     - 6189s
+     0     0 69575.9760    0 21331          - 69575.9760      -     - 6246s
+     0     0 69701.8875    0 24679          - 69701.8875      -     - 6266s
+     0     0 69701.8875    0 22259          - 69701.8875      -     - 6295s
+     0     0 69701.8875    0 22262          - 69701.8875      -     - 6297s
+     0     0 69701.8875    0 23509          - 69701.8875      -     - 6323s
+     0     0 69701.8875    0 23091          - 69701.8875      -     - 6329s
+     0     0 69701.8875    0 22531          - 69701.8875      -     - 6373s
+     0     0 69708.7147    0 23577          - 69708.7147      -     - 6393s
+     0     0 69708.8412    0 23880          - 69708.8412      -     - 6399s
+     0     0 69708.8412    0 23714          - 69708.8412      -     - 6402s
+     0     0 69708.8412    0 23526          - 69708.8412      -     - 6411s
+     0     0 69708.8412    0 23456          - 69708.8412      -     - 6415s
+     0     0 69708.8412    0 23381          - 69708.8412      -     - 6421s
+     0     0 69708.8412    0 23324          - 69708.8412      -     - 6425s
+     0     0 69708.8412    0 23360          - 69708.8412      -     - 6429s
+     0     0 69708.8412    0 23316          - 69708.8412      -     - 6433s
+     0     0 69708.8412    0 23362          - 69708.8412      -     - 6436s
+     0     0 69708.8412    0 23279          - 69708.8412      -     - 6440s
+     0     0 69708.8412    0 22453          - 69708.8412      -     - 6443s
+     0     0 69708.8412    0 22457          - 69708.8412      -     - 6447s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6451s
+     0     0 69708.8412    0 22406          - 69708.8412      -     - 6454s
+     0     0 69708.8412    0 22412          - 69708.8412      -     - 6457s
+     0     0 69708.8412    0 22456          - 69708.8412      -     - 6461s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6464s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6468s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6472s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6475s
+     0     0 69708.8412    0 22453          - 69708.8412      -     - 6479s
+     0     0 69708.8412    0 22367          - 69708.8412      -     - 6483s
+     0     0 69708.8412    0 22453          - 69708.8412      -     - 6486s
+     0     0 69708.8412    0 22456          - 69708.8412      -     - 6490s
+     0     0 69708.8412    0 22457          - 69708.8412      -     - 6494s
+     0     0 69708.8412    0 22453          - 69708.8412      -     - 6497s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6501s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6505s
+     0     0 69708.8412    0 22410          - 69708.8412      -     - 6509s
+     0     0 69708.8412    0 22410          - 69708.8412      -     - 6513s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6516s
+     0     0 69708.8412    0 22454          - 69708.8412      -     - 6520s
+     0     0 69708.8412    0 22457          - 69708.8412      -     - 6524s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6527s
+     0     0 69708.8412    0 22451          - 69708.8412      -     - 6531s
+     0     0 69708.8412    0 22414          - 69708.8412      -     - 6535s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6538s
+     0     0 69708.8412    0 22408          - 69708.8412      -     - 6542s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6546s
+     0     0 69708.8412    0 22456          - 69708.8412      -     - 6549s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6553s
+     0     0 69708.8412    0 22453          - 69708.8412      -     - 6557s
+     0     0 69708.8412    0 22412          - 69708.8412      -     - 6561s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6565s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6569s
+     0     0 69708.8412    0 22410          - 69708.8412      -     - 6572s
+     0     0 69708.8412    0 22453          - 69708.8412      -     - 6577s
+     0     0 69708.8412    0 22456          - 69708.8412      -     - 6581s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6584s
+     0     0 69708.8412    0 22410          - 69708.8412      -     - 6588s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6591s
+     0     0 69708.8412    0 22457          - 69708.8412      -     - 6595s
+     0     0 69708.8412    0 22453          - 69708.8412      -     - 6599s
+     0     0 69708.8412    0 22410          - 69708.8412      -     - 6604s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6608s
+     0     0 69708.8412    0 22452          - 69708.8412      -     - 6611s
+     0     0 69708.8412    0 22414          - 69708.8412      -     - 6614s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6618s
+     0     0 69708.8412    0 22453          - 69708.8412      -     - 6621s
+     0     0 69708.8412    0 22457          - 69708.8412      -     - 6625s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6629s
+     0     0 69708.8412    0 22408          - 69708.8412      -     - 6632s
+     0     0 69708.8412    0 22453          - 69708.8412      -     - 6636s
+     0     0 69708.8412    0 22413          - 69708.8412      -     - 6640s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6643s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6648s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6651s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6655s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6659s
+     0     0 69708.8412    0 22408          - 69708.8412      -     - 6663s
+     0     0 69708.8412    0 22410          - 69708.8412      -     - 6667s
+     0     0 69708.8412    0 22456          - 69708.8412      -     - 6671s
+     0     0 69708.8412    0 22457          - 69708.8412      -     - 6675s
+     0     0 69708.8412    0 22453          - 69708.8412      -     - 6679s
+     0     0 69708.8412    0 22455          - 69708.8412      -     - 6682s
+     0     0 69708.8412    0 22457          - 69708.8412      -     - 6686s
+     0     0 69708.8412    0 22451          - 69708.8412      -     - 6690s
+     0     0 70943.7646    0 7679          - 70943.7646      -     - 7031s
+     0     2 70949.4998    0 7559          - 70949.4998      -     - 7073s
+     1     5 71161.9457    1 13820          - 70949.4998      - 15822 7126s
+     3     8 71937.4648    2 14824          - 71174.9849      - 19602 7182s
+     7    14 71969.6060    3 8561          - 71938.1528      - 13178 7210s
+    15    24 74057.4478    4 7288          - 71969.6060      -  9008 7280s
+    29    45 74057.4478    5 7864          - 71993.7120      -  7048 7436s
+    53    85 74319.1122    6 12614          - 71993.7120      - 11862 7500s
+    98   156 74328.0747    7 12420          - 72002.8743      -  8409 7613s
+   183   245 74359.1697    8 11594          - 72461.2923      -  6855 7704s
+   303   327 74390.3530    9 10799          - 74021.2889      -  6490 7799s
+   423   407 74416.8612   10 9004          - 74021.2889      -  5946 7847s
+   543   491 127777.711   11 7483          - 74021.2889      -  5258 7924s
+   663   647 76626.4691   11 15369          - 74021.2889      -  4790 8048s
+   868   827 76626.4691   12 15437          - 74021.2889      -  4008 8156s
+  1076   994 86976.0691   13 7213          - 74021.2889      -  3583 8193s
+  1289  1208 77064.1315   13 13310          - 74021.2889      -  3272 8326s
+  1566  1449 80613.9163   14 14968          - 74021.2889      -  2999 8409s
+  1849  1725 80613.9163   15 12988          - 74021.2889      -  2768 8494s
+  2191  1982 80947.4903   16 15295          - 74021.2889      -  2576 8596s
+  2532  2326 80957.7517   17 14061          - 74021.2889      -  2555 8674s
+  2965  2662 86976.0691   18 6581          - 74021.2889      -  2397 8704s
+  3405  3032 83042.2652   18 13171          - 74021.2889      -  2201 8791s
+  3890  3477 83543.1329   19 9542          - 74021.2889      -  2051 8851s
+  4469  3478 144853.363   19 26701          - 74021.2889      -  1950 9876s
+  4471  3479 122840.627   15 9615          - 81196.2088      -  1949 10102s
+  4472  3480 147931.163   32 16076          - 92938.9731      -  1948 11168s
+  4473  3481 114969.236   12 16772          - 92944.2159      -  1948 11304s
+  4474  3481 149174.552   22 22735          - 92979.4732      -  1948 11519s
+  4475  3482 92985.3382   13 26005          - 92985.3382      -  1947 11708s
+  4476  3483 142874.868   20 26345          - 92991.6995      -  1947 11842s
+  4478  3485 149174.552   17 26701          - 92991.6995      -  2014 11993s
+  4480  3486 145057.237   20 6677          - 92991.6995      -  2013 12112s
+  4481  3487 140460.131   30 16039          - 92991.6995      -  2013 12435s
+  4482  3488 151153.047   24 20525          - 92996.0659      -  2012 12961s
+  4483  3488 142398.102   21 24190          - 93018.0397      -  2012 13129s
+  4484  3489 170052.099   12 24144          - 93018.1469      -  2011 13290s
+  4485  3490 171627.020   30 30371          - 93036.9388      -  2011 13491s
+  4486  3490 149174.552   15 30934          - 93039.3579      -  2010 13662s
+  4487  3491 169206.790   23 31523          - 93069.1611      -  2010 13788s
+  4488  3492 138553.678   17 31558          - 93069.3530      -  2009 13918s
+  4489  3492 376248.636   12 28629          - 93073.1054      -  2009 13950s
+  4490  3493 203086.068   21 28633          - 93073.1054      -  2008 14027s
+  4491  3494 159010.706   23 28628          - 93073.1262      -  2008 14046s
+  4492  3494 141703.521   22 28641          - 93073.1262      -  2008 14125s
+  4493  3495 129104.152   32 28569          - 93079.8474      -  2007 14144s
+  4494  3496 135403.836   16 28548          - 93079.8954      -  2007 14216s
+  4495  3496 148003.205   11 29009          - 93084.1443      -  2006 14302s
+  4497  3499 140298.396   15 26701          - 93084.1443      -  2043 14524s
+  4499  3500 203086.068   22 5372          - 94175.5515      -  2043 14677s
+  4500  3501 137310.289   31 12634          - 97626.6727      -  2042 14941s
+  4501  3502 97732.9606   12 16445          - 97732.9606      -  2042 15080s
+  4502  3502 137785.678   22 18528          - 97945.1602      -  2041 15143s
+  4504  3505 129104.152   14 26701          - 97945.1602      -  2068 15266s
+  4506  3506 447080.710   18 4648          - 97945.1602      -  2067 15361s
+  4507  3507 141703.521   23 15096          - 99245.6151      -  2067 15527s
+  4508  3508 231827.587   31 21719          - 99314.6126      -  2066 15747s
+  4509  3508 123219.600   18 28495          - 99412.1997      -  2066 15857s
+  4510  3509 148438.507   10 28269          - 99415.8927      -  2065 15962s
+  4511  3510 148003.205   23 28995          - 99518.1189      -  2065 16165s
+  4512  3510 174909.621   20 28941          - 99518.1189      -  2064 16317s
+  4513  3511 138553.678   20 29548          - 99538.5475      -  2064 16399s
+  4514  3512 151153.047   14 29691          - 99538.5475      -  2063 16472s
+  4515  3512 157452.731   15 29115          - 99538.9038      -  2063 16504s
+  4516  3513 138553.678   19 29112          - 99538.9038      -  2063 16572s
+  4517  3514 184187.016   25 29045          - 99538.9101      -  2062 16583s
+  4518  3514 135403.836   33 29004          - 99538.9101      -  2062 16629s
+  4519  3515 131307.125   21 28802          - 99538.9101      -  2061 16630s
+  4520  3516 152324.394   17 28967          - 99538.9101      -  2061 16683s
+  4521  3516 131158.383   21 28243          - 99538.9101      -  2060 16745s
+  4522  3517 472279.447   14 28541          - 99538.9101      -  2060 16793s
+  4523  3518 148003.205   15 28267          - 99539.2835      -  2059 16851s
+  4524  3518 388884.164   15 28537          - 99539.2835      -  2059 16901s
+  4526  3520 149174.552   15 28462          - 99539.2835      -  2058 16958s
+  4527  3520 161749.993   11 28487          - 99539.2835      -  2058 17005s
+  4528  3521 181209.305   33 28101          - 99539.2835      -  2057 17062s
+  4529  3522 138553.678    9 27655          - 99539.2835      -  2057 17123s
+  4530  3522 131010.605   21 27983          - 99539.2835      -  2056 17185s
+  4531  3523 137018.130   22 28332          - 99539.2835      -  2056 17245s
+  4532  3524 181076.547   20 28482          - 99539.2835      -  2055 17298s
+  4533  3524 106756.190    9 28385          - 99539.2835      -  2055 17352s
+  4534  3525 122840.627   15 27976          - 99539.2835      -  2054 17409s
+  4535  3526 148003.205   16 28405          - 99539.2835      -  2054 17465s
+  4536  3526 133796.625   15 27974          - 99539.2835      -  2053 17512s
+  4537  3527 145963.055   18 27984          - 99539.2835      -  2053 17570s
+  4538  3528 172265.768   12 28099          - 99539.3096      -  2053 17620s
+  4540  3529 122545.750   12 28170          - 99539.3096      -  2052 17673s
+  4541  3530 132855.875   14 28207          - 99539.3096      -  2051 17730s
+  4542  3530 112562.608   28 28315          - 99539.3096      -  2051 17783s
+  4543  3531 129104.152   27 28393          - 99539.3096      -  2050 17839s
+  4544  3532 129104.152   13 28380          - 99539.3096      -  2050 17892s
+  4545  3532 133809.042   15 28192          - 99539.3096      -  2049 17976s
+  4546  3533 223156.468   24 28159          - 99539.3096      -  2049 18031s
+  4547  3534 171265.431   18 28159          - 99545.9933      -  2048 18112s
+  4548  3537 99640.4364   53 34867          - 99639.3179      -  2108 18437s
+  4550  3541 99722.1867   54 32988          - 99706.4335      -  2116 18628s
+  4554  3545 99798.1007   55 30388          - 99722.1867      -  2124 21481s
+  4562  3549 99869.9785   56 29720          - 99798.1007      -  2160 24476s
+  4576  3564 99961.8852   57 28035          - 99869.9785      -  2179 24522s
+  4596  3597 100080.940   58 29982          - 99961.8852      -  2187 25002s
+  4636  3662 100190.816   59 28139          - 100080.940      -  2225 25036s
+  4716  3748 104365.925   60 21769          - 100190.816      -  2259 25462s
+  4836  3810 105241.013   61 21814          - 100347.001      -  2460 26968s
+  4956  3880 105236.347   61 21446          - 100347.001      -  2469 27013s
+  5076  3956 105240.902   62 20279          - 100449.250      -  2481 27052s
+  5196  4113 131332.524   62 9936          - 100502.744      -  2474 27094s
+  5407  4138 105240.902   63 20284          - 100502.744      -  2425 27591s
+  5540  4277 132114.494   63 12365          - 100502.744      -  2421 27638s
+  5758  4462 112924.863   64 15878          - 100502.744      -  2381 27674s
+  6054  4635 110178.302   64 23707          - 100502.744      -  2316 27737s
+  6356  4875 110224.370   65 23724          - 100502.744      -  2250 27768s
+  6730  4805 143354.235   65 9818          - 100502.744      -  2173 28434s
+  6925  5067 110402.235   66 22147          - 100502.744      -  2153 28480s
+  7318  5309 136760.430   66 11553          - 100502.744      -  2090 28524s
+  7776  5599 110427.615   67 21636          - 100502.744      -  2010 28578s
+  8305  5474 110720.526   68 18251          - 100502.744      -  1921 29518s
+  8572  5895 136711.639   68 12592          - 100502.744      -  1905 29563s
+  9170  6258 113108.101   69 11258          - 100502.744      -  1819 29610s
+  9832  6666 114792.947   69 13375          - 100502.744      -  1738 29665s
+ 10570  6521 114894.213   70 13434          - 100502.744      -  1651 30365s
+ 10843  7203 125675.796   70 8510          - 100502.744      -  1637 30400s
+ 11766  7725 114921.719   71 14595          - 100502.744      -  1543 30429s
+ 12832  8208 118816.577   71 10310          - 100502.744      -  1444 30475s
+ 13909  7955 120834.464   72 10180          - 100502.744      -  1361 31279s
+ 14190  8893 132057.877   72 11925          - 100502.744      -  1359 31340s
+ 15452  8745 136429.022   73 6083          - 100502.744      -  1288 31579s
+ 15823  9908 123374.891   73 9848          - 100502.744      -  1277 31626s
+ 17272 11104 131102.915   75 7471          - 100502.744      -  1197 31667s
+ 18766 11246 191153.981   76 7039          - 100502.744      -  1129 32602s
+ 19148 12630 186863.313   77 7975          - 100502.744      -  1123 32644s
+ 20777 12869 132997.794   77 9167          - 100502.744      -  1058 32823s
+ 21281 14461 142483.620   78 6106          - 100502.744      -  1051 32864s
+ 23053 16049 143055.286   80 8055          - 100502.744      -   991 32916s
+ 24969 16247 144363.281   82 7682          - 100502.744      -   933 34720s
+ 25455 17952 146891.531   83 8046          - 100502.744      -   932 34768s
+ 27575 19412 147853.277   85 6138          - 100502.744      -   880 34816s
+ 29463 19560 154885.056   91 5834          - 100502.744      -   840 35515s
+ 29967 21097 155129.094   92 5845          - 100502.744      -   842 35566s
+ 31717 22552 166285.325   99 4736          - 100502.744      -   817 35625s
+ 33435 22743 227500.435  106 3920          - 100502.744      -   795 37196s
+ 33949 24464 infeasible  107               - 100502.744      -   799 37267s
+ 35910 26146 215764.182  119 4070          - 100502.744      -   777 37331s
+ 37869 26479 217697.403  128 3742          - 100502.744      -   760 39650s
+ 38434 28415 218766.166  130 4756          - 100502.744      -   762 39717s
+ 40632 30507 229073.872  146 3460          - 100502.744      -   742 39810s
+ 42912 30915 329028.325  163 3013          - 100502.744      -   723 40362s
+ 43546 33574 329028.325  171 2939          - 103091.862      -   723 40475s
+ 46522 34111 130718.446   63 3822          - 103091.862      -   698 41603s
+ 47307 36673 182078.875   63 10682          - 103091.862      -   697 41698s
+ 50251 39148 130718.446   64 1853          - 103091.862      -   678 41777s
+ 53191 39764 130718.446   66 8647          - 103091.862      -   661 42682s
+ 54055 43118 130718.446   67 8527          - 103091.862      -   660 42772s
+ 57943 45921 131262.756   69 9305          - 103091.862      -   634 42857s
+ 61249 46485 197922.977   71 3485          - 103091.862      -   615 44931s
+ 62225 50130 161979.425   75 2655          - 103091.862      -   615 45054s
+ 66459 53518 173201.941   83 2352          - 103091.862      -   593 45159s
+ 70502 56543 172109.946   88 2818          - 103091.862      -   574 45249s
+ 74113 57104 215398.478   90 1866          - 103091.862      -   560 46524s
+ 75028 60871 178545.045   89 2581          - 103091.862      -   562 46626s
+ 79338 64195 201101.867  105 3513          - 103091.862      -   547 46720s
+ 83398 64997 337031.278  135 2148          - 103091.862      -   535 47633s
+ 84595 70065 324743.278  141 2355          - 103091.862      -   536 47777s
+ 90487 71091 infeasible  165               - 104648.535      -   517 48749s
+ 91987 76589 134113.731   67 10149          - 104648.535      -   517 48891s
+ 98522 81858 134113.731   68 9892          - 104648.535      -   498 49029s
+ 104658 82972 146713.099   68 10225          - 104648.535      -   479 49330s
+ 106276 88876 134113.731   70 10392          - 104648.535      -   479 49477s
+ 113469 90156 134113.731   71 10151          - 104648.535      -   460 49800s
+ 115380 95656 190429.452   72 8481          - 104648.535      -   459 49940s
+ 122186 100704 134991.766   73 8804          - 104648.535      -   446 50069s
+ 128338 101851 136215.392   75 8861          - 104648.535      -   434 52193s
+ 130115 108393 infeasible   75               - 104648.535      -   434 52386s
+ 137659 113574 231991.518   89 7190          - 104648.535      -   424 52534s
+ 144276 115007 270086.645  112 4127          - 104648.535      -   415 54156s
+ 147051 121407 320424.278  114 4457          - 104648.535      -   413 54343s
+ 155347 127380 329215.413  174 4677          - 104648.535      -   404 54512s
+ 163232 129449 700694.223  238 3563          - 104648.535      -   395 55947s
+ 166167 137990 420596.625  259 3581          - 104648.535      -   394 56166s
+ 175990 145645 776772.448  377 3916          - 104648.535      -   386 56366s
+ 185010 148646 1176510.89  438 3000          - 104648.535      -   378 56905s
+ 188762 159576 1287483.98  467 2786          - 104648.535      -   375 57157s
+ 200923 168010 1493549.85  552 3099          - 104648.535      -   363 57367s
+ 210524 170751 1629532.88  611 2775          - 104648.535      -   355 57733s
+ 213927 181500 1683384.86  620 2469          - 104648.535      -   354 57998s
+ 225976 191093 2054036.21  691 2332          - 104648.535      -   346 58221s
+ 237081 194059 infeasible  749               - 105486.671      -   337 59167s
+ 241083 205330 124418.762   67 5620          - 105486.671      -   336 59441s
+ 253484 216453 124418.762   70 8722          - 105486.671      -   329 59715s
+ 266411 220951 124418.762   72 8765          - 105486.671      -   321 60218s
+ 271922 233528 124418.762   73 8896          - 105486.671      -   319 60513s
+ 285861 245766 180155.389   75 8647          - 105486.671      -   312 60798s
+ 300210 250188 133172.869   78 8372          - 105486.671      -   304 61268s
+ 305788 263704 142154.564   78 8980          - 105486.671      -   302 61576s
+ 321246 275392 infeasible   80               - 105486.671      -   295 61848s
+ 335159 285857 149617.499   85 8839          - 105486.671      -   288 62101s
+ 348254 289556 162217.478   88 8529          - 105486.671      -   282 62766s
+ 353970 300545 162216.867   89 9048          - 105486.671      -   281 63045s
+ 367268 310990 162217.478   91 8721          - 105486.671      -   278 63319s
+ 380210 315627 infeasible  102               - 105486.671      -   275 64179s
+ 386847 327823 362558.684  119 2942          - 105486.671      -   273 64481s
+ 401504 338906 749001.921  259 2803          - 105486.671      -   270 64747s
+ 415549 348738 1067080.04  382 2456          - 105486.671      -   266 64985s
+ 428714 352384 1114325.03  467 2112          - 105486.671      -   262 66486s
+ 434834 363166 1116773.92  527 2106          - 105486.671      -   261 66751s
+ 448362 373829 1178385.83  583 2007          - 105486.671      -   259 67010s
+ 461761 377925 1335012.65  684 1722          - 105486.671      -   257 67963s
+ 467704 389987 1438100.75  753 2806          - 105486.671      -   256 68254s
+ 481789 401572 1460763.44  862 1594          - 105486.671      -   255 68523s
+ 496229 412446 infeasible  895               - 105486.671      -   253 68775s
+H504736 408796                    9705687.6681 105486.671  98.9%   252 68776s
+ 509722 412996 1609831.09  929 1582 9705687.67 110554.424  98.9%   251 71683s
+H509850 412980                    9625406.0681 116544.157  98.8%   251 71683s
+H516299 423623                    9620681.3050 116544.157  98.8%   250 71972s
+H516655 423454                    9464842.8681 116544.157  98.8%   250 71972s
+ 530118 432784 191843.074   76 8709 9464842.87 116544.157  98.8%   248 72241s
+H531525 432782                    9460118.1050 116544.157  98.8%   248 72242s
+H534119 422827                    4619200.0416 116544.157  97.5%   247 72242s
+H543082 428893                    4594726.4416 116544.157  97.5%   246 72507s
+H543142 428146                    4426022.4416 116544.157  97.4%   246 72507s
+H544476 428103                    4419722.7574 116544.157  97.4%   246 72507s
+H546898 427926                    4403166.4000 116544.157  97.4%   246 72507s
+ 553090 431955 271109.009  110 3110 4403166.40 116544.157  97.4%   245 73958s
+H553530 431564                    4306937.4941 116544.157  97.3%   245 73958s
+ 558394 443320 302013.604  129 3476 4306937.49 116544.157  97.3%   245 74445s
+H558806 443216                    4281994.1297 116544.157  97.3%   245 74445s
+H562087 443071                    4257932.8416 116544.157  97.3%   246 74445s
+ 572486 453752     cutoff  206      4257932.84 116544.157  97.3%   245 74776s
+H573426 453737                    4254782.9995 116544.157  97.3%   245 74776s
+H578021 453638                    4244747.7995 116544.157  97.3%   244 74776s
+ 585793 457980 133444.146   89 9255 4244747.80 116544.157  97.3%   243 75686s
+ 591067 470253 139549.777   98 7818 4244747.80 116544.157  97.3%   243 76074s
+ 605281 475733 2194133.48  279 3581 4244747.80 116544.157  97.3%   243 76740s
+ 612047 488779 4065211.69  456 2762 4244747.80 116544.157  97.3%   243 77118s
+ 627396 500404 134854.258   99 5680 4244747.80 116544.157  97.3%   243 77456s
+ 642117 511032 251160.533  139 3716 4244747.80 116544.157  97.3%   242 77784s
+H643248 510966                    4242010.8218 116544.157  97.3%   242 77784s
+ 655116 516728 infeasible  272      4242010.82 116544.157  97.3%   241 78478s
+H656901 516727                    4241937.6000 116544.157  97.3%   241 78478s
+ 662048 531783 145922.185   82 10878 4241937.60 116544.157  97.3%   240 78836s
+ 678710 546237 165726.242  127 5882 4241937.60 116544.157  97.3%   239 79202s
+ 695828 556761 574769.299  234 4918 4241937.60 116544.157  97.3%   235 79477s
+ 708601 560309 infeasible  346      4241937.60 116544.157  97.3%   233 81052s
+ 713638 570807 144305.442   79 8978 4241937.60 118856.067  97.2%   233 81319s
+ 726225 581591 162540.990   77 9568 4241937.60 119779.151  97.2%   233 81596s
+ 739643 587358 176203.868   92 7810 4241937.60 119779.151  97.2%   232 82697s
+ 747148 599227 176902.793   94 7557 4241937.60 119779.151  97.2%   231 83024s
+ 761835 609604 198855.169  139 10182 4241937.60 119779.151  97.2%   230 83309s
+ 774905 612310 232832.628  189 3516 4241937.60 119779.151  97.2%   228 84275s
+ 779142 624336 3228733.65  291 3235 4241937.60 120385.374  97.2%   229 84567s
+ 793094 634525 174976.715  102 9633 4241937.60 120385.374  97.2%   228 84860s
+ 805830 637146 195028.053  142 7690 4241937.60 120385.374  97.2%   228 86605s
+ 810074 650322 207760.439  150 7828 4241937.60 130065.427  96.9%   229 87009s
+ 820461 650322 225096.777  102 3362 4241937.60 133961.932  96.8%   230 87010s
+ 825596 661826 184697.736  112 7420 4241937.60 133961.932  96.8%   230 87352s
+ 839988 665666 infeasible  284      4241937.60 134067.829  96.8%   229 88864s
+ 845711 678565 280273.138  103 3928 4241937.60 134067.829  96.8%   230 89199s
+ 860757 688705 703458.622  160 3808 4241937.60 134067.829  96.8%   229 89486s
+ 873688 692280 2486785.26  217 2506 4241937.60 134067.829  96.8%   229 91464s
+ 878602 705685 infeasible  248      4241937.60 134134.241  96.8%   229 91862s
+ 894212 715801 206424.975  109 5636 4241937.60 134134.241  96.8%   230 92225s
+ 906647 718707 159404.969  118 8634 4241937.60 134134.241  96.8%   230 93329s
+ 911012 730908 150641.466  121 7068 4241937.60 134134.241  96.8%   231 93702s
+ 925132 735553 188004.046  131 7177 4241937.60 134134.241  96.8%   231 95057s
+ 930805 748653 194415.773  136 6019 4241937.60 134134.241  96.8%   232 95463s
+ 946209 761457 208324.415  165 6916 4241937.60 134134.241  96.8%   233 95827s
+ 961632 772497 296496.211  211 6290 4241937.60 134134.241  96.8%   232 96128s
+ 974900 775711 infeasible  306      4241937.60 135163.246  96.8%   231 98133s
+ 979627 786685 204901.442   76 8751 4241937.60 135343.205  96.8%   231 98485s
+ 992656 796185 227386.264  108 7448 4241937.60 135343.205  96.8%   231 98815s
+ 1005319 799696 258455.931  151 7380 4241937.60 135343.205  96.8%   231 101146s
+ 1011064 811534 266854.575  160 9784 4241937.60 135343.205  96.8%   232 101555s
+ 1025154 821327 195887.844   95 8613 4241937.60 135343.205  96.8%   234 101915s
+ 1036987 824550 241579.984  148 6312 4241937.60 135343.205  96.8%   236 103531s
+ 1041550 837555 243918.332  160 9329 4241937.60 135401.086  96.8%   237 103974s
+ 1056510 845229 191310.514   86 6659 4241937.60 135401.086  96.8%   239 105668s
+ 1065756 859679 215947.847   89 6496 4241937.60 135401.086  96.8%   239 106062s
+ 1081861 871980 2220852.11  157 3848 4241937.60 135401.086  96.8%   239 106445s
+ 1096841 883634 2699673.89  248 3629 4241937.60 135401.086  96.8%   238 106771s

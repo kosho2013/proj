@@ -312,7 +312,7 @@ if __name__ == '__main__':
 
 
 
-    batch = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
+    batch = [1, 2, 4, 8, 16, 32]
     
     for ba in batch:
         print('batch', ba, '***********************')
@@ -500,7 +500,6 @@ if __name__ == '__main__':
         
         # update compute stitching and buffer partitioning
         dse = {}
-        flop = 0
         for i in range(1, total_layer+1):
             layer = layer_dict[i]
             
@@ -526,15 +525,18 @@ if __name__ == '__main__':
                         dse[layer_num] = [[i, j]]
                     
                     
-                    
-            if layer_type == 'gemm':
-                flop += m * k * n * 9
-            elif layer_type == 'loss':
-                flop += m * n
-            else:
-                raise Exception('Wrong layer type!')
         
         
+        
+        
+        
+        flop = 0
+        for _, [node, _] in node_dict.items():
+            if isinstance(node, tcompute):
+                if node.k == -1:
+                    flop += node.m * node.n
+                else:
+                    flop += 2 * node.m * node.k * node.n
         
         
         
@@ -718,8 +720,8 @@ if __name__ == '__main__':
         
         
         
-        # name = workload+'_'+datatype+'_'+operation+'_batch'+str(ba)
-        # plot(graph, name, tmp_tmp_node_dict, edge_dict)
+        name = workload+'_'+datatype+'_'+operation+'_batch'+str(ba)
+        plot(graph, name, tmp_tmp_node_dict, edge_dict)
                 
         
         

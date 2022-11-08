@@ -1,0 +1,114 @@
+batch 1 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PCU/PMU on-chip without replicate
+final_replicate 1
+pcu_used 5
+pmu_used 9
+ns_per_sample 3276.8
+oi 112.5
+max_gflops 229387.5
+gflops 281.25
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 2 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PCU/PMU on-chip without replicate
+final_replicate 1
+pcu_used 5
+pmu_used 9
+ns_per_sample 1638.4
+oi 104.5
+max_gflops 213075.5
+gflops 522.5
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 4 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PCU/PMU on-chip without replicate
+final_replicate 1
+pcu_used 5
+pmu_used 9
+ns_per_sample 819.2
+oi 100.5
+max_gflops 204919.5
+gflops 1005.0
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 8 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PCU/PMU on-chip without replicate
+final_replicate 1
+pcu_used 5
+pmu_used 9
+ns_per_sample 819.2
+oi 98.5
+max_gflops 200841.5
+gflops 985.0
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 16 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PCU/PMU on-chip without replicate
+final_replicate 1
+pcu_used 5
+pmu_used 9
+ns_per_sample 614.4
+oi 97.5
+max_gflops 198802.5
+gflops 1300.0
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
+batch 32 ***********************
+best mapping:
+config [[1, 1], [1, 1]]
+limiting_factor PCU/PMU on-chip without replicate
+final_replicate 1
+pcu_used 5
+pmu_used 9
+ns_per_sample 614.4
+oi 97.0
+max_gflops 197783.0
+gflops 1293.3333333333335
+
+
+total_permutations: 1
+invalid_resources: 0
+valid: 1
+
+
+
