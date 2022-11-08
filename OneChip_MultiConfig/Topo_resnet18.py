@@ -454,7 +454,7 @@ if __name__ == '__main__':
         for i in range(total_layer, 0, -1):
             layer = layer_dict[i]
             
-            layer_num = int(layer[1]['layer_num'])
+            layer_num = int(layer[1]['layer_num']) 
             layer_type = str(layer[1]['layer_type'])
             sparsity = str(layer[1]['sparsity'])            
             m = layer[1]['m']
