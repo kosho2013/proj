@@ -1,342 +1,91 @@
-pixelfly_block32
-batch 64
-par 1
-OI 193.0
-# of config 1
-throughput 1403.6363636363635
+1
+# of configs 3
+OI 1432.2829963860545
+thru 7052.855876961857
 
 
 
-pixelfly_block32
-batch 32
-par 2
-OI 193.5
-# of config 1
-throughput 5160.0
+2
+# of configs 3
+OI 1432.2829963860545
+thru 25897.741126726727
 
 
 
-pixelfly_block32
-batch 64
-par 4
-OI 193.0
-# of config 1
-throughput 20586.666666666668
+4
+# of configs 4
+OI 1023.059283132896
+thru 47109.66367517035
 
 
 
-pixelfly_block32
-batch 32
-par 8
-OI 193.5
-# of config 1
-throughput 61920.0
+6
+# of configs 5
+OI 920.0559363255986
+thru 71119.19559612496
 
 
 
-pixelfly_block32
-batch 32
-par 16
-OI 193.5
-# of config 1
-throughput 123840.0
+8
+# of configs 8
+OI 822.0584119504529
+thru 66678.30396088843
 
 
 
-pixelfly_block32
-batch 64
-par 17
-OI 64.33333333333333
-# of config 2
-throughput 109526.97542944118
+10
+# of configs 11
+OI 704.8082298039183
+thru 78820.05188408849
 
 
 
-pixelfly_block32
-batch 64
-par 18
-OI 64.33333333333333
-# of config 2
-throughput 109526.97542944118
+12
+# of configs 14
+OI 497.4144785219004
+thru 73044.48791302911
 
 
 
-pixelfly_block32
-batch 64
-par 19
-OI 64.33333333333333
-# of config 2
-throughput 115953.05383707881
+14
+# of configs 18
+OI 534.4364974545201
+thru 73846.29700365808
 
 
 
-pixelfly_block32
-batch 64
-par 20
-OI 64.33333333333333
-# of config 2
-throughput 115953.05383707881
+16
+# of configs 23
+OI 364.62019280204265
+thru 78142.19605546245
 
 
 
-pixelfly_block32
-batch 64
-par 21
-OI 64.33333333333333
-# of config 2
-throughput 115953.05383707881
+18
+# of configs 30
+OI 277.3409037395865
+thru 67101.32201608949
 
 
 
-pixelfly_block32
-batch 64
-par 22
-OI 64.33333333333333
-# of config 2
-throughput 123180.18218499723
+20
+# of configs 35
+OI 208.03295246476156
+thru 70866.91365491418
 
 
 
-pixelfly_block32
-batch 64
-par 23
-OI 64.33333333333333
-# of config 2
-throughput 123180.18218499723
+22
+# of configs 39
+OI 246.9806488802865
+thru 73172.3152271724
 
 
 
-pixelfly_block32
-batch 64
-par 24
-OI 64.33333333333333
-# of config 2
-throughput 123180.18218499723
-
-
-
-pixelfly_block32
-batch 32
-par 25
-OI 64.5
-# of config 2
-throughput 82560.0
-
-
-
-pixelfly_block32
-batch 32
-par 26
-OI 64.5
-# of config 2
-throughput 98853.83312943479
-
-
-
-pixelfly_block32
-batch 32
-par 27
-OI 27.642857142857142
-# of config 3
-throughput 56363.78571428571
-
-
-
-pixelfly_block32
-batch 32
-par 28
-OI 27.642857142857142
-# of config 3
-throughput 56363.78571428571
-
-
-
-pixelfly_block32
-batch 32
-par 29
-OI 27.642857142857142
-# of config 3
-throughput 56363.78571428571
-
-
-
-pixelfly_block32
-batch 32
-par 30
-OI 27.642857142857142
-# of config 3
-throughput 56363.78571428571
-
-
-
-resnet18
-batch 1
-par 1
-OI 1295.4765941956603
-# of config 3
-throughput 6926.0041049056545
-
-
-
-resnet18
-batch 1
-par 2
-OI 1181.5885419586791
-# of config 3
-throughput 25027.89029418423
-
-
-
-resnet18
-batch 1
-par 4
-OI 1156.1780356799977
-# of config 4
-throughput 45683.06910438308
-
-
-
-resnet18
-batch 1
-par 8
-OI 833.5237001413938
-# of config 8
-throughput 63291.88511820409
-
-
-
-resnet18
-batch 1
-par 16
-OI 257.52083726325935
-# of config 24
-throughput 73152.62213906064
-
-
-
-resnet18
-batch 2
-par 17
-OI 280.0865454377728
-# of config 28
-throughput 62725.09233797235
-
-
-
-resnet18
-batch 2
-par 18
-OI 203.01104621849498
-# of config 33
-throughput 62096.5195481189
-
-
-
-resnet18
-batch 1
-par 19
-OI 148.99777418241607
-# of config 31
-throughput 61702.96582883324
-
-
-
-resnet18
-batch 1
-par 20
-OI 152.15194561738048
-# of config 31
-throughput 65692.28274488119
-
-
-
-resnet18
-batch 2
-par 21
-OI 199.05134538841673
-# of config 42
-throughput 64207.144018288185
-
-
-
-resnet18
-batch 2
-par 22
-OI 225.8881520343976
-# of config 43
-throughput 66261.70725681323
-
-
-
-resnet18
-batch 2
-par 23
-OI 231.93731870069433
-# of config 45
-throughput 65797.58535210705
-
-
-
-resnet18
-batch 2
-par 24
-OI 223.39659271313565
-# of config 46
-throughput 72755.65292221223
-
-
-
-resnet18
-batch 2
-par 25
-OI 223.0559330508985
-# of config 47
-throughput 78147.70959778756
-
-
-
-resnet18
-batch -1
-par 26
-OI -1
-# of config -1
-throughput -1
-
-
-
-resnet18
-batch -1
-par 27
-OI -1
-# of config -1
-throughput -1
-
-
-
-resnet18
-batch -1
-par 28
-OI -1
-# of config -1
-throughput -1
-
-
-
-resnet18
-batch -1
-par 29
-OI -1
-# of config -1
-throughput -1
-
-
-
-resnet18
-batch -1
-par 30
-OI -1
-# of config -1
-throughput -1
+24
+# of configs 44
+OI 233.34889169428772
+thru 78588.09108310356
 
 
 

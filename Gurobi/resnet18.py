@@ -278,9 +278,6 @@ if __name__ == '__main__':
     
     
     
-    
-    
-    
     workload = 'resnet18'
     datatype = 'BF16'
     word = 2
@@ -320,7 +317,7 @@ if __name__ == '__main__':
 
 
 
-    batch = [32]
+    batch = [2]
     
     for ba in batch:
         print('batch', ba, '***********************')
@@ -402,13 +399,13 @@ if __name__ == '__main__':
                 else:
                     raise Exception('Wrong from_dram!')
                 
-            elif layer_type == 'pooling' or layer_type == 'batchnorm' or layer_type == 'add' or layer_type == 'softmax':
+            elif layer_type == 'pooling' or layer_type == 'add' or layer_type == 'softmax':
                 f_compute = tcompute('forward'+str(layer_num)+'_'+layer_type, m, k, n, 1, 1, -1)
                 add_node(node_dict, f_compute)
                 add_edge(edge_dict, 'in'+str(layer_num), f_compute.name, 'lanes')
                 
                 if layer_type == 'add':
-                    add_edge(edge_dict, 'in'+str(layer_num-4), f_compute.name, 'lanes')
+                    add_edge(edge_dict, 'in'+str(layer_num-2), f_compute.name, 'lanes')
                 
                 
                 
@@ -447,7 +444,7 @@ if __name__ == '__main__':
         for i in range(total_layer, 0, -1):
             layer = layer_dict[i]
             
-            layer_num = int(layer[1]['layer_num'])
+            layer_num = int(layer[1]['layer_num']) 
             layer_type = str(layer[1]['layer_type'])
             sparsity = str(layer[1]['sparsity'])            
             m = layer[1]['m']
@@ -469,9 +466,13 @@ if __name__ == '__main__':
                     
                 add_node(node_dict, dg_compute)
                 add_edge(edge_dict, 'w'+str(layer_num), dg_compute.name, 'lanes')
-                add_edge(edge_dict, 'dataGradient'+str(layer_num+1), dg_compute.name, 'stages')
                 
-                if layer_num in [4, 9, 14, 19, 24, 29, 34, 39]:
+                if layer_num in [4, 7, 10, 13, 16, 19, 22, 25]:
+                    add_edge(edge_dict, 'dataGradient'+str(layer_num+2), dg_compute.name, 'stages')
+                else:
+                    add_edge(edge_dict, 'dataGradient'+str(layer_num+1), dg_compute.name, 'stages')
+                
+                if layer_num in [3, 6, 9, 12, 15, 18, 21, 24]:
                     dg_buffer = tbuffer('dataGradient'+str(layer_num)+'_tmp', input_size*word)
                 else:
                     dg_buffer = tbuffer('dataGradient'+str(layer_num), input_size*word)
@@ -482,7 +483,10 @@ if __name__ == '__main__':
                 wg_compute = tcompute('backpropWeightGradient'+str(layer_num)+'_'+layer_type, m, n, k, 1, 1, -1) 
                 add_node(node_dict, wg_compute)
                 add_edge(edge_dict, 'in'+str(layer_num), wg_compute.name, 'stages')
-                add_edge(edge_dict, 'dataGradient'+str(layer_num+1), wg_compute.name, 'lanes')
+                if layer_num in [4, 7, 10, 13, 16, 19, 22, 25]:
+                    add_edge(edge_dict, 'dataGradient'+str(layer_num+2), wg_compute.name, 'lanes')
+                else:
+                    add_edge(edge_dict, 'dataGradient'+str(layer_num+1), wg_compute.name, 'lanes')
                 
                 
                 wg_tbuffer = tbuffer('weightGradient'+str(layer_num), m*k*word)
@@ -494,23 +498,20 @@ if __name__ == '__main__':
                 add_node(node_dict, wu_compute)
                 add_edge(edge_dict, 'weightGradient'+str(layer_num), wu_compute.name, 'lanes')
                 
-                if layer_num in [4, 9, 14, 19, 24, 29, 34, 39]:
+                if layer_num in [3, 6, 9, 12, 15, 18, 21, 24]:
                     tmp_compute = tcompute('backpropDataGradient'+str(layer_num)+'_add', input_size, -1, 1, 1, 1, -1)
                     add_node(node_dict, tmp_compute)
                     add_edge(edge_dict, dg_buffer.name, tmp_compute.name, 'lanes')
-                    add_edge(edge_dict, 'dataGradient'+str(layer_num+5), tmp_compute.name, 'lanes')
+                    add_edge(edge_dict, 'dataGradient'+str(layer_num+3), tmp_compute.name, 'lanes')
                     
                     dg_buffer_final = tbuffer('dataGradient'+str(layer_num), input_size*word)
                     add_node(node_dict, dg_buffer_final)
                     add_edge(edge_dict, tmp_compute.name, dg_buffer_final.name, 'lanes')
                 
-            elif layer_type == 'pooling' or layer_type == 'batchnorm' or layer_type == 'softmax':
+            elif layer_type == 'pooling' or layer_type == 'softmax':
                 dg_compute = tcompute('backpropDataGradient'+str(layer_num)+'_'+layer_type, m, k, n, 1, 1, -1) 
                 add_node(node_dict, dg_compute)
-                if layer_num in [7, 12, 17, 22, 27, 32, 37, 42]:
-                    add_edge(edge_dict, 'dataGradient'+str(layer_num+2), dg_compute.name, 'lanes')
-                else:
-                    add_edge(edge_dict, 'dataGradient'+str(layer_num+1), dg_compute.name, 'lanes')
+                add_edge(edge_dict, 'dataGradient'+str(layer_num+1), dg_compute.name, 'lanes')
                 
 
                 dg_buffer = tbuffer('dataGradient'+str(layer_num), input_size*word)
@@ -536,11 +537,6 @@ if __name__ == '__main__':
 
 
         bfs(node_dict, edge_dict, reverse_edge_dict)
-        
-        
-
-
-
 
 
 
@@ -632,8 +628,6 @@ if __name__ == '__main__':
         StageWidth = STAGES
         DRAM_BW = DRAM_BW
         Freq = FREQ
-        Input = node_dict['in1'][0].tenor_size
-        C = 30
         
         
         print('PCU_lim', PCU_lim)
@@ -643,8 +637,6 @@ if __name__ == '__main__':
         print('StageWidth', StageWidth)
         print('Freq', Freq)
         print('DRAM_BW', DRAM_BW)
-        print('Input', Input)
-        print('C', C)
         print('Nb', Nb)
         print('Nb_cin', Nb_cin)
         print('Nb_cout', Nb_cout)
@@ -706,8 +698,7 @@ if __name__ == '__main__':
         
         
         
-        
-
+        C = 8
         model = gp.Model()
         model.params.NonConvex = 2
         model.Params.Threads = 120
@@ -716,31 +707,32 @@ if __name__ == '__main__':
         
         
         Config = model.addMVar(Nc, name='Config', vtype=gp.GRB.INTEGER, lb=0)
+        Ab1 = model.addMVar((Nb, C), name='Ab1', vtype=gp.GRB.BINARY) # on-chip
+        Ab2 = model.addMVar((Nb, C), name='Ab2', vtype=gp.GRB.BINARY) # to/from DRAM
         Ac = model.addMVar((Nc, C), name='Ac', vtype=gp.GRB.BINARY)
+        Ad = model.addMVar((Nd, C), name='Ad', vtype=gp.GRB.BINARY)
         Par_lane = model.addMVar(Nc, name='Par_lane', vtype=gp.GRB.INTEGER, lb=1)
         Par_stage = model.addMVar(Nc, name='Par_stage', vtype=gp.GRB.INTEGER, lb=1)
         Par_total = model.addMVar(Nc, name='Par_total', vtype=gp.GRB.INTEGER, lb=1)
-        Ab1 = model.addMVar((Nb, C), name='Ab1', vtype=gp.GRB.BINARY)
-        Ab2 = model.addMVar((Nb, C), name='Ab2', vtype=gp.GRB.BINARY)
-        Ab3 = model.addMVar((Nb, C), name='Ab3', vtype=gp.GRB.BINARY)
-        Ad = model.addMVar((Nd, C), name='Ad', vtype=gp.GRB.BINARY)
-        Partb = model.addMVar(Nb, name='Partb', vtype=gp.GRB.INTEGER, lb=1)
-        Partd = model.addMVar(Nd, name='Partd', vtype=gp.GRB.INTEGER, lb=1)
+        
         num_PMU_per_buffer1 = model.addMVar(Nb, name='num_PMU_per_buffer1', vtype=gp.GRB.INTEGER, lb=1)
         num_PMU_per_buffer2 = model.addMVar(Nb, name='num_PMU_per_buffer2', vtype=gp.GRB.INTEGER, lb=1)
         num_PMU_per_DRAMbuffer = model.addMVar(Nd, name='num_PMU_per_DRAMbuffer', vtype=gp.GRB.INTEGER, lb=1)
+        
         Cycle = model.addMVar(Nc, name='Cycle', vtype=gp.GRB.INTEGER, lb=0)
+        DRAM_Latency = model.addMVar(C, name='DRAM_Latency', vtype=gp.GRB.CONTINUOUS, lb=0)
+        Compute_Latency = model.addMVar(C, name='Compute_Latency', vtype=gp.GRB.CONTINUOUS, lb=0)
         Latency = model.addMVar(C, name='Latency', vtype=gp.GRB.CONTINUOUS, lb=0)
         
         
         
         
-        # compute assignment
+        # compute assignment   
         t1 = np.ones((C))
         for i in range(Nc):
             model.addConstr(Ac[i, :] @ t1 == 1)
             
-        
+            
         t2 = np.zeros((C))
         for i in range(C):
             t2[i] = i
@@ -755,7 +747,9 @@ if __name__ == '__main__':
             model.addConstr(Config[cin_idx] <= Config[cout_idx])
         
         
-        
+        t3 = np.ones((Nc))
+        for i in range(C):
+            model.addConstr(t3 @ Ac[:, i] >= 1)
         
         
         
@@ -785,43 +779,21 @@ if __name__ == '__main__':
             
             for j in range(C):
                 t1 = model.addVar(vtype=gp.GRB.BINARY)
-                model.addConstr(t1 == gp.and_(Ac[cin_idx, j].tolist()[0], Ac[cout_idx, j].tolist()[0]))
-                model.addConstr((t1 == 1) >> (Ab1[i, j].tolist()[0] == 1))
-                model.addConstr((t1 == 1) >> (Ab2[i, j].tolist()[0] == 0))
-                model.addConstr((t1 == 1) >> (Ab3[i, j].tolist()[0] == 0))
-                
-        
                 t2 = model.addVar(vtype=gp.GRB.BINARY)
                 t3 = model.addVar(vtype=gp.GRB.BINARY)
-                model.addConstr(t3 == 1 - Ac[cout_idx, j].tolist()[0])
-                model.addConstr(t2 == gp.and_(Ac[cin_idx, j].tolist()[0], t3))
-                model.addConstr((t2 == 1) >> (Ab1[i, j].tolist()[0] == 0))
-                model.addConstr((t2 == 1) >> (Ab2[i, j].tolist()[0] == 1))
-                model.addConstr((t2 == 1) >> (Ab3[i, j].tolist()[0] == 0))
-                
-                
-                
                 t4 = model.addVar(vtype=gp.GRB.BINARY)
-                t5 = model.addVar(vtype=gp.GRB.BINARY)
-                model.addConstr(t5 == 1 - Ac[cin_idx, j].tolist()[0])
-                model.addConstr(t4 == gp.and_(t5, Ac[cout_idx, j].tolist()[0]))
-                model.addConstr((t4 == 1) >> (Ab1[i, j].tolist()[0] == 0))
-                model.addConstr((t4 == 1) >> (Ab2[i, j].tolist()[0] == 0))
-                model.addConstr((t4 == 1) >> (Ab3[i, j].tolist()[0] == 1))
+                model.addConstr(t1 == gp.and_(Ac[cin_idx, j].tolist()[0], Ac[cout_idx, j].tolist()[0]))
+                model.addConstr(t2 == gp.or_(Ac[cin_idx, j].tolist()[0], Ac[cout_idx, j].tolist()[0]))
+                model.addConstr(t3 == 1 - t1)
+                model.addConstr(t4 == gp.and_(t3, t2))
                 
                 
+                model.addConstr((t1 == 1) >> (Ab1[i, j].tolist()[0] == 1))
+                model.addConstr((t1 == 0) >> (Ab1[i, j].tolist()[0] == 0))
                 
                 
-                
-                t6 = model.addVar(vtype=gp.GRB.BINARY)
-                t7 = model.addVar(vtype=gp.GRB.BINARY)
-                t8 = model.addVar(vtype=gp.GRB.BINARY)
-                model.addConstr(t6 == 1 - Ac[cin_idx, j].tolist()[0])
-                model.addConstr(t7 == 1 - Ac[cout_idx, j].tolist()[0])
-                model.addConstr(t8 == gp.and_(t6, t7))
-                model.addConstr((t8 == 1) >> (Ab1[i, j].tolist()[0] == 0))
-                model.addConstr((t8 == 1) >> (Ab2[i, j].tolist()[0] == 0))
-                model.addConstr((t8 == 1) >> (Ab3[i, j].tolist()[0] == 0))
+                model.addConstr((t4 == 1) >> (Ab2[i, j].tolist()[0] == 1))
+                model.addConstr((t4 == 0) >> (Ab2[i, j].tolist()[0] == 0))
         
         
         for i in range(Nd):
@@ -838,59 +810,23 @@ if __name__ == '__main__':
         
         
         
-        
-        # buffer partition
-        for i in range(Nb):
-            cout_idx = Nc_dict[Nb_cout[i]]
-            dim = Nb_dim[i]
-            
-            if dim == 'lanes':
-                model.addConstr(Partb[i] == Par_lane[cout_idx])
-            else:
-                model.addConstr(Partb[i] * VecWidth >= StageWidth * Par_stage[cout_idx])
-        
-        
-        
-        
-        for i in range(Nd):
-            cout_idx = Nc_dict[Nd_cout[i]]
-            dim = Nd_dim[i]
-            
-            if dim == 'lanes':
-                model.addConstr(Partd[i] == Par_lane[cout_idx])
-            else:
-                model.addConstr(Partd[i] * VecWidth >= StageWidth * Par_stage[cout_idx])
-                
-                
-                
-                
-                
                 
                 
                 
         
         # PMU limits
         for i in range(Nb):
-            t1 = model.addMVar(1, vtype=gp.GRB.INTEGER, lb=1)
-            model.addConstr(t1[0] @ Partb[i] * Cap >= TSb[i] * D[i])
-            model.addConstr(num_PMU_per_buffer1[i] >= t1[0] @ Partb[i])
-            
-            
-            t2 = model.addMVar(1, vtype=gp.GRB.INTEGER, lb=1)
-            model.addConstr(t2[0] @ Partb[i] * Cap >= TSb[i])
-            model.addConstr(num_PMU_per_buffer2[i] >= t2[0] @ Partb[i])
+            model.addConstr(num_PMU_per_buffer1[i] * Cap >= TSb[i] * D[i])
+            model.addConstr(num_PMU_per_buffer2[i] * Cap >= TSb[i])
             
             
         for i in range(Nd):
-            t1 = model.addMVar(1, vtype=gp.GRB.INTEGER, lb=1)
-            model.addConstr(t1[0] @ Partd[i] * Cap >= TSd[i])
-            model.addConstr(num_PMU_per_DRAMbuffer[i] >= t1[0] @ Partd[i])
+            model.addConstr(num_PMU_per_DRAMbuffer[i] * Cap >= TSd[i])
             
         
         for i in range(C):
             model.addConstr(num_PMU_per_buffer1 @ Ab1[:, i] 
-                            + num_PMU_per_buffer2 @ Ab2[:, i] 
-                            + num_PMU_per_buffer2 @ Ab3[:, i]
+                            + num_PMU_per_buffer2 @ Ab2[:, i]
                             + num_PMU_per_DRAMbuffer @ Ad[:, i] <= PMU_lim)
                             
                             
@@ -928,46 +864,24 @@ if __name__ == '__main__':
         
         
         for i in range(C):
-            if i == 0:
-                t1 = model.addMVar(Nc, vtype=gp.GRB.INTEGER, lb=0)
-                t2 = model.addMVar(1, vtype=gp.GRB.INTEGER, lb=0)
-                t3 = model.addMVar(1, vtype=gp.GRB.CONTINUOUS, lb=0) # compute latency
-                for j in range(Nc):
-                    model.addConstr(t1[j] == Cycle[j] @ Ac[j, i])
-                model.addConstr(t2[0].tolist()[0] == gp.max_(t1[j].tolist()[0] for j in range(Nc)))
-                model.addConstr(t3[0] == t2[0] / Freq)
-                
-                t4 = model.addMVar(1, vtype=gp.GRB.CONTINUOUS, lb=0) # DRAM latency
-                model.addConstr(t4[0] == (TSb @ Ab2[:, i] + TSb @ Ab3[:, i] + Input) / DRAM_BW)
-                model.addConstr(Latency[i].tolist()[0] == gp.max_(t3[0].tolist()[0], t4[0].tolist()[0]))
-                
-            else:
-                t1 = model.addMVar(Nc, vtype=gp.GRB.INTEGER, lb=0)
-                t2 = model.addMVar(1, vtype=gp.GRB.INTEGER, lb=0)
-                t3 = model.addMVar(1, vtype=gp.GRB.CONTINUOUS, lb=0) # compute latency
-                for j in range(Nc):
-                    model.addConstr(t1[j] == Cycle[j] @ Ac[j, i])
-                model.addConstr(t2[0].tolist()[0] == gp.max_(t1[j].tolist()[0] for j in range(Nc)))
-                model.addConstr(t3[0] == t2[0] / Freq)
-                
-                t4 = model.addMVar(1, vtype=gp.GRB.CONTINUOUS, lb=0) # DRAM latency
-                model.addConstr(t4[0] == (TSb @ Ab2[:, i] + TSb @ Ab3[:, i]) / DRAM_BW)
-                model.addConstr(Latency[i].tolist()[0] == gp.max_(t3[0].tolist()[0], t4[0].tolist()[0]))
+            t1 = model.addMVar(Nc, vtype=gp.GRB.INTEGER, lb=0)
+            t2 = model.addMVar(1, vtype=gp.GRB.INTEGER, lb=0)
+            for j in range(Nc):
+                model.addConstr(t1[j] == Cycle[j] @ Ac[j, i])
+            model.addConstr(t2[0].tolist()[0] == gp.max_(t1[j].tolist()[0] for j in range(Nc)))
+            model.addConstr(Compute_Latency[i] == t2[0] / Freq)
+            
+            
+            model.addConstr(DRAM_Latency[i] == (TSb @ Ab2[:, i]) / DRAM_BW)
+            model.addConstr(Latency[i].tolist()[0] == gp.max_(Compute_Latency[i].tolist()[0], DRAM_Latency[i].tolist()[0]))
+    
         
-        
-        
-        
-
         
         
         
         model.setObjective(np.ones((C)) @ Latency, gp.GRB.MINIMIZE)
-        
         model.optimize()
         
-        
-        # model.computeIIS()
-        # model.write('oustput.ilp')
 
 
         

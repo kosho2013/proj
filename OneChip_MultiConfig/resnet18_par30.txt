@@ -1,2 +1,0 @@
-batch 1 ***********************
-backpropWeightGradient45_gemm

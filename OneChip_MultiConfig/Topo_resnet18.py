@@ -327,7 +327,7 @@ if __name__ == '__main__':
 
 
 
-    batch = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
+    batch = [2]
     
     for ba in batch:
         print('batch', ba, '***********************')
@@ -409,13 +409,13 @@ if __name__ == '__main__':
                 else:
                     raise Exception('Wrong from_dram!')
                 
-            elif layer_type == 'pooling' or layer_type == 'batchnorm' or layer_type == 'add' or layer_type == 'softmax':
+            elif layer_type == 'pooling' or layer_type == 'add' or layer_type == 'softmax':
                 f_compute = tcompute('forward'+str(layer_num)+'_'+layer_type, m, k, n, 1, 1, -1)
                 add_node(node_dict, f_compute)
                 add_edge(edge_dict, 'in'+str(layer_num), f_compute.name, 'lanes')
                 
                 if layer_type == 'add':
-                    add_edge(edge_dict, 'in'+str(layer_num-4), f_compute.name, 'lanes')
+                    add_edge(edge_dict, 'in'+str(layer_num-2), f_compute.name, 'lanes')
                 
                 
                 
@@ -476,9 +476,13 @@ if __name__ == '__main__':
                     
                 add_node(node_dict, dg_compute)
                 add_edge(edge_dict, 'w'+str(layer_num), dg_compute.name, 'lanes')
-                add_edge(edge_dict, 'dataGradient'+str(layer_num+1), dg_compute.name, 'stages')
                 
-                if layer_num in [4, 9, 14, 19, 24, 29, 34, 39]:
+                if layer_num in [4, 7, 10, 13, 16, 19, 22, 25]:
+                    add_edge(edge_dict, 'dataGradient'+str(layer_num+2), dg_compute.name, 'stages')
+                else:
+                    add_edge(edge_dict, 'dataGradient'+str(layer_num+1), dg_compute.name, 'stages')
+                
+                if layer_num in [3, 6, 9, 12, 15, 18, 21, 24]:
                     dg_buffer = tbuffer('dataGradient'+str(layer_num)+'_tmp', input_size*word)
                 else:
                     dg_buffer = tbuffer('dataGradient'+str(layer_num), input_size*word)
@@ -489,7 +493,10 @@ if __name__ == '__main__':
                 wg_compute = tcompute('backpropWeightGradient'+str(layer_num)+'_'+layer_type, m, n, k, 1, 1, -1) 
                 add_node(node_dict, wg_compute)
                 add_edge(edge_dict, 'in'+str(layer_num), wg_compute.name, 'stages')
-                add_edge(edge_dict, 'dataGradient'+str(layer_num+1), wg_compute.name, 'lanes')
+                if layer_num in [4, 7, 10, 13, 16, 19, 22, 25]:
+                    add_edge(edge_dict, 'dataGradient'+str(layer_num+2), wg_compute.name, 'lanes')
+                else:
+                    add_edge(edge_dict, 'dataGradient'+str(layer_num+1), wg_compute.name, 'lanes')
                 
                 
                 wg_tbuffer = tbuffer('weightGradient'+str(layer_num), m*k*word)
@@ -501,23 +508,20 @@ if __name__ == '__main__':
                 add_node(node_dict, wu_compute)
                 add_edge(edge_dict, 'weightGradient'+str(layer_num), wu_compute.name, 'lanes')
                 
-                if layer_num in [4, 9, 14, 19, 24, 29, 34, 39]:
+                if layer_num in [3, 6, 9, 12, 15, 18, 21, 24]:
                     tmp_compute = tcompute('backpropDataGradient'+str(layer_num)+'_add', input_size, -1, 1, 1, 1, -1)
                     add_node(node_dict, tmp_compute)
                     add_edge(edge_dict, dg_buffer.name, tmp_compute.name, 'lanes')
-                    add_edge(edge_dict, 'dataGradient'+str(layer_num+5), tmp_compute.name, 'lanes')
+                    add_edge(edge_dict, 'dataGradient'+str(layer_num+3), tmp_compute.name, 'lanes')
                     
                     dg_buffer_final = tbuffer('dataGradient'+str(layer_num), input_size*word)
                     add_node(node_dict, dg_buffer_final)
                     add_edge(edge_dict, tmp_compute.name, dg_buffer_final.name, 'lanes')
                 
-            elif layer_type == 'pooling' or layer_type == 'batchnorm' or layer_type == 'softmax':
+            elif layer_type == 'pooling' or layer_type == 'softmax':
                 dg_compute = tcompute('backpropDataGradient'+str(layer_num)+'_'+layer_type, m, k, n, 1, 1, -1) 
                 add_node(node_dict, dg_compute)
-                if layer_num in [7, 12, 17, 22, 27, 32, 37, 42]:
-                    add_edge(edge_dict, 'dataGradient'+str(layer_num+2), dg_compute.name, 'lanes')
-                else:
-                    add_edge(edge_dict, 'dataGradient'+str(layer_num+1), dg_compute.name, 'lanes')
+                add_edge(edge_dict, 'dataGradient'+str(layer_num+1), dg_compute.name, 'lanes')
                 
 
                 dg_buffer = tbuffer('dataGradient'+str(layer_num), input_size*word)
@@ -545,8 +549,6 @@ if __name__ == '__main__':
         bfs(node_dict, edge_dict, reverse_edge_dict)
         
         
-        
-        
                 
         
         
@@ -555,9 +557,7 @@ if __name__ == '__main__':
         
         
         
-        
-        
-                
+             
         Nb = 0
         Nb_cin = []
         Nb_cout = []
@@ -826,7 +826,6 @@ if __name__ == '__main__':
         
          
         plot(graph, 'resnet18_par'+str(par)+'_ba'+str(ba), node_dict, edge_dict)
-
 
 
 
