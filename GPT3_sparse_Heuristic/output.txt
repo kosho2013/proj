@@ -1,0 +1,765 @@
+8x1
+OI 14758.4
+MI 0.625
+NI 9224.0
+Latency 1452382617.6
+Throughput 639.3069092484297
+sample/s/layer 0.6885238007409212
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 14758.4
+MI 0.625
+NI 9224.0
+Latency 363095654.4
+Throughput 2557.227636993719
+sample/s/layer 2.754095202963685
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 14758.4
+MI 0.625
+NI 9224.0
+Latency 91304755.2
+Throughput 10169.440137812231
+sample/s/layer 10.952332086204422
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 14758.4
+MI 0.625
+NI 9224.0
+Latency 40343961.6
+Throughput 23015.04873294347
+sample/s/layer 24.786856826673162
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 14758.4
+MI 0.625
+NI 9224.0
+Latency 22826188.8
+Throughput 40677.760551248924
+sample/s/layer 43.809328344817686
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 14758.4
+MI 0.625
+NI 9224.0
+Latency 15310848.0
+Throughput 60644.46869983948
+sample/s/layer 65.31316880684858
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 13416.727272727272
+MI 0.6875
+NI 9224.0
+Latency 10262937.6
+Throughput 90472.95019157088
+sample/s/layer 97.43798890485313
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 4919.466666666666
+MI 1.875
+NI 9224.0
+Latency 9877585.92
+Throughput 94002.54777070064
+sample/s/layer 101.23931172040871
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 4760.774193548387
+MI 1.9375
+NI 9224.0
+Latency 8501329.92
+Throughput 109220.35152636448
+sample/s/layer 117.62865450585878
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 4472.242424242424
+MI 2.0625
+NI 9224.0
+Latency 7926251.52
+Throughput 117144.68560089298
+sample/s/layer 126.16304156848155
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 4472.242424242424
+MI 2.0625
+NI 9224.0
+Latency 7511408.64
+Throughput 123614.39602146317
+sample/s/layer 133.13082111852725
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 4472.242424242424
+MI 2.0625
+NI 9224.0
+Latency 7103447.04
+Throughput 130713.75588153889
+sample/s/layer 140.77672352154258
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+8x1
+OI 4472.242424242424
+MI 2.0625
+NI 9224.0
+Latency 6336675.84
+Throughput 146530.80980452994
+sample/s/layer 157.81144960699143
+Network Bound, Peak 230600.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+4x2
+OI 7379.2
+MI 2.2222222222222223
+NI 16398.222222222223
+Latency 3228020244.48
+Throughput 575.2865050284556
+sample/s/layer 0.6195748008148502
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 7379.2
+MI 2.2222222222222223
+NI 16398.222222222223
+Latency 807382548.48
+Throughput 2300.070131691732
+sample/s/layer 2.4771404878211123
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 7379.2
+MI 2.2222222222222223
+NI 16398.222222222223
+Latency 203402772.48
+Throughput 9129.848437983297
+sample/s/layer 9.832707664772142
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 7379.2
+MI 2.2222222222222223
+NI 16398.222222222223
+Latency 90156564.48
+Throughput 20597.906489881367
+sample/s/layer 22.1836314586241
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 7379.2
+MI 2.2222222222222223
+NI 16398.222222222223
+Latency 51228180.48
+Throughput 36250.29167945963
+sample/s/layer 39.04101182709037
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 6708.363636363636
+MI 2.4444444444444446
+NI 16398.222222222223
+Latency 37576212.48
+Throughput 49420.533950738405
+sample/s/layer 53.22516209063123
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 7379.2
+MI 2.2222222222222223
+NI 16398.222222222223
+Latency 23309844.48
+Throughput 79667.47638326585
+sample/s/layer 85.80065824617634
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 6708.363636363636
+MI 2.4444444444444446
+NI 16398.222222222223
+Latency 19719782.400000002
+Throughput 94171.24626121634
+sample/s/layer 101.42099742439348
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 6416.695652173913
+MI 2.5555555555555554
+NI 16398.222222222223
+Latency 15492710.399999999
+Throughput 119865.17766497463
+sample/s/layer 129.09297007191202
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 5903.36
+MI 2.7777777777777777
+NI 16398.222222222223
+Latency 14342553.600000001
+Throughput 129477.39547635366
+sample/s/layer 139.44518220242173
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 5903.36
+MI 2.7777777777777777
+NI 16398.222222222223
+Latency 12494438.4
+Throughput 148629.04799370575
+sample/s/layer 160.07122016784683
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 5903.36
+MI 2.7777777777777777
+NI 16398.222222222223
+Latency 11029708.8
+Throughput 168366.7736185383
+sample/s/layer 181.3284499405823
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+4x2
+OI 5903.36
+MI 2.7777777777777777
+NI 16398.222222222223
+Latency 9496166.4
+Throughput 195556.43892339544
+sample/s/layer 210.61130521048997
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+2x4
+OI 7767.578947368421
+MI 3.8
+NI 29516.8
+Latency 7747047260.160001
+Throughput 479.41787941787936
+sample/s/layer 0.5163257516925729
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7767.578947368421
+MI 3.8
+NI 29516.8
+Latency 1937516789.7600002
+Throughput 1916.9242758799842
+sample/s/layer 2.0644982387458324
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7767.578947368421
+MI 3.8
+NI 29516.8
+Latency 487965327.36
+Throughput 7611.346054667354
+sample/s/layer 8.197303733937167
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7767.578947368421
+MI 3.8
+NI 29516.8
+Latency 216174428.16000003
+Throughput 17180.90803259604
+sample/s/layer 18.503576181727784
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7767.578947368421
+MI 3.8
+NI 29516.8
+Latency 122746306.56
+Throughput 30258.124038954382
+sample/s/layer 32.58753857530326
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7767.578947368421
+MI 3.8
+NI 29516.8
+Latency 81689640.96
+Throughput 45465.6542196657
+sample/s/layer 48.965816877058295
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7767.578947368421
+MI 3.8
+NI 29516.8
+Latency 55742300.16
+Throughput 66629.3453724605
+sample/s/layer 71.75878979731002
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7767.578947368421
+MI 3.8
+NI 29516.8
+Latency 42048552.96
+Throughput 88328.19937345116
+sample/s/layer 95.1281249512944
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7767.578947368421
+MI 3.8
+NI 29516.8
+Latency 32149340.160000004
+Throughput 115525.63600782778
+sample/s/layer 124.41934982469013
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7027.809523809524
+MI 4.2
+NI 29516.8
+Latency 25966018.560000002
+Throughput 143035.90520178693
+sample/s/layer 154.04749059842
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7027.809523809524
+MI 4.2
+NI 29516.8
+Latency 22798663.68
+Throughput 162907.48533977233
+sample/s/layer 175.44887964240542
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7027.809523809524
+MI 4.2
+NI 29516.8
+Latency 19417006.080000002
+Throughput 191279.38436614012
+sample/s/layer 206.00498261779396
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+2x4
+OI 7027.809523809524
+MI 4.2
+NI 29516.8
+Latency 16979066.88
+Throughput 218744.23344140808
+sample/s/layer 235.58420661571716
+Compute Bound, Peak 307200.0
+Hardware_OI 2400.0
+Hardware_MI 5.12
+Hardware_NI 12288.0
+
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
+forward1_Q
+
+
+
