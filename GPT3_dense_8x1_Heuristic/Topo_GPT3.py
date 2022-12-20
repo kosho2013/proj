@@ -605,36 +605,34 @@ if __name__ == '__main__':
     Freq = FREQ
     
     
-    # print('PCU_lim', PCU_lim)
-    # print('PMU_lim', PMU_lim)
-    # print('Cap', Cap)
-    # print('VecWidth', VecWidth)
-    # print('StageWidth', StageWidth)
-    # print('Freq', Freq)
-    # print('DRAM_BW', DRAM_BW)
-    # print('Nb', Nb)
-    # print('Nb_cin', Nb_cin)
-    # print('Nb_cout', Nb_cout)
-    # print('Nb_dim', Nb_dim)
-    # print('TSb', TSb)
-    # print('D', D)
-    # print('Nc', Nc)
-    # print('Nc_name', Nc_name)
-    # print('M', M)
-    # print('K', K)
-    # print('N', N)
-    # print('AllReduce', AllReduce)
-    # print('Nd', Nd)
-    # print('Nd_cout', Nd_cout)
-    # print('Nd_dim', Nd_dim)
-    # print('TSd', TSd)
+    print('PCU_lim', PCU_lim)
+    print('PMU_lim', PMU_lim)
+    print('Cap', Cap)
+    print('VecWidth', VecWidth)
+    print('StageWidth', StageWidth)
+    print('Freq', Freq)
+    print('DRAM_BW', DRAM_BW)
+    print('Nb', Nb)
+    print('Nb_cin', Nb_cin)
+    print('Nb_cout', Nb_cout)
+    print('Nb_dim', Nb_dim)
+    print('TSb', TSb)
+    print('D', D)
+    print('Nc', Nc)
+    print('Nc_name', Nc_name)
+    print('M', M)
+    print('K', K)
+    print('N', N)
+    print('AllReduce', AllReduce)
+    print('Nd', Nd)
+    print('Nd_cout', Nd_cout)
+    print('Nd_dim', Nd_dim)
+    print('TSd', TSd)
     
     
-    # print()
-    # print()
-    # print()
-    # print()
-    # print()
+    print()
+    print()
+    print()
     
     
     
@@ -887,7 +885,46 @@ if __name__ == '__main__':
     print()
     print()
     print()
-    print()
     
+    
+    
+    for i in range(len(configs)):
+        computes = []
+        f = open('HLT/par'+str(par)+'/config'+str(i)+'.txt', 'w')  
+        
+        for compute in configs[i]:
+            computes.append((compute, node_dict[compute][0].topo_num))
+        computes.sort(key = lambda x: x[1])
+        
+        
+        
+        num_PCU = 0
+        num_PMU = 0
+        
+        for compute, _ in computes:
+            num_lane = int(node_dict[compute][0].lanes/VecWidth)
+            num_stage = int(node_dict[compute][0].stages/StageWidth)
+            num_PCU += num_lane * num_stage
+            
+            m = int(node_dict[compute][0].m)
+            k = int(node_dict[compute][0].k)
+            n = int(node_dict[compute][0].n)
+            
+            f.write('compute '+node_dict[compute][0].name+' m '+str(m)+' k '+str(k)+' n '+str(n)+' lanes '+str(num_lane)+' stages '+str(num_stage)+'\n')
+
+            for buffer, connection in reverse_edge_dict[compute]:
+                tensor_size = int(node_dict[buffer][0].tenor_size)
+                depth = 1
+                partition = int(node_dict[buffer][0].downstream_dict[compute][1])
+                num = int(math.ceil(((depth * tensor_size) / partition) / CAPACITY) * partition)
+                num_PMU += num
+                    
+                f.write('buffer '+node_dict[buffer][0].name+' connection '+connection+' num '+str(num)+'\n')
+                
+            
+         
+        f.write('PCU '+str(num_PCU)+'\n')
+        f.write('PMU '+str(num_PMU)+'\n')
+        f.close()
     
     

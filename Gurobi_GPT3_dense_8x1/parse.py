@@ -24,7 +24,7 @@ class tbuffer:
         for key in self.downstream_dict.keys():
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
-            self.downstream_dict[key][2] = math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            self.downstream_dict[key][2] = math.ceil(((d * self.tenor_size) / part) / Cap) * part
             
             self.num += self.downstream_dict[key][2]
     
@@ -35,7 +35,7 @@ class tbuffer:
         for key in self.downstream_dict.keys():
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
-            self.downstream_dict[downstream_buffer_name][2] = math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            self.downstream_dict[downstream_buffer_name][2] = math.ceil(((d * self.tenor_size) / part) / Cap) * part
             
             self.num += self.downstream_dict[key][2]
             
@@ -46,7 +46,7 @@ class tbuffer:
         for key in self.downstream_dict.keys():
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
-            self.downstream_dict[key][2] = math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            self.downstream_dict[key][2] = math.ceil(((d * self.tenor_size) / part) / Cap) * part
             
             self.num += self.downstream_dict[key][2]
         
@@ -61,8 +61,8 @@ class tcompute:
         
         self.lanes_par = lanes_par
         self.stages_par = stages_par
-        self.lanes = LANES * self.lanes_par
-        self.stages = STAGES * self.stages_par
+        self.lanes = VecWidth * self.lanes_par
+        self.stages = StageWidth * self.stages_par
         self.num = self.stages_par * self.lanes_par
         
         self.topo_num = topo_num
@@ -84,8 +84,8 @@ class tcompute:
     def update_compute_stitching(self, lanes_par, stages_par):
         self.lanes_par = lanes_par
         self.stages_par = stages_par
-        self.lanes = LANES * self.lanes_par
-        self.stages = STAGES * self.stages_par
+        self.lanes = VecWidth * self.lanes_par
+        self.stages = StageWidth * self.stages_par
         self.num = self.stages_par * self.lanes_par
         
         if self.k == -1:
@@ -275,35 +275,26 @@ def convert(tmp, ba):
     
 if __name__ == '__main__':
 
-    
-    
-    
-
+    # system parameters   
     datatype = 'BF16'
-    word = 2
-    
-    
-        
-        
-    
-    PMU = 640
-    PCU = 640
-    CAPACITY = 524288 # B
-    LANES = 64 # B
-    LANES = int(LANES / word) # number of data
-    STAGES = 6 # number of data
-    FREQ = 1.25 # GHz
-    DRAM_BW = 128.0 # GB/s
+    word = 2 
+ 
+    PMU_lim = 640
+    PCU_lim = 640
+    Cap = 524288 # B
+    VecWidth = 64 # B
+    VecWidth = int(VecWidth / word) # number of data
+    StageWidth = 6 # number of data
+    Freq = 1.25 # GHz
+    DRAM_BW = 100.0 # GB/s
     PCIE_BW = 25.0 # GB/s
-    
-    
-    
-    
-    
-    
-    
 
     
+    Tile_factor = 4
+    
+    
+    
+    # construct dataflow graph
     d_model = 12288
     d_head = 128
     d_hidden = 49152
@@ -325,15 +316,24 @@ if __name__ == '__main__':
     
         
     
-
-
+    
+    
+    # LN1
+    inLN1_tbuffer = tbuffer('inLN1', d_model*batch*word)
+    add_node(node_dict, inLN1_tbuffer)
+    
+    f_tcompute = tcompute('LN1', n_head/num_chip*d_model, -1, batch*2, 1, 1, -1, False)
+    add_node(node_dict, f_tcompute)
+    
     in1_tbuffer = tbuffer('in1', d_model*batch*word)
     add_node(node_dict, in1_tbuffer)
     
+    add_edge(edge_dict, inLN1_tbuffer.name, f_tcompute.name, 'lanes')
+    add_edge(edge_dict, f_tcompute.name, in1_tbuffer.name, 'lanes')
     
     
     
-    # layer 1
+    # forward 1
     w1_Q_tbuffer = tbuffer('w1_Q', n_head/num_chip*d_head*d_model*word)  
     add_node(node_dict, w1_Q_tbuffer)
 
@@ -343,8 +343,8 @@ if __name__ == '__main__':
     in2_Q_tbuffer = tbuffer('in2_Q', n_head/num_chip*d_head*batch*word)
     add_node(node_dict, in2_Q_tbuffer)
     
-    add_edge(edge_dict, in1_tbuffer.name, f_tcompute.name, 'lanes')
-    add_edge(edge_dict, w1_Q_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, in1_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, w1_Q_tbuffer.name, f_tcompute.name, 'lanes')
     add_edge(edge_dict, f_tcompute.name, in2_Q_tbuffer.name, 'lanes')
     
     
@@ -361,8 +361,8 @@ if __name__ == '__main__':
     in2_K_tbuffer = tbuffer('in2_K', n_head/num_chip*d_head*batch*word)
     add_node(node_dict, in2_K_tbuffer)
     
-    add_edge(edge_dict, in1_tbuffer.name, f_tcompute.name, 'lanes')
-    add_edge(edge_dict, w2_K_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, in1_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, w2_K_tbuffer.name, f_tcompute.name, 'lanes')
     add_edge(edge_dict, f_tcompute.name, in2_K_tbuffer.name, 'lanes')
     
     
@@ -376,11 +376,11 @@ if __name__ == '__main__':
     f_tcompute = tcompute('forward1_V', n_head/num_chip*d_head, d_model, batch, 1, 1, -1, False)
     add_node(node_dict, f_tcompute)
     
-    in3_V_tbuffer = tbuffer('in4_V', n_head/num_chip*d_head*batch*word)
+    in3_V_tbuffer = tbuffer('in3_V', n_head/num_chip*d_head*batch*word)
     add_node(node_dict, in3_V_tbuffer)
     
-    add_edge(edge_dict, in1_tbuffer.name, f_tcompute.name, 'lanes')
-    add_edge(edge_dict, w3_V_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, in1_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, w3_V_tbuffer.name, f_tcompute.name, 'lanes')
     add_edge(edge_dict, f_tcompute.name, in3_V_tbuffer.name, 'lanes')
     
     
@@ -388,28 +388,35 @@ if __name__ == '__main__':
     
     
     
-    
-    
-    # layer 2
+    # forward 2
     f_tcompute = tcompute('forward2', n_head/num_chip*batch, d_head, batch, 1, 1, -1, False)
+    add_node(node_dict, f_tcompute)
+    
+    inSoftmax_tbuffer = tbuffer('inSoftmax', n_head/num_chip*batch*batch*word)
+    add_node(node_dict, inSoftmax_tbuffer)
+    
+    add_edge(edge_dict, in2_Q_tbuffer.name, f_tcompute.name, 'lanes')
+    add_edge(edge_dict, in2_K_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, f_tcompute.name, inSoftmax_tbuffer.name, 'lanes')
+    
+    
+    
+    
+    # softmax
+    f_tcompute = tcompute('softmax', n_head/num_chip*batch, -1, batch*2, 1, 1, -1, False) # softmax has two passes
     add_node(node_dict, f_tcompute)
     
     in3_tbuffer = tbuffer('in3', n_head/num_chip*batch*batch*word)
     add_node(node_dict, in3_tbuffer)
     
-    add_edge(edge_dict, in2_Q_tbuffer.name, f_tcompute.name, 'lanes')
-    add_edge(edge_dict, in2_K_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, inSoftmax_tbuffer.name, f_tcompute.name, 'lanes')
     add_edge(edge_dict, f_tcompute.name, in3_tbuffer.name, 'lanes')
     
     
     
     
-    
-    
-    
-    
-    # layer 3
-    f_tcompute = tcompute('forward3', n_head/num_chip*d_head, batch, batch, 1, 1, -1, False)
+    # forward 3
+    f_tcompute = tcompute('forward3', n_head/num_chip*batch, batch, d_head, 1, 1, -1, False)
     add_node(node_dict, f_tcompute)
     
     in4_tbuffer = tbuffer('in4', n_head/num_chip*d_head*batch*word)
@@ -425,25 +432,40 @@ if __name__ == '__main__':
     
     
     
-    # layer 4
-    w4_tbuffer = tbuffer('w4', n_head/num_chip*d_head*d_model*word)  
+    # forward 4
+    w4_tbuffer = tbuffer('w4', d_model/num_chip*d_model*word)  
     add_node(node_dict, w4_tbuffer)
     
-    f_tcompute = tcompute('forward4', d_model, n_head/num_chip*d_head, batch, 1, 1, -1, True)
+    f_tcompute = tcompute('forward4', d_model, d_model/num_chip, batch, 1, 1, -1, True)
+    add_node(node_dict, f_tcompute)
+    
+    inLN2_tbuffer = tbuffer('inLN2', d_model*batch*word)
+    add_node(node_dict, inLN2_tbuffer)
+    
+    add_edge(edge_dict, in4_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, w4_tbuffer.name, f_tcompute.name, 'lanes')
+    add_edge(edge_dict, f_tcompute.name, inLN2_tbuffer.name, 'lanes')
+    
+    
+    
+    
+    
+    # LN2
+    f_tcompute = tcompute('LN2', d_model, -1, batch*2, 1, 1, -1, False)
     add_node(node_dict, f_tcompute)
     
     in5_tbuffer = tbuffer('in5', d_model*batch*word)
     add_node(node_dict, in5_tbuffer)
     
-    add_edge(edge_dict, in4_tbuffer.name, f_tcompute.name, 'lanes')
-    add_edge(edge_dict, w4_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, inLN2_tbuffer.name, f_tcompute.name, 'lanes')
     add_edge(edge_dict, f_tcompute.name, in5_tbuffer.name, 'lanes')
     
     
     
     
     
-    # layer 5
+    
+    # forward 5
     w5_tbuffer = tbuffer('w5', d_hidden/num_chip*d_model*word)  
     add_node(node_dict, w5_tbuffer)
     
@@ -453,8 +475,8 @@ if __name__ == '__main__':
     in6_tbuffer = tbuffer('in6', d_hidden/num_chip*batch*word)
     add_node(node_dict, in6_tbuffer)
     
-    add_edge(edge_dict, in5_tbuffer.name, f_tcompute.name, 'lanes')
-    add_edge(edge_dict, w5_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, in5_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, w5_tbuffer.name, f_tcompute.name, 'lanes')
     add_edge(edge_dict, f_tcompute.name, in6_tbuffer.name, 'lanes')
     
     
@@ -462,7 +484,8 @@ if __name__ == '__main__':
     
     
     
-    # layer 6
+    
+    # forward 6
     w6_tbuffer = tbuffer('w6', d_hidden/num_chip*d_model*word)  
     add_node(node_dict, w6_tbuffer)
     
@@ -472,31 +495,11 @@ if __name__ == '__main__':
     in7_tbuffer = tbuffer('in7', d_model*batch*word)
     add_node(node_dict, in7_tbuffer)
     
-    add_edge(edge_dict, in6_tbuffer.name, f_tcompute.name, 'lanes')
-    add_edge(edge_dict, w6_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, in6_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, w6_tbuffer.name, f_tcompute.name, 'lanes')
     add_edge(edge_dict, f_tcompute.name, in7_tbuffer.name, 'lanes')
     
-    
-    
-    
-        
-        
-     
-        
-        
-        
-        
-        
-        
-        
-    
-    plot(graph, 'GPT3', node_dict, edge_dict)
-    
-    
-    
-    
-    
-            
+      
    
     
     
@@ -515,17 +518,24 @@ if __name__ == '__main__':
 
 
 
+    plot(graph, 'GPT3_dense', node_dict, edge_dict)
+    
+    
+    
 
     
     
     
     
-            
+    
+    
+    # workload parameters      
     Nb = 0
     Nb_cin = []
     Nb_cout = []
     Nb_dim = []
-    TSb = []
+    TSb_notile = []
+    TSb_tile = []
     D = []
     
     Nc = 0
@@ -568,7 +578,8 @@ if __name__ == '__main__':
                             if next_node == key:
                                 Nb_dim.append(dim)
                         
-                        TSb.append(node.tenor_size)
+                        TSb_notile.append(node.tenor_size)
+                        TSb_tile.append(node.tenor_size/Tile_factor)
                         D.append(node.downstream_dict[key][0])
             else:
                 for key, _ in node.downstream_dict.items():
@@ -580,7 +591,6 @@ if __name__ == '__main__':
                             Nd_dim.append(dim)
                     
                     TSd.append(node.tenor_size)
-
     
     for i in range(Nc):
         if i in mkn.keys():
@@ -591,24 +601,29 @@ if __name__ == '__main__':
                 N.append(value[3])
     
     
-
-
-
-    
-    
     Nc_dict = {}
     for i in range(len(Nc_name)):
         Nc_dict[Nc_name[i]] = i
+        
+        
+            
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
     
     
-    PCU_lim = PCU
-    PMU_lim = PMU
-    Cap = CAPACITY
-    VecWidth = LANES
-    StageWidth = STAGES
-    DRAM_BW = DRAM_BW
-    Freq = FREQ
+    
+    
     
     
     print('PCU_lim', PCU_lim)
@@ -622,7 +637,8 @@ if __name__ == '__main__':
     print('Nb_cin', Nb_cin)
     print('Nb_cout', Nb_cout)
     print('Nb_dim', Nb_dim)
-    print('TSb', TSb)
+    print('TSb_notile', TSb_notile)
+    print('TSb_tile', TSb_tile)
     print('D', D)
     print('Nc', Nc)
     print('Nc_name', Nc_name)
@@ -642,38 +658,14 @@ if __name__ == '__main__':
     print()
     print()
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    Flop = 0
-    for i in range(len(M)):
-        m = M[i]
-        k = K[i]
-        n = N[i]
-        
-        if k == -1:
-            Flop += m * n
-        else:
-            Flop += 2 * m * k * n
 
-    print('FLOP', Flop)
         
-        
-        
-        
-        
+    # parse model
     # Intermediate = d_model*batch*word
     Intermediate = 0
+        
+        
+    
     
     
     C = 4
@@ -682,6 +674,8 @@ if __name__ == '__main__':
     Config = np.zeros((Nc))
     Cycle = np.zeros((Nc))
     Ac = np.zeros((Nc * C))
+    Tileb = np.zeros((Nb))
+    Ab1 = np.zeros((Nb * C))
     
     
     f = open('C4.txt')    
@@ -698,23 +692,57 @@ if __name__ == '__main__':
             Ab2[cnt] = float(line.split()[1])
             cnt += 1
     
-
     for line in lines:
         if line.startswith('Latency:'):
             Latency = float(line.split()[1])
     
+    cnt = 0
+    for line in lines:
+        if line.startswith('Tileb'):
+            Tileb[cnt] = float(line.split()[1])
+            cnt += 1
+            
+    cnt = 0
+    for line in lines:
+        if line.startswith('Ab1'):
+            Ab1[cnt] = float(line.split()[1])
+            cnt += 1
+
+
+
+            
+            
     Bm = 0
     for i in range(Nb):
         for j in range(C):
-            Bm += TSb[i] * Ab2[i * C + j]
+            Bm += TSb_notile[i] * Ab2[i * C + j]
             
+    
+    for i in range(Nb):
+        for i in range(C):
+            Bm += TSb_notile[i] * Tileb[i] * Ab1[i * C + j]
             
+    
+    
     Bn = sum(AllReduce) + Intermediate
     
     
     
+    
+    Flop = 0
+    for i in range(len(M)):
+        m = M[i]
+        k = K[i]
+        n = N[i]
+        
+        if k == -1:
+            Flop += m * n
+        else:
+            Flop += 2 * m * k * n
+    
+    
     Throughput = Flop / Latency
-    Compute = 2 * PCU * LANES * STAGES * FREQ
+    Compute = 2 * PCU_lim * VecWidth * StageWidth * Freq
     OI = Flop / Bm
     MI = Bm / Bn
     NI = Flop / Bn
@@ -750,8 +778,25 @@ if __name__ == '__main__':
     print('Hardware_NI', Hardware_NI)
     
     
-    print(Bm, Bn, sum(AllReduce), Intermediate)
-        
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     
     # size = 0
     # for _, [node, _] in node_dict.items():
