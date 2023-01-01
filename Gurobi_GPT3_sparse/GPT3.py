@@ -24,7 +24,7 @@ class tbuffer:
         for key in self.downstream_dict.keys():
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
-            self.downstream_dict[key][2] = math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            self.downstream_dict[key][2] = math.ceil(((d * self.tenor_size) / part) / Cap) * part
             
             self.num += self.downstream_dict[key][2]
     
@@ -35,7 +35,7 @@ class tbuffer:
         for key in self.downstream_dict.keys():
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
-            self.downstream_dict[downstream_buffer_name][2] = math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            self.downstream_dict[downstream_buffer_name][2] = math.ceil(((d * self.tenor_size) / part) / Cap) * part
             
             self.num += self.downstream_dict[key][2]
             
@@ -46,7 +46,7 @@ class tbuffer:
         for key in self.downstream_dict.keys():
             d = self.downstream_dict[key][0]
             part = self.downstream_dict[key][1]
-            self.downstream_dict[key][2] = math.ceil(((d * self.tenor_size) / part) / CAPACITY) * part
+            self.downstream_dict[key][2] = math.ceil(((d * self.tenor_size) / part) / Cap) * part
             
             self.num += self.downstream_dict[key][2]
         
@@ -61,8 +61,8 @@ class tcompute:
         
         self.lanes_par = lanes_par
         self.stages_par = stages_par
-        self.lanes = LANES * self.lanes_par
-        self.stages = STAGES * self.stages_par
+        self.lanes = VecWidth * self.lanes_par
+        self.stages = StageWidth * self.stages_par
         self.num = self.stages_par * self.lanes_par
         
         self.topo_num = topo_num
@@ -84,8 +84,8 @@ class tcompute:
     def update_compute_stitching(self, lanes_par, stages_par):
         self.lanes_par = lanes_par
         self.stages_par = stages_par
-        self.lanes = LANES * self.lanes_par
-        self.stages = STAGES * self.stages_par
+        self.lanes = VecWidth * self.lanes_par
+        self.stages = StageWidth * self.stages_par
         self.num = self.stages_par * self.lanes_par
         
         if self.k == -1:
@@ -227,6 +227,23 @@ def check_layer_num(node):
             return int(node.name[i:])
     raise Exception('Wrong node name, no layer number!')
     
+    
+    
+def plot(graph, name, node_dict, edge_dict):
+    # node
+    for _, [_, pydot_node] in node_dict.items():
+        graph.add_node(pydot_node)
+    
+    # edge
+    for node1 in edge_dict.keys():
+        for node2, label in edge_dict[node1]:
+            graph.add_edge(pydot.Edge(node_dict[node1][1], node_dict[node2][1], label=label))
+                
+    graph.write_png('./workload/'+name+'.png')          
+                
+                
+                
+                
                 
                 
                 
@@ -258,52 +275,41 @@ def convert(tmp, ba):
     
 if __name__ == '__main__':
 
-    
-    
-    parser = argparse.ArgumentParser(description='Optional app description')
-    parser.add_argument('--num_chip', type=str)
-    parser.add_argument('--C', type=str)
-    args = parser.parse_args()
-    
-    
-    
-    num_chip = int(args.num_chip)
-    C = int(args.C)
-    
-    
-
+    # system parameters   
     datatype = 'BF16'
-    word = 2
-    
-    
-        
-        
-    
-    PMU = 640
-    PCU = 640
-    CAPACITY = 524288 # B
-    LANES = 64 # B
-    LANES = int(LANES / word) # number of data
-    STAGES = 6 # number of data
-    FREQ = 1.25 # GHz
-    DRAM_BW = 128.0 # GB/s
+    word = 2 
+ 
+    PMU_lim = 640
+    PCU_lim = 640
+    Cap = 524288 # B
+    VecWidth = 64 # B
+    VecWidth = int(VecWidth / word) # number of data
+    StageWidth = 6 # number of data
+    Freq = 1.25 # GHz
+    DRAM_BW = 100.0 # GB/s
     PCIE_BW = 25.0 # GB/s
     
+    parser = argparse.ArgumentParser(description='Optional app description')
+    parser.add_argument('--C', type=str)
+    parser.add_argument('--num_chip', type=str)
+    args = parser.parse_args()    
+    C = int(args.C)
+    num_chip = int(args.num_chip)
     
     
     
+    Tile_factor = 16
     
     
-    
-
-    
+    # construct dataflow graph
     d_model = 12288
     d_head = 128
     d_hidden = 49152
     batch = 2048
     
     n_head = 96
-    
+    n_layer = 96
+    pipeline_stage = int(8 / num_chip)
     
 
 
@@ -318,15 +324,32 @@ if __name__ == '__main__':
     
         
     
-
-
+    
+   
+   
+   
+   
+   
+   
+   
+   
+    # LN1
+    inLN1_tbuffer = tbuffer('inLN1', d_model*batch*word)
+    add_node(node_dict, inLN1_tbuffer)
+    
+    f_tcompute = tcompute('LN1', n_head/num_chip*d_model, -1, batch*2, 1, 1, -1, False) # softmax has two passes
+    add_node(node_dict, f_tcompute)
+    
     in1_tbuffer = tbuffer('in1', d_model*batch*word)
     add_node(node_dict, in1_tbuffer)
     
+    add_edge(edge_dict, inLN1_tbuffer.name, f_tcompute.name, 'lanes')
+    add_edge(edge_dict, f_tcompute.name, in1_tbuffer.name, 'lanes')
     
     
     
-    # layer 1
+    
+    # forward 1
     w1_Q_tbuffer = tbuffer('w1_Q', n_head/num_chip*d_head*d_model*word)  
     add_node(node_dict, w1_Q_tbuffer)
 
@@ -379,19 +402,33 @@ if __name__ == '__main__':
     
     
     
-    sparse = 64
+    sparse = 32 # for the 2048 dim
     
     
     
-    # layer 2
-    f_tcompute = tcompute('forward2', n_head/num_chip*batch, d_head, sparse, 1, 1, -1, False)
+    # forward 2
+    f_tcompute = tcompute('forward2', n_head/num_chip*batch, d_head, sparse*2, 1, 1, -1, False)
     add_node(node_dict, f_tcompute)
     
-    in3_tbuffer = tbuffer('in3', n_head/num_chip*batch*sparse*word)
-    add_node(node_dict, in3_tbuffer)
+    inSoftmax_tbuffer = tbuffer('inSoftmax', n_head/num_chip*batch*sparse*2*word)
+    add_node(node_dict, inSoftmax_tbuffer)
     
     add_edge(edge_dict, in2_Q_tbuffer.name, f_tcompute.name, 'lanes')
     add_edge(edge_dict, in2_K_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, f_tcompute.name, inSoftmax_tbuffer.name, 'lanes')
+    
+    
+    
+    
+    
+    # softmax
+    f_tcompute = tcompute('softmax', n_head/num_chip*batch, -1, sparse*2*2, 1, 1, -1, False) # softmax has two passes
+    add_node(node_dict, f_tcompute)
+    
+    in3_tbuffer = tbuffer('in3', n_head/num_chip*batch*sparse*2*word) # attention
+    add_node(node_dict, in3_tbuffer)
+    
+    add_edge(edge_dict, inSoftmax_tbuffer.name, f_tcompute.name, 'lanes')
     add_edge(edge_dict, f_tcompute.name, in3_tbuffer.name, 'lanes')
     
     
@@ -399,10 +436,8 @@ if __name__ == '__main__':
     
     
     
-    
-    
-    # layer 3
-    f_tcompute = tcompute('forward3', n_head/num_chip*batch, sparse, d_head, 1, 1, -1, False)
+    # forward 3
+    f_tcompute = tcompute('forward3', n_head/num_chip*batch, sparse*2, d_head, 1, 1, -1, False)
     add_node(node_dict, f_tcompute)
     
     in4_tbuffer = tbuffer('in4', n_head/num_chip*d_head*batch*word)
@@ -418,29 +453,48 @@ if __name__ == '__main__':
     
     
     
-    # layer 4
+    # forward 4
     w4_tbuffer = tbuffer('w4', d_model/num_chip*d_model*word)  
     add_node(node_dict, w4_tbuffer)
     
-    f_tcompute = tcompute('forward4', d_model, d_model/num_chip, batch, 1, 1, -1, True)
+    if num_chip == 1:
+        f_tcompute = tcompute('forward4', d_model, d_model/num_chip, batch, 1, 1, -1, False)
+    else:
+        f_tcompute = tcompute('forward4', d_model, d_model/num_chip, batch, 1, 1, -1, True)
+    add_node(node_dict, f_tcompute)
+    
+    inLN2_tbuffer = tbuffer('inLN2', d_model*batch*word)
+    add_node(node_dict, inLN2_tbuffer)
+    
+    add_edge(edge_dict, in4_tbuffer.name, f_tcompute.name, 'stages')
+    add_edge(edge_dict, w4_tbuffer.name, f_tcompute.name, 'lanes')
+    add_edge(edge_dict, f_tcompute.name, inLN2_tbuffer.name, 'lanes')
+    
+    
+    
+    
+    
+    # LN2
+    f_tcompute = tcompute('LN2', d_model, -1, batch*2, 1, 1, -1, False) # softmax has two passes
     add_node(node_dict, f_tcompute)
     
     in5_tbuffer = tbuffer('in5', d_model*batch*word)
     add_node(node_dict, in5_tbuffer)
     
-    add_edge(edge_dict, in4_tbuffer.name, f_tcompute.name, 'stages')
-    add_edge(edge_dict, w4_tbuffer.name, f_tcompute.name, 'lanes')
+    add_edge(edge_dict, inLN2_tbuffer.name, f_tcompute.name, 'lanes')
     add_edge(edge_dict, f_tcompute.name, in5_tbuffer.name, 'lanes')
     
     
     
-    tile_partition_layer_5 = 8/num_chip
+    sparse_big = 384
+    sparse_small = 96
+
     
-    # layer 5
-    w5_tbuffer = tbuffer('w5', d_hidden/num_chip*d_model*word/tile_partition_layer_5)  
+    # forward 5
+    w5_tbuffer = tbuffer('w5', d_hidden/num_chip*sparse_small*2*word)  
     add_node(node_dict, w5_tbuffer)
     
-    f_tcompute = tcompute('forward5', d_hidden/num_chip, d_model, batch, 1, 1, -1, False)
+    f_tcompute = tcompute('forward5', d_hidden/num_chip, sparse_small*2, batch, 1, 1, -1, False)
     add_node(node_dict, f_tcompute)
     
     in6_tbuffer = tbuffer('in6', d_hidden/num_chip*batch*word)
@@ -456,13 +510,15 @@ if __name__ == '__main__':
     
     
     
-    tile_partition_layer_6 = 8/num_chip
     
-    # layer 6
-    w6_tbuffer = tbuffer('w6', d_hidden/num_chip*d_model*word/tile_partition_layer_6)  
+    # forward 6
+    w6_tbuffer = tbuffer('w6', d_model*sparse_big*2/num_chip*word)  
     add_node(node_dict, w6_tbuffer)
     
-    f_tcompute = tcompute('forward6', d_model, d_hidden/num_chip, batch, 1, 1, -1, True)
+    if num_chip == 1:
+        f_tcompute = tcompute('forward6', d_model, sparse_big*2/num_chip, batch, 1, 1, -1, False)
+    else:
+        f_tcompute = tcompute('forward6', d_model, sparse_big*2/num_chip, batch, 1, 1, -1, True)
     add_node(node_dict, f_tcompute)
     
     in7_tbuffer = tbuffer('in7', d_model*batch*word)
@@ -471,27 +527,12 @@ if __name__ == '__main__':
     add_edge(edge_dict, in6_tbuffer.name, f_tcompute.name, 'stages')
     add_edge(edge_dict, w6_tbuffer.name, f_tcompute.name, 'lanes')
     add_edge(edge_dict, f_tcompute.name, in7_tbuffer.name, 'lanes')
+
+
+
+
     
-    
-    
-        
-        
-     
-        
-        
-        
-        
-        
-        
-        
-    
-    
-    
-    
-    
-    
-    
-            
+      
    
     
     
@@ -509,17 +550,22 @@ if __name__ == '__main__':
 
 
 
+
+    plot(graph, 'GPT3_sparse_'+str(num_chip)+'X'+str(pipeline_stage), node_dict, edge_dict)
+    
+    
+
     
     
     
     
-    
-            
+    # workload parameters      
     Nb = 0
     Nb_cin = []
     Nb_cout = []
     Nb_dim = []
-    TSb = []
+    TSb_notile = []
+    TSb_tile = []
     D = []
     
     Nc = 0
@@ -562,7 +608,8 @@ if __name__ == '__main__':
                             if next_node == key:
                                 Nb_dim.append(dim)
                         
-                        TSb.append(node.tenor_size)
+                        TSb_notile.append(node.tenor_size)
+                        TSb_tile.append(node.tenor_size/Tile_factor)
                         D.append(node.downstream_dict[key][0])
             else:
                 for key, _ in node.downstream_dict.items():
@@ -574,7 +621,6 @@ if __name__ == '__main__':
                             Nd_dim.append(dim)
                     
                     TSd.append(node.tenor_size)
-
     
     for i in range(Nc):
         if i in mkn.keys():
@@ -585,24 +631,29 @@ if __name__ == '__main__':
                 N.append(value[3])
     
     
-
-
-
-    
-    
     Nc_dict = {}
     for i in range(len(Nc_name)):
         Nc_dict[Nc_name[i]] = i
+        
+        
+            
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
     
     
-    PCU_lim = PCU
-    PMU_lim = PMU
-    Cap = CAPACITY
-    VecWidth = LANES
-    StageWidth = STAGES
-    DRAM_BW = DRAM_BW
-    Freq = FREQ
+    
+    
     
     
     print('PCU_lim', PCU_lim)
@@ -616,7 +667,8 @@ if __name__ == '__main__':
     print('Nb_cin', Nb_cin)
     print('Nb_cout', Nb_cout)
     print('Nb_dim', Nb_dim)
-    print('TSb', TSb)
+    print('TSb_notile', TSb_notile)
+    print('TSb_tile', TSb_tile)
     print('D', D)
     print('Nc', Nc)
     print('Nc_name', Nc_name)
@@ -638,45 +690,29 @@ if __name__ == '__main__':
     
     
     
+
+
+
+
+
+        
+        
+    # Model
+    PCU_lim = math.ceil(PCU_lim * 0.8)
     
-    TSb = np.array(TSb)
+    
+    TSb_notile = np.array(TSb_notile)
+    TSb_tile = np.array(TSb_tile)
     AllReduce = np.array(AllReduce)
     
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    Flop = 0
-    for i in range(len(M)):
-        m = M[i]
-        k = K[i]
-        n = N[i]
-        
-        if k == -1:
-            Flop += m * n
-        else:
-            Flop += 2 * m * k * n
-
-    print('FLOP', Flop)
-        
-        
-        
-        
-    
     if num_chip == 8:
         Intermediate = 0
-    else:   
+    else:
         Intermediate = d_model*batch*word/num_chip
-    
+        
     
     
     model = gp.Model()
@@ -689,11 +725,13 @@ if __name__ == '__main__':
     Config = model.addMVar(Nc, name='Config', vtype=gp.GRB.INTEGER, lb=0)
     Ab1 = model.addMVar((Nb, C), name='Ab1', vtype=gp.GRB.BINARY) # on-chip
     Ab2 = model.addMVar((Nb, C), name='Ab2', vtype=gp.GRB.BINARY) # to/from DRAM
+    Tileb = model.addMVar(Nb, name='Tileb', vtype=gp.GRB.BINARY)
     Ac = model.addMVar((Nc, C), name='Ac', vtype=gp.GRB.BINARY)
     Ad = model.addMVar((Nd, C), name='Ad', vtype=gp.GRB.BINARY)
     Par_lane = model.addMVar(Nc, name='Par_lane', vtype=gp.GRB.INTEGER, lb=1)
     Par_stage = model.addMVar(Nc, name='Par_stage', vtype=gp.GRB.INTEGER, lb=1)
     Par_total = model.addMVar(Nc, name='Par_total', vtype=gp.GRB.INTEGER, lb=1)
+    
     
     num_PMU_per_buffer1 = model.addMVar(Nb, name='num_PMU_per_buffer1', vtype=gp.GRB.INTEGER, lb=1)
     num_PMU_per_buffer2 = model.addMVar(Nb, name='num_PMU_per_buffer2', vtype=gp.GRB.INTEGER, lb=1)
@@ -709,11 +747,7 @@ if __name__ == '__main__':
     Latency = model.addMVar(C, name='Latency', vtype=gp.GRB.CONTINUOUS, lb=0)
     
     
-    
-
-
-    
-    
+        
     
     # compute assignment   
     t1 = np.ones((C))
@@ -826,19 +860,23 @@ if __name__ == '__main__':
             
     
     # PMU limits
-    tmpb1 = model.addMVar(Nb, name='tmpb1', vtype=gp.GRB.INTEGER, lb=1)
-    tmpb2 = model.addMVar(Nb, name='tmpb2', vtype=gp.GRB.INTEGER, lb=1)
-        
+    tmpb1 = model.addMVar(Nb, vtype=gp.GRB.INTEGER, lb=1)
+    tmpb2 = model.addMVar(Nb, vtype=gp.GRB.INTEGER, lb=1)
+    tmpTSb = model.addMVar(Nb, vtype=gp.GRB.INTEGER, lb=1) # TSb_notile or TSb_tile
     for i in range(Nb):
-        model.addConstr(tmpb1[i] @ Partb[i] * Cap >= TSb[i] * D[i])
+        model.addConstr(tmpTSb[i] == (1 - Tileb[i]) * TSb_notile[i] + Tileb[i] * TSb_tile[i])
+        
+        model.addConstr(tmpb1[i] @ Partb[i] * Cap >= tmpTSb[i] * D[i])
         model.addConstr(num_PMU_per_buffer1[i] >= tmpb1[i] @ Partb[i])
         
-        model.addConstr(tmpb2[i] @ Partb[i] * Cap >= TSb[i])
+        model.addConstr(tmpb2[i] @ Partb[i] * Cap >= tmpTSb[i])
         model.addConstr(num_PMU_per_buffer2[i] >= tmpb2[i] @ Partb[i])
+        
+        
+        
+        
     
-    
-    
-    tmpd = model.addMVar(Nd, name='tmpd', vtype=gp.GRB.INTEGER, lb=1)
+    tmpd = model.addMVar(Nd, vtype=gp.GRB.INTEGER, lb=1)
     
     for i in range(Nd):
         model.addConstr(tmpd[i] @ Partd[i] * Cap >= TSd[i])
@@ -846,7 +884,7 @@ if __name__ == '__main__':
         
     
     for i in range(C):
-        model.addConstr(num_PMU_per_buffer1 @ Ab1[:, i] 
+        model.addConstr(num_PMU_per_buffer1 @ Ab1[:, i]
                         + num_PMU_per_buffer2 @ Ab2[:, i]
                         + num_PMU_per_DRAMbuffer @ Ad[:, i] <= PMU_lim)
                         
@@ -890,10 +928,10 @@ if __name__ == '__main__':
         
         for j in range(Nc):
             model.addConstr(t1[j] == Cycle[j] @ Ac[j, i])
-            
+        
         model.addConstr(t2[0].tolist()[0] == gp.max_(t1[j].tolist()[0] for j in range(Nc)))
         model.addConstr(Compute_Latency[i] == t2[0] / Freq)
-        model.addConstr(DRAM_Latency[i] == (TSb @ Ab2[:, i]) / DRAM_BW)
+        model.addConstr(DRAM_Latency[i] == (TSb_notile @ Ab2[:, i]) / DRAM_BW)
         model.addConstr(PCIE_Latency[i] == (AllReduce @ Ac[:, i]) / PCIE_BW)
         model.addConstr(Latency[i].tolist()[0] == gp.max_(Compute_Latency[i].tolist()[0], DRAM_Latency[i].tolist()[0], PCIE_Latency[i].tolist()[0]))
 

@@ -1,765 +1,765 @@
-8x1
-OI 14758.4
-MI 0.625
-NI 9224.0
-Latency 1452382617.6
-Throughput 639.3069092484297
-sample/s/layer 0.6885238007409212
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
+num_chip: 8 par: 1
+# of configs 1
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2', 'forward5', 'forward6']]
+OI 6365.0625
+MI 0.5
+NI 3182.53125
+Latency 161375846.4
+Throughput 1985.204678362573
+sample/s/layer 6.1967142066682905
+Network Bound, Peak 79563.28125
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
 
 
 
-
-8x1
-OI 14758.4
-MI 0.625
-NI 9224.0
-Latency 363095654.4
-Throughput 2557.227636993719
-sample/s/layer 2.754095202963685
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-8x1
-OI 14758.4
-MI 0.625
-NI 9224.0
-Latency 91304755.2
-Throughput 10169.440137812231
-sample/s/layer 10.952332086204422
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-8x1
-OI 14758.4
-MI 0.625
-NI 9224.0
+num_chip: 8 par: 2
+# of configs 1
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2', 'forward5', 'forward6']]
+OI 6365.0625
+MI 0.5
+NI 3182.53125
 Latency 40343961.6
-Throughput 23015.04873294347
+Throughput 7940.818713450292
 sample/s/layer 24.786856826673162
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
+Network Bound, Peak 79563.28125
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
 
 
 
-
-8x1
-OI 14758.4
-MI 0.625
-NI 9224.0
-Latency 22826188.8
-Throughput 40677.760551248924
-sample/s/layer 43.809328344817686
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-8x1
-OI 14758.4
-MI 0.625
-NI 9224.0
-Latency 15310848.0
-Throughput 60644.46869983948
-sample/s/layer 65.31316880684858
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
+num_chip: 8 par: 4
+# of configs 1
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2', 'forward5', 'forward6']]
+OI 6365.0625
+MI 0.5
+NI 3182.53125
+Latency 10144972.8
+Throughput 31578.60465116279
+sample/s/layer 98.57098877583978
+Network Bound, Peak 79563.28125
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
 
 
 
+num_chip: 8 par: 6
+# of configs 1
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2', 'forward5', 'forward6']]
+OI 6365.0625
+MI 0.5
+NI 3182.53125
+Latency 4482662.4
+Throughput 71467.36842105263
+sample/s/layer 223.08171144005846
+Network Bound, Peak 79563.28125
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
 
-8x1
-OI 13416.727272727272
+
+
+num_chip: 8 par: 8
+# of configs 2
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4'], ['LN2', 'forward5', 'forward6']]
+OI 3182.53125
+MI 1.0
+NI 3182.53125
+Latency 4549509.12
+Throughput 70417.28608470182
+sample/s/layer 219.80393348458657
+Network Bound, Peak 79563.28125
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 10
+# of configs 3
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2'], ['softmax', 'forward3', 'forward4', 'LN2', 'forward5'], ['forward6']]
+OI 4629.136363636364
 MI 0.6875
-NI 9224.0
-Latency 10262937.6
-Throughput 90472.95019157088
-sample/s/layer 97.43798890485313
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-8x1
-OI 4919.466666666666
-MI 1.875
-NI 9224.0
-Latency 9877585.92
-Throughput 94002.54777070064
-sample/s/layer 101.23931172040871
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-8x1
-OI 4760.774193548387
-MI 1.9375
-NI 9224.0
-Latency 8501329.92
-Throughput 109220.35152636448
-sample/s/layer 117.62865450585878
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-8x1
-OI 4472.242424242424
-MI 2.0625
-NI 9224.0
-Latency 7926251.52
-Throughput 117144.68560089298
-sample/s/layer 126.16304156848155
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-8x1
-OI 4472.242424242424
-MI 2.0625
-NI 9224.0
-Latency 7511408.64
-Throughput 123614.39602146317
-sample/s/layer 133.13082111852725
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-8x1
-OI 4472.242424242424
-MI 2.0625
-NI 9224.0
-Latency 7103447.04
-Throughput 130713.75588153889
-sample/s/layer 140.77672352154258
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-8x1
-OI 4472.242424242424
-MI 2.0625
-NI 9224.0
-Latency 6336675.84
-Throughput 146530.80980452994
-sample/s/layer 157.81144960699143
-Network Bound, Peak 230600.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-forward1_Q
-
-
-
-forward1_Q
-
-
-
-forward1_Q
-
-
-
-forward1_Q
-
-
-
-forward1_Q
-
-
-
-forward1_Q
-
-
-
-forward1_Q
-
-
-
-forward1_Q
-
-
-
-4x2
-OI 7379.2
-MI 2.2222222222222223
-NI 16398.222222222223
-Latency 3228020244.48
-Throughput 575.2865050284556
-sample/s/layer 0.6195748008148502
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-4x2
-OI 7379.2
-MI 2.2222222222222223
-NI 16398.222222222223
-Latency 807382548.48
-Throughput 2300.070131691732
-sample/s/layer 2.4771404878211123
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-4x2
-OI 7379.2
-MI 2.2222222222222223
-NI 16398.222222222223
-Latency 203402772.48
-Throughput 9129.848437983297
-sample/s/layer 9.832707664772142
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-4x2
-OI 7379.2
-MI 2.2222222222222223
-NI 16398.222222222223
-Latency 90156564.48
-Throughput 20597.906489881367
-sample/s/layer 22.1836314586241
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-4x2
-OI 7379.2
-MI 2.2222222222222223
-NI 16398.222222222223
-Latency 51228180.48
-Throughput 36250.29167945963
-sample/s/layer 39.04101182709037
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-4x2
-OI 6708.363636363636
-MI 2.4444444444444446
-NI 16398.222222222223
-Latency 37576212.48
-Throughput 49420.533950738405
-sample/s/layer 53.22516209063123
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-4x2
-OI 7379.2
-MI 2.2222222222222223
-NI 16398.222222222223
-Latency 23309844.48
-Throughput 79667.47638326585
-sample/s/layer 85.80065824617634
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-4x2
-OI 6708.363636363636
-MI 2.4444444444444446
-NI 16398.222222222223
-Latency 19719782.400000002
-Throughput 94171.24626121634
-sample/s/layer 101.42099742439348
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
-
-
-
-
-4x2
-OI 6416.695652173913
+NI 3182.53125
+Latency 5746851.84
+Throughput 55746.01436879918
+sample/s/layer 174.00831408940587
+Network Bound, Peak 79563.28125
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 12
+# of configs 4
+configs: [['LN1', 'forward1_Q', 'forward1_K'], ['forward1_V', 'forward2', 'softmax'], ['forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 1305.6538461538462
+MI 2.4375
+NI 3182.53125
+Latency 6425149.4399999995
+Throughput 49860.954712362305
+sample/s/layer 155.63840333027338
+Network Bound, Peak 79563.28125
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 14
+# of configs 6
+configs: [['LN1', 'forward1_Q'], ['forward1_K', 'forward1_V'], ['forward2', 'softmax'], ['forward3', 'forward4'], ['LN2', 'forward5'], ['forward6']]
+OI 808.2619047619048
+MI 3.9375
+NI 3182.53125
+Latency 7152599.04
+Throughput 44789.88455195162
+sample/s/layer 139.8093188794209
+Network Bound, Peak 79563.28125
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 16
+# of configs 6
+configs: [['LN1', 'forward1_Q'], ['forward1_K', 'forward1_V'], ['forward2', 'softmax'], ['forward3', 'forward4'], ['LN2', 'forward5'], ['forward6']]
+OI 808.2619047619048
+MI 3.9375
+NI 3182.53125
+Latency 7140802.56
+Throughput 44863.876651982384
+sample/s/layer 140.0402814106094
+Network Bound, Peak 79563.28125
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 18
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 519.5969387755102
+MI 6.125
+NI 3182.53125
+Latency 9374269.44
+Throughput 34174.832214765105
+sample/s/layer 106.67497946378636
+Memory Bound, Peak 51959.69387755102
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 20
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 519.5969387755102
+MI 6.125
+NI 3182.53125
+Latency 9374269.44
+Throughput 34174.832214765105
+sample/s/layer 106.67497946378636
+Memory Bound, Peak 51959.69387755102
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 22
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 519.5969387755102
+MI 6.125
+NI 3182.53125
+Latency 9374269.44
+Throughput 34174.832214765105
+sample/s/layer 106.67497946378636
+Memory Bound, Peak 51959.69387755102
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 1
+# of configs 2
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4'], ['LN2', 'forward5', 'forward6']]
+OI 6364.5625
+MI 0.8888888888888888
+NI 5657.388888888889
+Latency 342923673.6
+Throughput 1868.2811604173833
+sample/s/layer 5.832201606276039
+Network Bound, Peak 141434.72222222222
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 2
+# of configs 2
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4'], ['LN2', 'forward5', 'forward6']]
+OI 6364.5625
+MI 0.8888888888888888
+NI 5657.388888888889
+Latency 85730918.4
+Throughput 7473.124641669533
+sample/s/layer 23.328806425104155
+Network Bound, Peak 141434.72222222222
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 4
+# of configs 2
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3'], ['forward4', 'LN2', 'forward5', 'forward6']]
+OI 25458.25
+MI 0.2222222222222222
+NI 5657.388888888889
+Latency 40579891.2
+Throughput 15788.062015503874
+sample/s/layer 49.28549438791989
+Network Bound, Peak 141434.72222222222
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 6
+# of configs 2
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3'], ['forward4', 'LN2', 'forward5', 'forward6']]
+OI 25458.25
+MI 0.2222222222222222
+NI 5657.388888888889
+Latency 17930649.6
+Throughput 35730.87719298245
+sample/s/layer 111.54085572002923
+Network Bound, Peak 141434.72222222222
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 8
+# of configs 2
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3'], ['forward4', 'LN2', 'forward5', 'forward6']]
+OI 25458.25
+MI 0.2222222222222222
+NI 5657.388888888889
+Latency 10144972.8
+Throughput 63152.2480620155
+sample/s/layer 197.14197755167956
+Network Bound, Peak 141434.72222222222
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 10
+# of configs 3
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2'], ['softmax', 'forward3', 'forward4', 'LN2', 'forward5'], ['forward6']]
+OI 4628.772727272727
+MI 1.2222222222222223
+NI 5657.388888888889
+Latency 8808529.92
+Throughput 72733.79833714636
+sample/s/layer 227.05264308167327
+Network Bound, Peak 141434.72222222222
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 12
+# of configs 4
+configs: [['LN1', 'forward1_Q', 'forward1_K'], ['forward1_V', 'forward2', 'softmax'], ['forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 2213.7608695652175
 MI 2.5555555555555554
-NI 16398.222222222223
-Latency 15492710.399999999
-Throughput 119865.17766497463
-sample/s/layer 129.09297007191202
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
+NI 5657.388888888889
+Latency 9091153.919999998
+Throughput 70472.6643598616
+sample/s/layer 219.99407529555944
+Network Bound, Peak 141434.72222222222
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 14
+# of configs 6
+configs: [['LN1', 'forward1_Q'], ['forward1_K', 'forward1_V'], ['forward2', 'softmax'], ['forward3', 'forward4'], ['LN2', 'forward5'], ['forward6']]
+OI 1305.551282051282
+MI 4.333333333333333
+NI 5657.388888888889
+Latency 9227468.8
+Throughput 69431.5909090909
+sample/s/layer 216.74416281960225
+Memory Bound, Peak 130555.1282051282
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 16
+# of configs 6
+configs: [['LN1', 'forward1_Q'], ['forward1_K', 'forward1_V'], ['forward2', 'softmax'], ['forward3', 'forward4'], ['LN2', 'forward5'], ['forward6']]
+OI 1305.551282051282
+MI 4.333333333333333
+NI 5657.388888888889
+Latency 8532787.2
+Throughput 75084.23963133642
+sample/s/layer 234.39000096006146
+Memory Bound, Peak 130555.1282051282
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 18
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 877.8706896551724
+MI 6.444444444444445
+NI 5657.388888888889
+Latency 11834490.88
+Throughput 54136.49352087717
+sample/s/layer 168.99755302359065
+Memory Bound, Peak 87787.06896551725
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 20
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 877.8706896551724
+MI 6.444444444444445
+NI 5657.388888888889
+Latency 10959585.28
+Throughput 58458.21921903965
+sample/s/layer 182.48865708903907
+Memory Bound, Peak 87787.06896551725
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 4 par: 22
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 877.8706896551724
+MI 6.444444444444445
+NI 5657.388888888889
+Latency 10664017.92
+Throughput 60078.46607669617
+sample/s/layer 187.54657156465095
+Memory Bound, Peak 87787.06896551725
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 2 par: 1
+# of configs 3
+configs: [['LN1', 'forward1_Q', 'forward1_K'], ['forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 4242.875
+MI 2.4
+NI 10182.9
+Latency 1331350732.8
+Throughput 962.4100655679604
+sample/s/layer 3.004467494142202
+Compute Bound, Peak 245760.0
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 2 par: 2
+# of configs 3
+configs: [['LN1', 'forward1_Q', 'forward1_K'], ['forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 4242.875
+MI 2.4
+NI 10182.9
+Latency 332837683.2
+Throughput 3849.6402622718415
+sample/s/layer 12.017869976568807
+Compute Bound, Peak 245760.0
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 2 par: 4
+# of configs 3
+configs: [['LN1', 'forward1_Q', 'forward1_K'], ['forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 4242.875
+MI 2.4
+NI 10182.9
+Latency 83696025.60000001
+Throughput 15309.034531360112
+sample/s/layer 47.791994557982925
+Compute Bound, Peak 245760.0
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 2 par: 6
+# of configs 3
+configs: [['LN1', 'forward1_Q', 'forward1_K'], ['forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 4242.875
+MI 2.4
+NI 10182.9
+Latency 37874565.120000005
+Throughput 33830.23255813953
+sample/s/layer 105.61177368839977
+Compute Bound, Peak 245760.0
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 2 par: 8
+# of configs 3
+configs: [['LN1', 'forward1_Q', 'forward1_K'], ['forward1_V', 'forward2', 'softmax', 'forward3', 'forward4'], ['LN2', 'forward5', 'forward6']]
+OI 4242.875
+MI 2.4
+NI 10182.9
+Latency 22303211.520000003
+Throughput 57449.365303244
+sample/s/layer 179.34636885872118
+Compute Bound, Peak 245760.0
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 2 par: 10
+# of configs 3
+configs: [['LN1', 'forward1_Q', 'forward1_K'], ['forward1_V', 'forward2', 'softmax', 'forward3', 'forward4'], ['LN2', 'forward5', 'forward6']]
+OI 4242.875
+MI 2.4
+NI 10182.9
+Latency 15775825.92
+Throughput 81219.54137587239
+sample/s/layer 253.55249356098372
+Compute Bound, Peak 245760.0
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 2 par: 12
+# of configs 4
+configs: [['LN1', 'forward1_Q', 'forward1_K'], ['forward1_V', 'forward2', 'softmax'], ['forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 3394.3
+MI 3.0
+NI 10182.9
+Latency 16169041.919999998
+Throughput 79244.3579766537
+sample/s/layer 247.38633369811936
+Compute Bound, Peak 245760.0
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
 
 
 
+num_chip: 2 par: 14
+# of configs 6
+configs: [['LN1', 'forward1_Q'], ['forward1_K', 'forward1_V'], ['forward2', 'softmax'], ['forward3', 'forward4'], ['LN2', 'forward5'], ['forward6']]
+OI 1885.7222222222222
+MI 5.4
+NI 10182.9
+Latency 15349186.559999999
+Throughput 83477.084667606
+sample/s/layer 260.60012915759364
+Memory Bound, Peak 188572.22222222222
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
 
-4x2
-OI 5903.36
-MI 2.7777777777777777
-NI 16398.222222222223
-Latency 14342553.600000001
-Throughput 129477.39547635366
-sample/s/layer 139.44518220242173
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
+num_chip: 2 par: 16
+# of configs 6
+configs: [['LN1', 'forward1_Q'], ['forward1_K', 'forward1_V'], ['forward2', 'softmax'], ['forward3', 'forward4'], ['LN2', 'forward5'], ['forward6']]
+OI 1885.7222222222222
+MI 5.4
+NI 10182.9
+Latency 13117685.76
+Throughput 97677.69784172662
+sample/s/layer 304.9318357813749
+Memory Bound, Peak 188572.22222222222
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
 
 
-4x2
-OI 5903.36
-MI 2.7777777777777777
-NI 16398.222222222223
-Latency 12494438.4
-Throughput 148629.04799370575
-sample/s/layer 160.07122016784683
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
+num_chip: 2 par: 18
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 1339.8552631578948
+MI 7.6
+NI 10182.9
+Latency 17613455.36
+Throughput 72745.8252716178
+sample/s/layer 227.0991079401697
+Memory Bound, Peak 133985.52631578947
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
 
 
 
-4x2
-OI 5903.36
-MI 2.7777777777777777
-NI 16398.222222222223
-Latency 11029708.8
-Throughput 168366.7736185383
-sample/s/layer 181.3284499405823
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
+num_chip: 2 par: 20
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 1339.8552631578948
+MI 7.6
+NI 10182.9
+Latency 16382689.279999997
+Throughput 78210.92887430996
+sample/s/layer 244.16015781262504
+Memory Bound, Peak 133985.52631578947
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
 
 
 
+num_chip: 2 par: 22
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 1339.8552631578948
+MI 7.6
+NI 10182.9
+Latency 15045754.879999999
+Throughput 85160.58890147226
+sample/s/layer 265.8557202282429
+Memory Bound, Peak 133985.52631578947
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
 
-4x2
-OI 5903.36
-MI 2.7777777777777777
-NI 16398.222222222223
-Latency 9496166.4
-Throughput 195556.43892339544
-sample/s/layer 210.61130521048997
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-2x4
-OI 7767.578947368421
-MI 3.8
-NI 29516.8
-Latency 7747047260.160001
-Throughput 479.41787941787936
-sample/s/layer 0.5163257516925729
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7767.578947368421
-MI 3.8
-NI 29516.8
-Latency 1937516789.7600002
-Throughput 1916.9242758799842
-sample/s/layer 2.0644982387458324
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7767.578947368421
-MI 3.8
-NI 29516.8
-Latency 487965327.36
-Throughput 7611.346054667354
-sample/s/layer 8.197303733937167
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7767.578947368421
-MI 3.8
-NI 29516.8
-Latency 216174428.16000003
-Throughput 17180.90803259604
-sample/s/layer 18.503576181727784
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7767.578947368421
-MI 3.8
-NI 29516.8
-Latency 122746306.56
-Throughput 30258.124038954382
-sample/s/layer 32.58753857530326
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7767.578947368421
-MI 3.8
-NI 29516.8
-Latency 81689640.96
-Throughput 45465.6542196657
-sample/s/layer 48.965816877058295
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7767.578947368421
-MI 3.8
-NI 29516.8
-Latency 55742300.16
-Throughput 66629.3453724605
-sample/s/layer 71.75878979731002
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7767.578947368421
-MI 3.8
-NI 29516.8
-Latency 42048552.96
-Throughput 88328.19937345116
-sample/s/layer 95.1281249512944
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7767.578947368421
-MI 3.8
-NI 29516.8
-Latency 32149340.160000004
-Throughput 115525.63600782778
-sample/s/layer 124.41934982469013
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7027.809523809524
-MI 4.2
-NI 29516.8
-Latency 25966018.560000002
-Throughput 143035.90520178693
-sample/s/layer 154.04749059842
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7027.809523809524
-MI 4.2
-NI 29516.8
-Latency 22798663.68
-Throughput 162907.48533977233
-sample/s/layer 175.44887964240542
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7027.809523809524
-MI 4.2
-NI 29516.8
-Latency 19417006.080000002
-Throughput 191279.38436614012
-sample/s/layer 206.00498261779396
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-2x4
-OI 7027.809523809524
-MI 4.2
-NI 29516.8
-Latency 16979066.88
-Throughput 218744.23344140808
-sample/s/layer 235.58420661571716
-Compute Bound, Peak 307200.0
-Hardware_OI 2400.0
-Hardware_MI 5.12
-Hardware_NI 12288.0
 
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
 
 
 
-forward1_Q
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

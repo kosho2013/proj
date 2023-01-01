@@ -7,7 +7,7 @@ def run_one_config(workload, datatype, operation):
         
 
 threads = []
-workloads = ['pixelfly_block2', 'pixelfly_block4', 'pixelfly_block8', 'pixelfly_block16', 'pixelfly_block32']
+workloads = ['pixelfly_block8', 'pixelfly_block16', 'pixelfly_block32']
 datatypes = ['BF16']
 operations = ['centralized', 'data', 'model', 'hybrid']
 

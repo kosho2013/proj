@@ -1,0 +1,105 @@
+PCU_lim 640
+PMU_lim 640
+Cap 524288
+VecWidth 32
+StageWidth 6
+Freq 1.25
+DRAM_BW 100.0
+Nb 12
+Nb_cin ['LN1', 'LN1', 'LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2', 'forward5']
+Nb_cout ['forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'forward2', 'forward3', 'softmax', 'forward3', 'forward4', 'LN2', 'forward5', 'forward6']
+Nb_dim ['stages', 'stages', 'stages', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'stages', 'lanes', 'stages', 'stages']
+TSb_notile [50331648, 50331648, 50331648, 50331648.0, 50331648.0, 50331648.0, 25165824.0, 25165824.0, 50331648.0, 50331648, 50331648, 201326592.0]
+TSb_tile [3145728.0, 3145728.0, 3145728.0, 3145728.0, 3145728.0, 3145728.0, 1572864.0, 1572864.0, 3145728.0, 3145728.0, 3145728.0, 12582912.0]
+D [2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2]
+Nc 11
+Nc_name ['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2', 'forward5', 'forward6']
+M [1179648.0, 12288.0, 12288.0, 12288.0, 196608.0, 196608.0, 196608.0, 12288, 12288, 49152.0, 12288]
+K [-1, 12288, 12288, 12288, 128, -1, 64, 12288.0, -1, 192, 768.0]
+N [4096, 2048, 2048, 2048, 64, 128, 128, 2048, 4096, 2048, 2048]
+AllReduce [0, 0, 0, 0, 0, 0, 0, 50331648, 0, 0, 50331648]
+Nd 7
+Nd_cout ['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward4', 'forward5', 'forward6']
+Nd_dim ['lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes']
+TSd [50331648, 301989888.0, 301989888.0, 301989888.0, 301989888.0, 18874368.0, 18874368.0]
+
+
+
+
+
+Academic license - for non-commercial use only - expires 2023-10-07
+Using license file /home/kosho/gurobi.lic
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter Threads to 40
+   Prev: 0  Min: 0  Max: 1024  Default: 0
+Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+Thread count: 1 physical cores, 144 logical processors, using up to 40 threads
+Optimize a model with 119 rows, 497 columns and 320 nonzeros
+Model fingerprint: 0xbb5ef068
+Model has 139 quadratic constraints
+Model has 300 general constraints
+Variable types: 15 continuous, 482 integer (282 binary)
+Coefficient statistics:
+  Matrix range     [8e-01, 2e+08]
+  QMatrix range    [1e+00, 5e+05]
+  QLMatrix range   [1e+00, 4e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+08]
+  QRHS range       [6e+01, 3e+08]
+Warning: Model contains large matrix coefficients
+         Consider reformulating model or setting NumericFocus parameter
+         to avoid numerical issues.
+Presolve added 38 rows and 0 columns
+Presolve removed 0 rows and 192 columns
+Presolve time: 1.14s
+Presolved: 594 rows, 678 columns, 1677 nonzeros
+Presolved model has 278 SOS constraint(s)
+Presolved model has 26 quadratic constraint(s)
+Presolved model has 71 bilinear constraint(s)
+Variable types: 36 continuous, 642 integer (229 binary)
+
+Root relaxation: objective 6.171098e+06, 237 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 6171097.71    0  163          - 6171097.71      -     -    1s
+     0     0 6399721.78    0  315          - 6399721.78      -     -    1s
+     0     0 6543113.82    0  206          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  215          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  253          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  239          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  239          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  225          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  225          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  204          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  231          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  222          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  220          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  221          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  215          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  165          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  165          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  158          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  158          - 6543113.82      -     -    1s
+     0     0 6543113.82    0  158          - 6543113.82      -     -    1s
+     0     2 6543113.82    0  158          - 6543113.82      -     -    1s
+  4906  2247 infeasible   41               - 7549747.20      -  16.6    5s
+
+Cutting planes:
+  Gomory: 8
+  Implied bound: 15
+  MIR: 25
+  Flow cover: 2
+  Zero half: 2
+  RLT: 1
+
+Explored 14408 nodes (249825 simplex iterations) in 5.90 seconds
+Thread count was 40 (of 144 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -

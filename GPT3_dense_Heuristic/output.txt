@@ -1,0 +1,255 @@
+num_chip: 8 par: 1
+# of configs 2
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 9479.5
+MI 1.0
+NI 9479.5
+Latency 806879232.0
+Throughput 1182.6276803118908
+sample/s/layer 1.2393428413336582
+Network Bound, Peak 236987.5
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 2
+# of configs 2
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 9479.5
+MI 1.0
+NI 9479.5
+Latency 201719808.0
+Throughput 4730.510721247563
+sample/s/layer 4.957371365334633
+Network Bound, Peak 236987.5
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 4
+# of configs 2
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 9479.5
+MI 1.0
+NI 9479.5
+Latency 50724864.0
+Throughput 18812.03100775194
+sample/s/layer 19.71419775516796
+Network Bound, Peak 236987.5
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 6
+# of configs 2
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 9479.5
+MI 1.0
+NI 9479.5
+Latency 22413312.0
+Throughput 42574.59649122807
+sample/s/layer 44.616342288011694
+Network Bound, Peak 236987.5
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 8
+# of configs 2
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4'], ['LN2', 'forward5', 'forward6']]
+OI 9479.5
+MI 1.0
+NI 9479.5
+Latency 12681216.0
+Throughput 75248.12403100776
+sample/s/layer 78.85679102067184
+Network Bound, Peak 236987.5
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 10
+# of configs 3
+configs: [['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2'], ['softmax', 'forward3', 'forward4', 'LN2', 'forward5'], ['forward6']]
+OI 3611.2380952380954
+MI 2.625
+NI 9479.5
+Latency 15310848.0
+Throughput 62324.28892455859
+sample/s/layer 65.31316880684858
+Network Bound, Peak 236987.5
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 12
+# of configs 4
+configs: [['LN1', 'forward1_Q', 'forward1_K'], ['forward1_V', 'forward2', 'softmax'], ['forward3', 'forward4', 'LN2'], ['forward5', 'forward6']]
+OI 2166.7428571428572
+MI 4.375
+NI 9479.5
+Latency 9531555.84
+Throughput 100113.53135313532
+sample/s/layer 104.91466627131463
+Memory Bound, Peak 216674.28571428574
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 14
+# of configs 6
+configs: [['LN1', 'forward1_Q'], ['forward1_K', 'forward1_V'], ['forward2', 'softmax'], ['forward3', 'forward4'], ['LN2', 'forward5'], ['forward6']]
+OI 1613.531914893617
+MI 5.875
+NI 9479.5
+Latency 12240814.08
+Throughput 77955.41278509477
+sample/s/layer 81.69391295909627
+Memory Bound, Peak 161353.19148936172
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 16
+# of configs 6
+configs: [['LN1', 'forward1_Q'], ['forward1_K', 'forward1_V'], ['forward2', 'softmax'], ['forward3', 'forward4'], ['LN2', 'forward5'], ['forward6']]
+OI 1613.531914893617
+MI 5.875
+NI 9479.5
+Latency 10538188.799999999
+Throughput 90550.44776119404
+sample/s/layer 94.89296680659206
+Memory Bound, Peak 161353.19148936172
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 18
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 947.95
+MI 10.0
+NI 9479.5
+Latency 14615838.719999999
+Throughput 65287.92036588647
+sample/s/layer 68.41892683391625
+Memory Bound, Peak 94795.0
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 20
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 947.95
+MI 10.0
+NI 9479.5
+Latency 14289469.44
+Throughput 66779.086406164
+sample/s/layer 69.98160457943497
+Memory Bound, Peak 94795.0
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+num_chip: 8 par: 22
+# of configs 11
+configs: [['LN1'], ['forward1_Q'], ['forward1_K'], ['forward1_V'], ['forward2'], ['softmax'], ['forward3'], ['forward4'], ['LN2'], ['forward5'], ['forward6']]
+OI 947.95
+MI 10.0
+NI 9479.5
+Latency 13935575.04
+Throughput 68474.94356659142
+sample/s/layer 71.75878979731002
+Memory Bound, Peak 94795.0
+Hardware_OI 2457.6
+Hardware_MI 4.0
+Hardware_NI 9830.4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

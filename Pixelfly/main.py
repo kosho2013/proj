@@ -312,7 +312,7 @@ if __name__ == '__main__':
 
 
 
-    batch = [1, 2, 4, 8, 16, 32]
+    batch = [32]
     
     for ba in batch:
         print('batch', ba, '***********************')

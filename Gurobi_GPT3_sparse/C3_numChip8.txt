@@ -1,0 +1,631 @@
+PCU_lim 640
+PMU_lim 640
+Cap 524288
+VecWidth 32
+StageWidth 6
+Freq 1.25
+DRAM_BW 100.0
+Nb 12
+Nb_cin ['LN1', 'LN1', 'LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2', 'forward5']
+Nb_cout ['forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'forward2', 'forward3', 'softmax', 'forward3', 'forward4', 'LN2', 'forward5', 'forward6']
+Nb_dim ['stages', 'stages', 'stages', 'lanes', 'stages', 'stages', 'lanes', 'lanes', 'stages', 'lanes', 'stages', 'stages']
+TSb_notile [50331648, 50331648, 50331648, 6291456.0, 6291456.0, 6291456.0, 3145728.0, 3145728.0, 6291456.0, 50331648, 50331648, 25165824.0]
+TSb_tile [3145728.0, 3145728.0, 3145728.0, 393216.0, 393216.0, 393216.0, 196608.0, 196608.0, 393216.0, 3145728.0, 3145728.0, 1572864.0]
+D [2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2]
+Nc 11
+Nc_name ['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward2', 'softmax', 'forward3', 'forward4', 'LN2', 'forward5', 'forward6']
+M [147456.0, 1536.0, 1536.0, 1536.0, 24576.0, 24576.0, 24576.0, 12288, 12288, 6144.0, 12288]
+K [-1, 12288, 12288, 12288, 128, -1, 64, 1536.0, -1, 192, 96.0]
+N [4096, 2048, 2048, 2048, 64, 128, 128, 2048, 4096, 2048, 2048]
+AllReduce [0, 0, 0, 0, 0, 0, 0, 50331648, 0, 0, 50331648]
+Nd 7
+Nd_cout ['LN1', 'forward1_Q', 'forward1_K', 'forward1_V', 'forward4', 'forward5', 'forward6']
+Nd_dim ['lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes', 'lanes']
+TSd [50331648, 37748736.0, 37748736.0, 37748736.0, 37748736.0, 2359296.0, 2359296.0]
+
+
+
+
+
+Academic license - for non-commercial use only - expires 2023-10-07
+Using license file /home/kosho/gurobi.lic
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter Threads to 40
+   Prev: 0  Min: 0  Max: 1024  Default: 0
+Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+Thread count: 1 physical cores, 144 logical processors, using up to 40 threads
+Optimize a model with 119 rows, 497 columns and 320 nonzeros
+Model fingerprint: 0x8135188e
+Model has 139 quadratic constraints
+Model has 300 general constraints
+Variable types: 15 continuous, 482 integer (282 binary)
+Coefficient statistics:
+  Matrix range     [8e-01, 5e+07]
+  QMatrix range    [1e+00, 5e+05]
+  QLMatrix range   [1e+00, 4e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 5e+07]
+  QRHS range       [6e+01, 5e+07]
+Presolve added 38 rows and 0 columns
+Presolve removed 0 rows and 192 columns
+Presolve time: 1.10s
+Presolved: 594 rows, 678 columns, 1678 nonzeros
+Presolved model has 278 SOS constraint(s)
+Presolved model has 26 quadratic constraint(s)
+Presolved model has 71 bilinear constraint(s)
+Variable types: 36 continuous, 642 integer (229 binary)
+
+Root relaxation: objective 4.041335e+06, 235 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 4041335.27    0  124          - 4041335.27      -     -    1s
+     0     0 4073717.72    0  245          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  263          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  284          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  270          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  279          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  279          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  282          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  279          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  279          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  279          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  280          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  259          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  238          - 4073717.72      -     -    1s
+     0     0 4073717.72    0  238          - 4073717.72      -     -    1s
+     0     2 4073717.72    0  238          - 4073717.72      -     -    1s
+H   25    28                    2.262270e+07 4089446.40  81.9%  33.5    1s
+H   52    54                    1.987019e+07 4089446.40  79.4%  43.0    1s
+H  109   112                    1.127624e+07 4089446.40  63.7%  42.3    1s
+H  320   222                    1.121452e+07 4089446.40  63.5%  22.0    1s
+H 1231   628                    6974443.5200 4089446.40  41.4%   8.5    1s
+H 1809  1020                    6262640.6400 4089446.40  34.7%   7.1    1s
+H 2345  1656                    5489295.3600 4089446.40  25.5%   6.5    1s
+H 2381  1656                    4871946.2400 4089446.40  16.1%   6.5    1s
+* 2880  1823              61    4781506.5600 4089446.40  14.5%   6.2    1s
+* 5585  1306              70    4770693.1200 4089446.40  14.3%  12.0    3s
+* 5764  1312              70    4763811.8400 4089446.40  14.2%  12.1    3s
+* 6337  1499              89    4755947.5200 4089446.40  14.0%  12.7    3s
+* 8120  2078              84    4734320.6400 4089446.40  13.6%  14.8    3s
+ 25185  3449     cutoff   61      4734320.64 4089446.40  13.6%  26.6    5s
+ 114488 12072 4089446.40   59   67 4734320.64 4089446.40  13.6%  29.6   10s
+ 209380 15626 4089446.40   62   74 4734320.64 4089446.40  13.6%  31.4   15s
+ 315815 18952     cutoff  130      4734320.64 4089446.40  13.6%  30.4   20s
+ 422008 22710     cutoff   55      4734320.64 4089446.40  13.6%  29.5   25s
+ 531098 27074 4089446.40   51   68 4734320.64 4089446.40  13.6%  29.1   30s
+ 646769 29647     cutoff  136      4734320.64 4089446.40  13.6%  28.7   35s
+ 748256 34118 4089446.40   64   62 4734320.64 4089446.40  13.6%  28.7   40s
+ 849226 38415     cutoff   43      4734320.64 4089446.40  13.6%  28.9   45s
+ 958831 40884     cutoff   82      4734320.64 4089446.40  13.6%  28.6   50s
+ 1074344 42024     cutoff  232      4734320.64 4089446.40  13.6%  28.2   55s
+ 1187275 44769     cutoff  118      4734320.64 4089446.40  13.6%  28.0   60s
+ 1296494 48613     cutoff   89      4734320.64 4089446.40  13.6%  27.8   65s
+ 1410760 50493 4089446.40  116   87 4734320.64 4089446.40  13.6%  27.6   70s
+ 1517234 54303 4089446.40   45   77 4734320.64 4089446.40  13.6%  27.6   75s
+ 1627599 57772     cutoff  141      4734320.64 4089446.40  13.6%  27.5   80s
+ 1741867 60691 4089446.40   54   72 4734320.64 4089446.40  13.6%  27.4   85s
+ 1862157 63350     cutoff  110      4734320.64 4089446.40  13.6%  27.2   90s
+ 1988855 67441     cutoff  115      4734320.64 4089446.40  13.6%  26.9   95s
+ 2110000 70848 4089446.40   61   87 4734320.64 4089446.40  13.6%  26.8  100s
+ 2222983 72898 4089446.40  141   68 4734320.64 4089446.40  13.6%  26.7  105s
+ 2344202 75719 4089446.40   74   79 4734320.64 4089446.40  13.6%  26.6  110s
+ 2464013 79539     cutoff   92      4734320.64 4089446.40  13.6%  26.5  115s
+
+Cutting planes:
+  Gomory: 18
+  Implied bound: 6
+  MIR: 19
+  StrongCG: 1
+  RLT: 2
+
+Explored 2506095 nodes (66368299 simplex iterations) in 116.69 seconds
+Thread count was 40 (of 144 available processors)
+
+Solution count 10: 4.73432e+06 4.75595e+06 4.76381e+06 ... 1.12145e+07
+
+Solve interrupted
+Best objective 4.734320640000e+06, best bound 4.089446400000e+06, gap 13.6213%
+Config[0] 0.0
+Config[1] 1.0
+Config[2] 0.0
+Config[3] 0.0
+Config[4] 1.0
+Config[5] 1.0
+Config[6] 1.0
+Config[7] 1.0
+Config[8] 2.0
+Config[9] 2.0
+Config[10] 2.0
+Ab1[0] 0.0
+Ab1[1] 0.0
+Ab1[2] 0.0
+Ab1[3] 1.0
+Ab1[4] 0.0
+Ab1[5] 0.0
+Ab1[6] 1.0
+Ab1[7] 0.0
+Ab1[8] 0.0
+Ab1[9] 0.0
+Ab1[10] 1.0
+Ab1[11] 0.0
+Ab1[12] 0.0
+Ab1[13] 0.0
+Ab1[14] 0.0
+Ab1[15] 0.0
+Ab1[16] 0.0
+Ab1[17] 0.0
+Ab1[18] 0.0
+Ab1[19] 1.0
+Ab1[20] 0.0
+Ab1[21] 0.0
+Ab1[22] 1.0
+Ab1[23] 0.0
+Ab1[24] 0.0
+Ab1[25] 1.0
+Ab1[26] 0.0
+Ab1[27] 0.0
+Ab1[28] 0.0
+Ab1[29] 0.0
+Ab1[30] 0.0
+Ab1[31] 0.0
+Ab1[32] 1.0
+Ab1[33] 0.0
+Ab1[34] 0.0
+Ab1[35] 1.0
+Ab2[0] 1.0
+Ab2[1] 1.0
+Ab2[2] 0.0
+Ab2[3] 0.0
+Ab2[4] 0.0
+Ab2[5] 0.0
+Ab2[6] 0.0
+Ab2[7] 0.0
+Ab2[8] 0.0
+Ab2[9] 0.0
+Ab2[10] 0.0
+Ab2[11] 0.0
+Ab2[12] 1.0
+Ab2[13] 1.0
+Ab2[14] 0.0
+Ab2[15] 1.0
+Ab2[16] 1.0
+Ab2[17] 0.0
+Ab2[18] 0.0
+Ab2[19] 0.0
+Ab2[20] 0.0
+Ab2[21] 0.0
+Ab2[22] 0.0
+Ab2[23] 0.0
+Ab2[24] 0.0
+Ab2[25] 0.0
+Ab2[26] 0.0
+Ab2[27] 0.0
+Ab2[28] 1.0
+Ab2[29] 1.0
+Ab2[30] 0.0
+Ab2[31] 0.0
+Ab2[32] 0.0
+Ab2[33] 0.0
+Ab2[34] 0.0
+Ab2[35] 0.0
+Tileb[0] 1.0
+Tileb[1] 1.0
+Tileb[2] 1.0
+Tileb[3] 1.0
+Tileb[4] 1.0
+Tileb[5] 1.0
+Tileb[6] 1.0
+Tileb[7] -0.0
+Tileb[8] 1.0
+Tileb[9] 1.0
+Tileb[10] 1.0
+Tileb[11] 1.0
+Ac[0] 1.0
+Ac[1] 0.0
+Ac[2] 0.0
+Ac[3] 0.0
+Ac[4] 1.0
+Ac[5] 0.0
+Ac[6] 1.0
+Ac[7] 0.0
+Ac[8] 0.0
+Ac[9] 1.0
+Ac[10] 0.0
+Ac[11] 0.0
+Ac[12] -0.0
+Ac[13] 1.0
+Ac[14] 0.0
+Ac[15] 0.0
+Ac[16] 1.0
+Ac[17] -0.0
+Ac[18] 0.0
+Ac[19] 1.0
+Ac[20] -0.0
+Ac[21] -0.0
+Ac[22] 1.0
+Ac[23] 0.0
+Ac[24] 0.0
+Ac[25] 0.0
+Ac[26] 1.0
+Ac[27] 0.0
+Ac[28] -0.0
+Ac[29] 1.0
+Ac[30] 0.0
+Ac[31] 0.0
+Ac[32] 1.0
+Ad[0] 1.0
+Ad[1] 0.0
+Ad[2] 0.0
+Ad[3] 0.0
+Ad[4] 1.0
+Ad[5] 0.0
+Ad[6] 1.0
+Ad[7] 0.0
+Ad[8] 0.0
+Ad[9] 1.0
+Ad[10] 0.0
+Ad[11] 0.0
+Ad[12] 0.0
+Ad[13] 1.0
+Ad[14] 0.0
+Ad[15] 0.0
+Ad[16] 0.0
+Ad[17] 1.0
+Ad[18] 0.0
+Ad[19] 0.0
+Ad[20] 1.0
+Par_lane[0] 24.0
+Par_lane[1] 1.0
+Par_lane[2] 48.00000000000002
+Par_lane[3] 2.0
+Par_lane[4] 2.0
+Par_lane[5] 1.0
+Par_lane[6] 256.0
+Par_lane[7] 36.0
+Par_lane[8] 192.0
+Par_lane[9] 48.0
+Par_lane[10] 128.0
+Par_stage[0] 1.0
+Par_stage[1] 86.0
+Par_stage[2] 5.0
+Par_stage[3] 114.0
+Par_stage[4] 11.000000000000002
+Par_stage[5] 1.0
+Par_stage[6] 1.0
+Par_stage[7] 4.0
+Par_stage[8] 1.0
+Par_stage[9] 1.0
+Par_stage[10] 1.0
+Par_total[0] 24.0
+Par_total[1] 86.0
+Par_total[2] 240.0
+Par_total[3] 228.0
+Par_total[4] 22.000000000000004
+Par_total[5] 1.0
+Par_total[6] 256.0
+Par_total[7] 144.0
+Par_total[8] 192.0
+Par_total[9] 48.0
+Par_total[10] 128.0
+num_PMU_per_buffer1[0] 17.0
+num_PMU_per_buffer1[1] 14.0
+num_PMU_per_buffer1[2] 22.0
+num_PMU_per_buffer1[3] 2.0
+num_PMU_per_buffer1[4] 3.0000000000000004
+num_PMU_per_buffer1[5] 3.0
+num_PMU_per_buffer1[6] 1.0
+num_PMU_per_buffer1[7] 276.0
+num_PMU_per_buffer1[8] 2.0
+num_PMU_per_buffer1[9] 192.0
+num_PMU_per_buffer1[10] 12.0
+num_PMU_per_buffer1[11] 6.0
+num_PMU_per_buffer2[0] 17.0
+num_PMU_per_buffer2[1] 7.0
+num_PMU_per_buffer2[2] 22.0
+num_PMU_per_buffer2[3] 2.0
+num_PMU_per_buffer2[4] 3.0000000000000004
+num_PMU_per_buffer2[5] 3.0
+num_PMU_per_buffer2[6] 1.0
+num_PMU_per_buffer2[7] 256.0
+num_PMU_per_buffer2[8] 2.0
+num_PMU_per_buffer2[9] 192.0
+num_PMU_per_buffer2[10] 12.0
+num_PMU_per_buffer2[11] 4.0
+num_PMU_per_DRAMbuffer[0] 95.99999999999987
+num_PMU_per_DRAMbuffer[1] 72.0
+num_PMU_per_DRAMbuffer[2] 96.00000000000003
+num_PMU_per_DRAMbuffer[3] 72.0
+num_PMU_per_DRAMbuffer[4] 72.0
+num_PMU_per_DRAMbuffer[5] 48.0
+num_PMU_per_DRAMbuffer[6] 128.0
+Partb[0] 17.0
+Partb[1] 7.0
+Partb[2] 22.0
+Partb[3] 2.0
+Partb[4] 3.0
+Partb[5] 3.0
+Partb[6] 1.0
+Partb[7] 256.0
+Partb[8] 2.0
+Partb[9] 192.0
+Partb[10] 12.0
+Partb[11] 2.0
+Partd[0] 24.0
+Partd[1] 1.0
+Partd[2] 48.00000000000002
+Partd[3] 2.0
+Partd[4] 36.0
+Partd[5] 48.0
+Partd[6] 128.0
+Cycle[0] 884736.0
+Cycle[1] 2359296.0
+Cycle[2] 847872.0
+Cycle[3] 884736.0
+Cycle[4] 49152.0
+Cycle[5] 98304.0
+Cycle[6] 4224.0
+Cycle[7] 2359296.0
+Cycle[8] 262656.0
+Cycle[9] 262656.0
+Cycle[10] 262656.0
+DRAM_Latency[0] 629145.6
+DRAM_Latency[1] 1132462.08
+DRAM_Latency[2] 503316.48
+PCIE_Latency[0] 0.0
+PCIE_Latency[1] 2013265.92
+PCIE_Latency[2] 2013265.92
+Compute_Latency[0] 707788.8
+Compute_Latency[1] 1887436.8
+Compute_Latency[2] 210124.80000000002
+Latency[0] 707788.8
+Latency[1] 2013265.92
+Latency[2] 2013265.92
+C255 0.0
+C256 1.0
+C257 1.0
+C258 1.0
+C259 0.0
+C260 1.0
+C261 1.0
+C262 1.0
+C263 0.0
+C264 0.0
+C265 1.0
+C266 0.0
+C267 1.0
+C268 1.0
+C269 0.0
+C270 0.0
+C271 0.0
+C272 0.0
+C273 1.0
+C274 0.0
+C275 0.0
+C276 0.0
+C277 1.0
+C278 0.0
+C279 1.0
+C280 1.0
+C281 0.0
+C282 0.0
+C283 0.0
+C284 0.0
+C285 1.0
+C286 0.0
+C287 0.0
+C288 0.0
+C289 1.0
+C290 0.0
+C291 0.0
+C292 0.0
+C293 1.0
+C294 0.0
+C295 1.0
+C296 1.0
+C297 0.0
+C298 0.0
+C299 0.0
+C300 0.0
+C301 1.0
+C302 0.0
+C303 0.0
+C304 1.0
+C305 1.0
+C306 1.0
+C307 0.0
+C308 1.0
+C309 1.0
+C310 1.0
+C311 0.0
+C312 0.0
+C313 1.0
+C314 0.0
+C315 0.0
+C316 1.0
+C317 1.0
+C318 1.0
+C319 0.0
+C320 1.0
+C321 1.0
+C322 1.0
+C323 0.0
+C324 0.0
+C325 1.0
+C326 0.0
+C327 0.0
+C328 0.0
+C329 1.0
+C330 0.0
+C331 1.0
+C332 1.0
+C333 0.0
+C334 0.0
+C335 0.0
+C336 0.0
+C337 1.0
+C338 0.0
+C339 0.0
+C340 0.0
+C341 1.0
+C342 0.0
+C343 1.0
+C344 1.0
+C345 0.0
+C346 0.0
+C347 0.0
+C348 0.0
+C349 1.0
+C350 0.0
+C351 0.0
+C352 0.0
+C353 1.0
+C354 0.0
+C355 1.0
+C356 1.0
+C357 0.0
+C358 0.0
+C359 0.0
+C360 0.0
+C361 1.0
+C362 0.0
+C363 0.0
+C364 0.0
+C365 1.0
+C366 0.0
+C367 0.0
+C368 1.0
+C369 1.0
+C370 1.0
+C371 0.0
+C372 1.0
+C373 1.0
+C374 1.0
+C375 0.0
+C376 0.0
+C377 1.0
+C378 0.0
+C379 0.0
+C380 0.0
+C381 1.0
+C382 0.0
+C383 1.0
+C384 1.0
+C385 0.0
+C386 0.0
+C387 0.0
+C388 0.0
+C389 1.0
+C390 0.0
+C391 0.0
+C392 0.0
+C393 1.0
+C394 0.0
+C395 1.0
+C396 1.0
+C397 0.0
+C398 0.0
+C399 1.0
+C400 2.0
+C401 1.0
+C402 1.0
+C403 1.0
+C404 1.0
+C405 1.0
+C406 1.0
+C407 1.0
+C408 1.0
+C409 1.0
+C410 3.0
+C411 1.0
+C412 1.0
+C413 1.0
+C414 1.0
+C415 1.0
+C416 1.0
+C417 1.0
+C418 1.0
+C419 1.0
+C420 1.0
+C421 1.0
+C422 2.0
+C423 3145728.0
+C424 3145728.0
+C425 3145728.0
+C426 393216.0
+C427 393216.0
+C428 393216.0
+C429 196608.0
+C430 3145728.0
+C431 393216.0
+C432 3145728.0
+C433 3145728.0
+C434 1572864.0
+C435 3.9999999999999947
+C436 72.0
+C437 2.0
+C438 36.0
+C439 1.9999999999999996
+C440 1.0
+C441 1.0
+C442 216.0
+C443 48.0
+C444 4.0
+C445 1.0
+C446 69.0
+C447 24.0
+C448 3.0
+C449 384.0
+C450 1.0
+C451 768.0
+C452 3.0
+C453 22.0
+C454 11.0
+C455 86.0
+C456 2.0
+C457 4.0
+C458 342.0
+C459 3.000000000000005
+C460 342.0
+C461 884736.0
+C462 -0.0
+C463 847872.0
+C464 884736.0
+C465 -0.0
+C466 -0.0
+C467 -0.0
+C468 -0.0
+C469 0.0
+C470 0.0
+C471 0.0
+C472 884736.0
+C473 0.0
+C474 2359296.0
+C475 -0.0
+C476 -0.0
+C477 49152.0
+C478 98304.0
+C479 4224.0
+C480 2359296.0
+C481 -0.0
+C482 -0.0
+C483 0.0
+C484 2359296.0
+C485 0.0
+C486 -0.0
+C487 0.0
+C488 -0.0
+C489 -0.0
+C490 -0.0
+C491 -0.0
+C492 -0.0
+C493 262656.0
+C494 262656.0
+C495 262656.0
+C496 262656.0
+Latency: 4734320.64
+
+Interrupt request received
